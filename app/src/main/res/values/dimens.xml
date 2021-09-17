@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_1">16dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="movie_title_size">40sp</dimen>
+</resources>
