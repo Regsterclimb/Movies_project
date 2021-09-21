@@ -14,4 +14,5 @@
     <color name="tag_color_red">#FF3466</color>
     <color name="gray_gray">#6D6D80</color>
     <color name="transparent">#0000ffff</color>
+    <color name="film_time">#565665</color>
 </resources>

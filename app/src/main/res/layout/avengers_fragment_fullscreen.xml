@@ -316,13 +316,14 @@
             app:layout_constraintTop_toTopOf="@id/guid_back_arrow"
             app:srcCompat="@drawable/ic_back_arrow" />
 
-        <TextView
+        <Button
             android:id="@+id/back_arrow"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="56dp"
             android:text="@string/back_arrow"
+            android:background="@color/transparent"
             android:textColor="@color/gray_gray"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"
