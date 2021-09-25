@@ -14,4 +14,6 @@
     <string name="fourth_image">Chris Hemsworth</string>
     <string name="back_arrow">Back</string>
     <string name="film_timer">137 MIN</string>
+
+    <string name="fragment_actors_chosen_text">You chose: %1$s</string>
 </resources>

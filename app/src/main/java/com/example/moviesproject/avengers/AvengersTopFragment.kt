@@ -1,22 +1,21 @@
 package com.example.moviesproject.avengers
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesproject.R
+import com.example.moviesproject.data.Movie
+import com.example.moviesproject.hardcodedatalist.MoviesDataSource
+import com.google.android.material.snackbar.Snackbar
 
 class AvengersTopFragment: Fragment() {
 
-    private var imageGoToAvengersFrag : ImageButton? = null
 
-    private var listner : topMovieButtonClickerOnFragment? = null
+    private var recycler: RecyclerView? = null
+
 
     companion object {
 
@@ -40,34 +39,39 @@ class AvengersTopFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view?.findViewById<ImageButton>(R.id.avengers_icon)
-            ?.apply {
-                setOnClickListener {
-                    listner?.clickOnTopFragment() } }
-
+        recycler = view.findViewById(R.id.movie_recycler)
+        recycler?.adapter = MovieAdapter(clickMaFu)
 
 
     }
+    override fun onStart() {
+        super.onStart()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is topMovieButtonClickerOnFragment ){
-            listner = context
+        updateData()
+    }
+
+    private fun updateData() {
+        (recycler?.adapter as? MovieAdapter)?.apply {
+            bindMovies(MoviesDataSource().getMovies())
+        }
+    }
+    private fun doOnClick(movie: Movie) {
+        recycler?.let { rv ->
+            Snackbar.make(
+                rv,
+                getString(R.string.fragment_actors_chosen_text, movie.movieTitle),
+                Snackbar.LENGTH_SHORT)
+                .show()
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listner = null
+    private val clickMaFu = object : MovieAdapter.clickOnMovie {
+
+        override fun clickOnTopFragment(movie: Movie) {
+            doOnClick(movie)
+        }
+
     }
 
-    fun setListener(l: topMovieButtonClickerOnFragment) {
-        listner  = l
-    }
-
-    interface topMovieButtonClickerOnFragment {
-        fun clickOnTopFragment()
-    }
 
 }
