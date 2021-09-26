@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesproject.R
 
-class AvengersDownFragment : Fragment() {
+class AvengersDownFragment : Fragment(),Clicker {
+
+    private var recycler: RecyclerView? = null
 
     private var buttonOnBack: Button? = null
 
@@ -37,18 +41,36 @@ class AvengersDownFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recycler = view.findViewById(R.id.recycler_actor)
+        recycler?.adapter = ActorAdapter()
+
         buttonOnBack = view.findViewById<Button>(R.id.back_arrow)
-            .apply { setOnClickListener { listner?.clickOnBackButton() } }
+            .apply { setOnClickListener { clickOnBackButton() } }
 
     }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+
+    private fun updateData() {
+        TODO("if needed")
+
+    }
+
 
     fun setListner(l : Clicker){
         listner = l
     }
 
-    interface Clicker {
-        fun clickOnBackButton()
+    override fun clickOnBackButton() {
+        val activity = view?.context as AppCompatActivity
+        activity.supportFragmentManager.popBackStack()
     }
 
+}
 
+interface Clicker {
+    fun clickOnBackButton()
 }

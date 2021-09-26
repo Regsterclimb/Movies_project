@@ -58,10 +58,10 @@ class AvengersTopFragment: Fragment() {
     }
     private fun doOnClick(movie: Movie) {
         val activity = view?.context as AppCompatActivity
-        val myFragment: Fragment = AvengersDownFragment()
         activity.supportFragmentManager.beginTransaction()
-            .add(R.id.avengers_container_for_down_fragment, myFragment).addToBackStack(null).commit()
-
+            .add(R.id.avengers_container_for_down_fragment, AvengersDownFragment.newInstance("avengersDownFragment"))
+            .addToBackStack(null)
+            .commit()
     }
 
     private val clickMaFu = object : MovieAdapter.clickOnMovie {
