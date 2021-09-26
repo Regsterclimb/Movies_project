@@ -10,7 +10,7 @@ import com.example.moviesproject.data.Movie
 class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val hashTags: TextView? = itemView.findViewById(R.id.tags)
-    private val reViewsCount: TextView? = itemView.findViewById(R.id.reviews)
+    private val reViewsCount: TextView? = itemView.findViewById(R.id.fragment_review)
     private val movieTitle: TextView? = itemView.findViewById(R.id.avengers_title)
     private val movieDuration: TextView? = itemView.findViewById(R.id.movie_duration)
     private val topImage: ImageView? = itemView.findViewById(R.id.avengers_icon)
@@ -23,5 +23,6 @@ class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         topImage?.setImageResource(movie.topImage)
 
     }
+
 
 }

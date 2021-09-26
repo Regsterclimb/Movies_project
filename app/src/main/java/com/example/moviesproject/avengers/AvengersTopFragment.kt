@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesproject.R
 import com.example.moviesproject.data.Movie
 import com.example.moviesproject.hardcodedatalist.MoviesDataSource
-import com.google.android.material.snackbar.Snackbar
+
 
 class AvengersTopFragment: Fragment() {
 
@@ -56,13 +57,11 @@ class AvengersTopFragment: Fragment() {
         }
     }
     private fun doOnClick(movie: Movie) {
-        recycler?.let { rv ->
-            Snackbar.make(
-                rv,
-                getString(R.string.fragment_actors_chosen_text, movie.movieTitle),
-                Snackbar.LENGTH_SHORT)
-                .show()
-        }
+        val activity = view?.context as AppCompatActivity
+        val myFragment: Fragment = AvengersDownFragment()
+        activity.supportFragmentManager.beginTransaction()
+            .add(R.id.avengers_container_for_down_fragment, myFragment).addToBackStack(null).commit()
+
     }
 
     private val clickMaFu = object : MovieAdapter.clickOnMovie {

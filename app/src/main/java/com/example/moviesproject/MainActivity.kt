@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesproject.avengers.AvengersDownFragment
 import com.example.moviesproject.avengers.AvengersTopFragment
+import com.example.moviesproject.avengers.MovieAdapter
+import com.example.moviesproject.data.Movie
 
-class MainActivity : AppCompatActivity(),AvengersDownFragment.Clicker {
+class MainActivity : AppCompatActivity(), MovieAdapter.clickOnMovie {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,17 @@ class MainActivity : AppCompatActivity(),AvengersDownFragment.Clicker {
 
     }
 
-    override fun clickOnBackButton() {
-        supportFragmentManager.popBackStack()
+    //override fun clickOnBackButton() {
+      //  supportFragmentManager.popBackStack()
+    //}
+
+    override fun clickOnTopFragment(movie: Movie) {
+        supportFragmentManager.beginTransaction().apply {
+            add(
+                R.id.avengers_container_for_down_fragment,
+                AvengersDownFragment.newInstance("avengersDownFragment")
+            )
+            commit()
+        }
     }
 }
