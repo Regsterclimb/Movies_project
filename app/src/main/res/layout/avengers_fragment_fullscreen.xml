@@ -15,9 +15,9 @@
         <ImageView
             android:id="@+id/MainImageAvengers"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/todo"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="3:2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,13 +26,13 @@
         <ImageView
             android:id="@+id/image_gradient"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:background="@color/transparent"
+            android:layout_height="0dp"
+            android:background="@drawable/mask"
+            app:layout_constraintTop_toTopOf="@id/MainImageAvengers"
             app:layout_constraintBottom_toBottomOf="@+id/MainImageAvengers"
             app:layout_constraintEnd_toEndOf="@+id/MainImageAvengers"
             app:layout_constraintStart_toStartOf="@id/MainImageAvengers"
-            app:srcCompat="@drawable/mask" />
+             />
 
         <TextView
             android:id="@+id/movieTitle"

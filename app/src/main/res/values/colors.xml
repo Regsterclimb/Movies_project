@@ -15,4 +15,9 @@
     <color name="gray_gray">#6D6D80</color>
     <color name="transparent">#0000ffff</color>
     <color name="film_time">#565665</color>
+
+    <color name="background_color">#191926</color>
+    <color name="background_card_color">#222232</color>
+    <color name="stroke_card_color">#636375</color>
+
 </resources>

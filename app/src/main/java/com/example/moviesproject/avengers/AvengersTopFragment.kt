@@ -1,21 +1,29 @@
 package com.example.moviesproject.avengers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.android.academy.fundamentals.homework.data.JsonMovieRepository
 import com.example.moviesproject.R
 import com.example.moviesproject.data.Movie
-import com.example.moviesproject.hardcodedatalist.MoviesDataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 class AvengersTopFragment: Fragment() {
 
-
     private var recycler: RecyclerView? = null
+
+    private var movieList : List<Movie> = listOf()
+
+    private var coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
 
     companion object {
@@ -41,25 +49,46 @@ class AvengersTopFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.movie_recycler)
-        recycler?.adapter = MovieAdapter(clickMaFu)
+
+        val adapter = MovieAdapter{
+            clickMaFu.clickOnTopFragment(it)
+        }
+
+
+        recycler?.adapter = adapter
+
+        loadDataToAdapter(adapter)
+
 
 
     }
     override fun onStart() {
         super.onStart()
 
-        updateData()
+    }
+
+    private fun loadDataToAdapter(adapter: MovieAdapter) {
+        coroutineScope.launch {
+            val moviesData = JsonMovieRepository(requireContext()).loadMovies()
+            adapter.bindMovies(moviesData)
+            Log.d("moviesData", " $moviesData")
+        }
+    }
+
+    private fun setListToAdapter(adapter: MovieAdapter) {
+        adapter.bindMovies(movieList)
+
     }
 
     private fun updateData() {
-        (recycler?.adapter as? MovieAdapter)?.apply {
-            bindMovies(MoviesDataSource().getMovies())
-        }
+
+
     }
+
     private fun doOnClick(movie: Movie) {
         val activity = view?.context as AppCompatActivity
         activity.supportFragmentManager.beginTransaction()
-            .add(R.id.avengers_container_for_down_fragment, AvengersDownFragment.newInstance("avengersDownFragment"))
+            .add(R.id.avengers_container_for_down_fragment, AvengersDownFragment.newInstance("AvengersDownFragment",movie))
             .addToBackStack(null)
             .commit()
     }

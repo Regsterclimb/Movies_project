@@ -2,40 +2,37 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_black"
+    android:layout_margin="6dp"
+    android:background="@drawable/square_fragment"
     android:layout_marginBottom="16dp">
 
+
     <ImageView
-        android:id="@+id/square_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/square_fragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageButton
         android:id="@+id/avengers_icon"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintDimensionRatio="1:1.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/movie_avengers_icon_fragment">
 
-    </ImageButton>
+    </ImageView>
 
-    <ImageView
-        android:id="@+id/fragment_gradient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ic_mask__1_"
+        app:layout_constraintBottom_toBottomOf="@+id/avengers_icon"
+        app:layout_constraintEnd_toEndOf="@+id/avengers_icon"
         app:layout_constraintStart_toStartOf="@+id/avengers_icon"
-        app:layout_constraintTop_toTopOf="@+id/avengers_icon"
-        app:layout_constraintEnd_toEndOf="@id/avengers_icon"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon"
-        app:srcCompat="@drawable/ic_mask__1_" />
+        app:layout_constraintTop_toTopOf="@+id/avengers_icon" />
 
 
     <TextView
