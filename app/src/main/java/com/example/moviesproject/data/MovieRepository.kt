@@ -15,6 +15,7 @@ interface MovieRepository {
 }
 
 internal class JsonMovieRepository(private val context: Context) : MovieRepository {
+
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 
     private var movies: List<Movie>? = null

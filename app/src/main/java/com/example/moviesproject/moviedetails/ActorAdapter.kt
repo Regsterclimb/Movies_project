@@ -1,4 +1,4 @@
-package com.example.moviesproject.avengers
+package com.example.moviesproject.moviedetails
 
 import android.util.Log
 import android.view.LayoutInflater

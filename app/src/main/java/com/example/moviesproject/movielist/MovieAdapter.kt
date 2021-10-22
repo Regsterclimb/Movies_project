@@ -1,4 +1,4 @@
-package com.example.moviesproject.avengers
+package com.example.moviesproject.movielist
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -90,7 +90,7 @@ class MovieAdapter(private val onItemListner: (movie: Movie) -> Unit) :
 
 
     interface clickOnMovie {
-        fun clickOnTopFragment(movie: Movie)
+        fun clickOnMovieCart(movie: Movie)
     }
 
 }

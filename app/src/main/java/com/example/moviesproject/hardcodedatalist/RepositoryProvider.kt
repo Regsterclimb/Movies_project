@@ -2,6 +2,6 @@ package com.example.moviesproject.hardcodedatalist
 
 import com.android.academy.fundamentals.homework.data.MovieRepository
 
-internal interface Provider {
+interface RepositoryProvider {
     fun provideMovieRepository(): MovieRepository
 }
