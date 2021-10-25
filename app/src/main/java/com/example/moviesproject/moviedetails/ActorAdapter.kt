@@ -1,18 +1,14 @@
 package com.example.moviesproject.moviedetails
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.example.moviesproject.R
 import com.example.moviesproject.data.Actor
 
-class ActorAdapter : RecyclerView.Adapter<ActorDataViewHolder>() {
-
-    private var actors = listOf<Actor>()
-
-    fun getActors() : List<Actor> = actors
+class ActorAdapter : ListAdapter<Actor, ActorDataViewHolder>(ActorsCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorDataViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -21,19 +17,20 @@ class ActorAdapter : RecyclerView.Adapter<ActorDataViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ActorDataViewHolder, position: Int) {
-        holder.onBind(actors[position])
-        Log.d("listactor2", "$actors")
+        holder.onBind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return actors.size
+
+}
+
+class ActorsCallBack : DiffUtil.ItemCallback<Actor>() {
+
+    override fun areItemsTheSame(oldItem: Actor, newItem: Actor): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    fun bindActors(newActor: List<Actor>) {
-        actors = newActor
-        Log.d("listactor1", "${actors}")
-
+    override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean {
+        return oldItem == newItem
     }
-
 
 }

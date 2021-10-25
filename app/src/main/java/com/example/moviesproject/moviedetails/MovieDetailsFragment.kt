@@ -2,7 +2,6 @@ package com.example.moviesproject.moviedetails
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +14,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.Actor
 import com.example.moviesproject.data.Movie
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 class AvengersDownFragment : Fragment() {
-
-    private var recycler: RecyclerView? = null
 
     private val viewModel: MovieDetailsViewModel by viewModels {
         MovieDetailsViewModelFactory(
@@ -36,17 +32,6 @@ class AvengersDownFragment : Fragment() {
 
         if (context is ClickOnBackButton) {
             listner = context
-        }
-    }
-
-    companion object {
-
-        private const val ARG_MOVIE_ID = "ARG_MOVIE_ID"
-
-        fun newInstance(movieId: Int): AvengersDownFragment {
-            val fragment = AvengersDownFragment()
-            fragment.arguments = bundleOf(ARG_MOVIE_ID to movieId)
-            return fragment
         }
     }
 
@@ -65,35 +50,16 @@ class AvengersDownFragment : Fragment() {
             this.adapter = ActorAdapter()
         }
 
-
         viewModel.loadMovieDetail(requireArguments().getInt(ARG_MOVIE_ID))
 
         viewModel.movieDetails.observe(this.viewLifecycleOwner, { bindUi(it, view) })
-
-        setUpListners(view)
 
     }
 
     override fun onDetach() {
         super.onDetach()
-        recycler = null
         listner = null
     }
-
-
-    fun setListner(l: ClickOnBackButton) {
-        listner = l
-    }
-
-
-    private fun bindActorsToActorsAdapter(adapter: ActorAdapter, actorslist: List<Actor>?) {
-        if (actorslist != null) {
-            adapter.bindActors(actorslist)
-            Log.d("listactor1", "${actorslist}")
-
-        }
-    }
-
 
     private fun getMovieInfo(movie: Movie) {
         view?.let {
@@ -108,6 +74,7 @@ class AvengersDownFragment : Fragment() {
             movie.genres.joinToString(", ", "", "") { it.name }
         view?.findViewById<TextView>(R.id.reviews)?.text = movie.reviewCount.toString()
         view?.findViewById<TextView>(R.id.textView6)?.text = movie.storyLine
+
         val stars = listOf<ImageView?>(
             view?.findViewById(R.id.star1),
             view?.findViewById(R.id.star2),
@@ -126,23 +93,36 @@ class AvengersDownFragment : Fragment() {
         }
     }
 
-
     private fun bindUi(movie: Movie, view: View) {
         getMovieInfo(movie)
         setUpListners(view)
 
         val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
-        bindActorsToActorsAdapter(adapter, movie.actors)
+        adapter.submitList(movie.actors)
 
 
+    }
+
+    fun setListner(l: ClickOnBackButton) {
+        listner = l
     }
 
     private fun setUpListners(view: View) {
         view.findViewById<Button>(R.id.back_arrow)
             .apply {
                 setOnClickListener {
-                    listner?.backToMovieList() }
+                    listner?.backToMovieList()
+                }
             }
+    }
+
+    companion object {
+        private const val ARG_MOVIE_ID = "ARG_MOVIE_ID"
+        fun newInstance(movieId: Int): AvengersDownFragment {
+            val fragment = AvengersDownFragment()
+            fragment.arguments = bundleOf(ARG_MOVIE_ID to movieId)
+            return fragment
+        }
     }
 
 }

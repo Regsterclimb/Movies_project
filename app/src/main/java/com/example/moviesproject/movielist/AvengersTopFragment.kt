@@ -15,9 +15,7 @@ import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 class AvengersTopFragment : Fragment() {
 
-    private val viewModel : MovieListViewModel by viewModels{MovieListViewModelFactory((requireActivity() as RepositoryProvider).provideMovieRepository())}
-
-    private var recycler: RecyclerView? = null
+    private val viewModel: MovieListViewModel by viewModels { MovieListViewModelFactory((requireActivity() as RepositoryProvider).provideMovieRepository()) }
 
     private var listner: OnItemClickListner? = null
 
@@ -41,15 +39,15 @@ class AvengersTopFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler = view.findViewById(R.id.movie_recycler)
+
+        view.findViewById<RecyclerView>(R.id.movie_recycler).apply {
+            this.adapter = MovieAdapter {
+                listner?.clickOnMovieCart(it)
+            }
+        }
 
         viewModel.loadMovieToLiveData()
-
-        val adapter = MovieAdapter{
-            listner?.clickOnMovieCart(it)
-        }
-        viewModel.liveDatamovieList.observe(this.viewLifecycleOwner,{loadDataToAdapter(adapter, it)})
-        recycler?.adapter = adapter
+        viewModel.liveDatamovieList.observe(this.viewLifecycleOwner, { loadMovieDataToAdapter(it) })
 
     }
 
@@ -59,17 +57,20 @@ class AvengersTopFragment : Fragment() {
 
     }
 
-    private fun loadDataToAdapter(adapter: MovieAdapter,list : List<Movie>) {
-            adapter.bindMovies(list)
+
+    private fun loadMovieDataToAdapter(list: List<Movie>) {
+        val adapter = view?.findViewById<RecyclerView>(R.id.movie_recycler)?.adapter as MovieAdapter
+        adapter.submitList(list)
     }
 
-    fun setListner(clicker : OnItemClickListner?) {
+
+    fun setListner(clicker: OnItemClickListner?) {
         listner = clicker
     }
+
     companion object {
         fun newInstance(): AvengersTopFragment = AvengersTopFragment()
     }
-
 
 }
 

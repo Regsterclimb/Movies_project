@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
 
         if (savedInstanceState == null) {
             startMovieListFragment()
-
         }
     }
 

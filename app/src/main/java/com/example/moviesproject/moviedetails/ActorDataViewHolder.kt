@@ -1,6 +1,5 @@
 package com.example.moviesproject.moviedetails
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,7 +21,6 @@ class ActorDataViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         actorName.text = actor.name
 
-        Log.d("listactor4","$actor")
 
     }
 
