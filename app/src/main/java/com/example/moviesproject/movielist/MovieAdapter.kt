@@ -36,7 +36,7 @@ class MovieAdapter(private val onItemListner: (movie: Movie) -> Unit) :
 
 class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val hashTags: TextView? = itemView.findViewById(R.id.tags)
+    private val hashTags: TextView? = itemView.findViewById(R.id.fragment_tags)
     private val reViewsCount: TextView? = itemView.findViewById(R.id.fragment_review)
     private val movieTitle: TextView? = itemView.findViewById(R.id.avengers_title)
     private val movieDuration: TextView? = itemView.findViewById(R.id.movie_duration)
@@ -51,7 +51,7 @@ class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     @SuppressLint("ResourceAsColor")
     fun onBind(movie: Movie, onItemClicked: (movie: Movie) -> Unit) {
-        hashTags?.text = movie.genres.toString()
+        hashTags?.text = movie.genres.map { it.name }.joinToString(", ")
         reViewsCount?.text = movie.reviewCount.toString()
         movieTitle?.text = movie.title
         movieDuration?.text = movie.runningTime.toString()
