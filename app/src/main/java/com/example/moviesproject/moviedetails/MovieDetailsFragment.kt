@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.Movie
+import com.example.moviesproject.data.moviedata.Movie
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 class AvengersDownFragment : Fragment() {
@@ -98,7 +98,7 @@ class AvengersDownFragment : Fragment() {
         setUpListners(view)
 
         val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
-        adapter.submitList(movie.actors)
+        //adapter.submitList(movie.actors)
 
 
     }

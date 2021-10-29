@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.academy.fundamentals.homework.data.JsonMovieRepository
 import com.android.academy.fundamentals.homework.data.MovieRepository
-import com.example.moviesproject.data.Movie
+import com.example.moviesproject.data.moviedata.Movie
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 import com.example.moviesproject.moviedetails.AvengersDownFragment
 import com.example.moviesproject.moviedetails.ClickOnBackButton
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
     override fun provideMovieRepository(): MovieRepository {
         return jsonMovieRepository
     }
+
 
     fun startMovieListFragment() {
         supportFragmentManager.beginTransaction().apply {

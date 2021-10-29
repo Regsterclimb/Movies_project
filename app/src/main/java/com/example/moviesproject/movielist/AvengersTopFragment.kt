@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesproject.R
-import com.example.moviesproject.data.Movie
+import com.example.moviesproject.data.moviedata.Movie
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 

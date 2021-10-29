@@ -2,27 +2,30 @@ package com.android.academy.fundamentals.homework.data
 
 import android.content.Context
 import android.util.Log
-import com.example.moviesproject.data.*
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.example.moviesproject.data.Actor
+import com.example.moviesproject.data.NetworkModule.NetworkModule
+import com.example.moviesproject.data.NetworkModule.NetworkModuleGetData
+import com.example.moviesproject.data.configurationdata.ConfigurationMovieData
+import com.example.moviesproject.data.configurationdata.ImagesData
+import com.example.moviesproject.data.genresdata.Genre
+import com.example.moviesproject.data.moviedata.Movie
+import com.example.moviesproject.data.moviedata.MoviePopular
+import com.example.moviesproject.data.moviedata.ResultsMovie
+import com.example.moviesproject.hardcodedatalist.NetworkModuleProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.create
-import retrofit2.http.GET
 
 interface MovieRepository {
     suspend fun loadMovies(): List<Movie>
     suspend fun loadMovie(movieId: Int): Movie?
 }
 
-internal class JsonMovieRepository(private val context: Context) : MovieRepository {
+internal class JsonMovieRepository(private val context: Context) : MovieRepository,NetworkModuleProvider {
 
     private val jsonFormat = Json { ignoreUnknownKeys = true }
+    private val networkModule = NetworkModule()
 
     private var movies: List<Movie>? = null
 
@@ -37,18 +40,34 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
         }
     }
 
+    private suspend fun loadMoviesFromApi(): MoviePopular = withContext(Dispatchers.IO) {
+        val data1 = provideNetworkModule().getMoviePopularData()
+        MoviePopular(
+            page = data1.page,
+            totalPages = data1.totalPages,
+            results = data1.results,
+            totalResults = data1.totalResults
+        )
+    }
+
+    private suspend fun loadConfigurationFromApi() : ImagesData = withContext(Dispatchers.IO) {
+        val data = provideNetworkModule().getConfigurationData()
+        val data1 = ConfigurationMovieData( images = data.images, changeKeys = data.changeKeys)
+        data1.images
+    }
+
     private suspend fun loadMoviesFromJsonFile(): List<Movie> {
-        val genresMap = loadGenres()
-        val actorsMap = loadActors()
+        val genresMap = loadGenresFromApi()
+        val imagesData = loadConfigurationFromApi()
 
         Log.d("list2withgenres", "$genresMap")
 
-        val data = readAssetFileToString("data.json")
-        return parseMovies(data, genresMap, actorsMap)
+        val data = loadMoviesFromApi().results
+        return parseMovies(data, genresMap, imagesData)
     }
 
-    private suspend fun loadGenres(): List<Genre> = withContext(Dispatchers.IO) {
-        val list = DataGenreList(genres = RetrofitModule.movieApi.dataLoadGenres().genres)
+    private suspend fun loadGenresFromApi(): List<Genre> = withContext(Dispatchers.IO) {
+        val list = provideNetworkModule().getGenresData()
         list.genres.map { genresItem -> Genre(id = genresItem.id, name = genresItem.name) }
 
     }
@@ -72,74 +91,36 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
     }
 
     private fun parseMovies(
-        jsonString: String,
+        dataListResultMovie: List<ResultsMovie>,
         genreData: List<Genre>,
-        actors: List<Actor>
+        imagesData: ImagesData
     ): List<Movie> {
-        Log.d("list1withgenres", "${genreData}")
         val genresMap = genreData.associateBy(Genre::id)
-        Log.d("list1withgenres", "${genresMap}")
-        val actorsMap = actors.associateBy(Actor::id)
 
-        val jsonMovies = jsonFormat.decodeFromString<List<JsonMovie>>(jsonString)
-
-        return jsonMovies.map { jsonMovie ->
+        return dataListResultMovie.map { jsonMovie ->
             Log.d("jsonMovie", "${jsonMovie.genreIds}")
             Movie(
                 id = jsonMovie.id,
                 title = jsonMovie.title,
-                storyLine = jsonMovie.overview,
-                imageUrl = jsonMovie.posterPicture,
-                detailImageUrl = jsonMovie.backdropPicture,
+                storyLine = jsonMovie.storyLine,
+                imageUrl = imagesData.baseUrl + imagesData.posterSizes[4] +  jsonMovie.posterPathUrl,
+                detailImageUrl = jsonMovie.backdropPathUrl,
                 rating = (jsonMovie.ratings / 2).toInt(),
-                reviewCount = jsonMovie.votesCount,
+                reviewCount = jsonMovie.voteCount,
                 pgAge = if (jsonMovie.adult) 16 else 13,
-                runningTime = jsonMovie.runtime,
+                releaseDate = jsonMovie.releaseDate,
                 genres = jsonMovie.genreIds.map { id ->
                     genresMap[id].orThrow { IllegalArgumentException("Genre not found") }
-                },
-                actors = jsonMovie.actors.map { id ->
-                    actorsMap[id].orThrow { IllegalArgumentException("Actor not found") }
                 },
                 isLiked = false
             )
         }
     }
 
-    private interface MoviesApi {
-        @GET("genre/movie/list?api_key=29d669e3884b3c81259c3e02780bcec9&language=en-US")
-        suspend fun dataLoadGenres() : MovieDataGenres
-        @GET("configuration?api_key=29d669e3884b3c81259c3e02780bcec9")
-        suspend fun dataLoadConfiguration() : List<Images>
-        @GET("movie/popular?api_key=29d669e3884b3c81259c3e02780bcec9&language=en-US&page=1")
-        suspend fun dataLoadMoviesList(): List<ResultsMovie>
+    override fun provideNetworkModule(): NetworkModuleGetData {
+        return networkModule
     }
 
-    private object RetrofitModule {
-        private val json = Json {
-            ignoreUnknownKeys = true
-        }
-
-        private val client = OkHttpClient().newBuilder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
-
-
-
-        // TODO 01: Instantiate the OkHttpClient val by using ".newBuilder()"
-        // TODO 02: Add "HttpLoggingInterceptor" to your Okhttp client
-        // TODO 03: Add Logging Level - ".setLevel(HttpLoggingInterceptor.Level.BODY):
-
-        @Suppress("EXPERIMENTAL_API_USAGE")
-        private val retrofit: Retrofit = Retrofit.Builder()
-            .client(client)
-            //TODO 04: Add okhttp client to retrofit
-            .baseUrl(BASE_URL)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
-
-        val movieApi: MoviesApi = retrofit.create()
-    }
 
     override suspend fun loadMovie(movieId: Int): Movie? {
         val cachedMovies = movies ?: loadMovies()
@@ -150,7 +131,4 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
         return this ?: throw createThrowable()
     }
 
-    companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/3/"
-    }
 }

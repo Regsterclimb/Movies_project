@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.Movie
+import com.example.moviesproject.data.moviedata.Movie
 
 class MovieAdapter(private val onItemListner: (movie: Movie) -> Unit) :
     ListAdapter<Movie, MovieDataViewHolder>(MovieListCallBack()) {
@@ -54,34 +54,32 @@ class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         hashTags?.text = movie.genres.map { it.name }.joinToString(", ")
         reViewsCount?.text = movie.reviewCount.toString()
         movieTitle?.text = movie.title
-        movieDuration?.text = movie.runningTime.toString()
+        movieDuration?.text = movie.releaseDate
+        Log.d("imageUrl", movie.imageUrl)
         Glide.with(itemView)
             .load(movie.imageUrl)
             .centerCrop()
             .into(topImage)
 
-        Log.d("color_if", "${stars }}")
+        Log.d("color_if", "${stars}}")
 
         stars.forEachIndexed { index, imageView ->
             if (index < movie.rating) {
                 imageView?.setImageResource(R.drawable.ic_star_icon)
-                Log.d("color_if", " movie id ${movie.id} + index ${stars}" )
-
+                Log.d("color_if", " movie id ${movie.id} + index ${stars}")
 
             } else {
                 imageView?.setImageResource(R.drawable.star_icon_gray)
-                Log.d("color_else", "movie id ${movie.id} + index $index" )
+                Log.d("color_else", "movie id ${movie.id} + index $index")
             }
         }
-
         itemView.setOnClickListener {
             onItemClicked(movie)
         }
-
-
-
     }
 }
+
+
 
 class MovieListCallBack : DiffUtil.ItemCallback<Movie>() {
 

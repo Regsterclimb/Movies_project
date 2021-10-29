@@ -1,17 +1,18 @@
-package com.example.moviesproject.data
+package com.example.moviesproject.data.genresdata
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieDataGenres(
 
-	@SerialName("genres")
-	val genres: List<GenresItem>
+	@field:SerializedName("genres")
+	val genres: List<Genre>
 )
 
 @Serializable
-data class GenresItem(
+data class Genre(
 
 	@SerialName("name")
 	val name: String,
