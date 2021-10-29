@@ -14,14 +14,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.moviedata.Movie
+import com.example.moviesproject.data.moviedata.MovieDetails
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 class AvengersDownFragment : Fragment() {
 
     private val viewModel: MovieDetailsViewModel by viewModels {
         MovieDetailsViewModelFactory(
-            (requireActivity() as RepositoryProvider).provideMovieRepository()
+            (requireActivity() as RepositoryProvider).provideMovieDetailsRepository()
         )
     }
     private var listner: ClickOnBackButton? = null
@@ -61,19 +61,19 @@ class AvengersDownFragment : Fragment() {
         listner = null
     }
 
-    private fun getMovieInfo(movie: Movie) {
+    private fun getMovieInfo(movie: MovieDetails) {
         view?.let {
             Glide.with(it)
-                .load(movie.detailImageUrl)
+                .load(movie.posterImageUrlPath)
                 .into(it.findViewById(R.id.MainImageAvengers))
         }
 
         view?.findViewById<TextView>(R.id.movieTitle)?.text = movie.title
-        view?.findViewById<TextView>(R.id.tag_num)?.text = movie.pgAge.toString()
+        view?.findViewById<TextView>(R.id.tag_num)?.text = movie.pgAge
         view?.findViewById<TextView>(R.id.tags)?.text =
             movie.genres.joinToString(", ", "", "") { it.name }
-        view?.findViewById<TextView>(R.id.reviews)?.text = movie.reviewCount.toString()
-        view?.findViewById<TextView>(R.id.textView6)?.text = movie.storyLine
+        view?.findViewById<TextView>(R.id.reviews)?.text = movie.voteCount.toString()
+        view?.findViewById<TextView>(R.id.textView6)?.text = movie.overview
 
         val stars = listOf<ImageView?>(
             view?.findViewById(R.id.star1),
@@ -83,7 +83,7 @@ class AvengersDownFragment : Fragment() {
             view?.findViewById(R.id.star5)
         )
         stars.forEachIndexed { index, imageView ->
-            if (index < movie.rating) {
+            if (index < movie.voteAverage) {
                 imageView?.setImageResource(R.drawable.ic_star_icon)
 
             } else {
@@ -93,12 +93,12 @@ class AvengersDownFragment : Fragment() {
         }
     }
 
-    private fun bindUi(movie: Movie, view: View) {
+    private fun bindUi(movie: MovieDetails, view: View) {
         getMovieInfo(movie)
         setUpListners(view)
 
         val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
-        //adapter.submitList(movie.actors)
+        adapter.submitList(movie.actorList)
 
 
     }

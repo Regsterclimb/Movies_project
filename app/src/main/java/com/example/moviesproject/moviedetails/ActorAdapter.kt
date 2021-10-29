@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.moviesproject.R
-import com.example.moviesproject.data.Actor
+import com.example.moviesproject.data.actors.CastActor
 
-class ActorAdapter : ListAdapter<Actor, ActorDataViewHolder>(ActorsCallBack()) {
+class ActorAdapter : ListAdapter<CastActor, ActorDataViewHolder>(ActorsCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorDataViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -23,13 +23,13 @@ class ActorAdapter : ListAdapter<Actor, ActorDataViewHolder>(ActorsCallBack()) {
 
 }
 
-class ActorsCallBack : DiffUtil.ItemCallback<Actor>() {
+class ActorsCallBack : DiffUtil.ItemCallback<CastActor>() {
 
-    override fun areItemsTheSame(oldItem: Actor, newItem: Actor): Boolean {
+    override fun areItemsTheSame(oldItem: CastActor, newItem: CastActor): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean {
+    override fun areContentsTheSame(oldItem: CastActor, newItem: CastActor): Boolean {
         return oldItem == newItem
     }
 

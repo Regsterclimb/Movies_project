@@ -2,10 +2,10 @@ package com.example.moviesproject.moviedetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.academy.fundamentals.homework.data.MovieRepository
+import com.example.moviesproject.data.MovieDetailsRepository
 
 class MovieDetailsViewModelFactory(
-    val repository: MovieRepository
+    val repository: MovieDetailsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val viewModel = when(modelClass) {

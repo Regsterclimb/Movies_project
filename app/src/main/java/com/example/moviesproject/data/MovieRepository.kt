@@ -2,7 +2,6 @@ package com.android.academy.fundamentals.homework.data
 
 import android.content.Context
 import android.util.Log
-import com.example.moviesproject.data.Actor
 import com.example.moviesproject.data.NetworkModule.NetworkModule
 import com.example.moviesproject.data.NetworkModule.NetworkModuleGetData
 import com.example.moviesproject.data.configurationdata.ConfigurationMovieData
@@ -14,8 +13,6 @@ import com.example.moviesproject.data.moviedata.ResultsMovie
 import com.example.moviesproject.hardcodedatalist.NetworkModuleProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 interface MovieRepository {
     suspend fun loadMovies(): List<Movie>
@@ -24,7 +21,6 @@ interface MovieRepository {
 
 internal class JsonMovieRepository(private val context: Context) : MovieRepository,NetworkModuleProvider {
 
-    private val jsonFormat = Json { ignoreUnknownKeys = true }
     private val networkModule = NetworkModule()
 
     private var movies: List<Movie>? = null
@@ -72,23 +68,6 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
 
     }
 
-    private fun readAssetFileToString(fileName: String): String {
-        val stream = context.assets.open(fileName)
-        return stream.bufferedReader().readText()
-    }
-
-    private suspend fun loadActors(): List<Actor> = withContext(Dispatchers.IO) {
-        val data = readAssetFileToString("people.json")
-        val jsonActors = jsonFormat.decodeFromString<List<JsonActor>>(data)
-
-        jsonActors.map { jsonActor ->
-            Actor(
-                id = jsonActor.id,
-                name = jsonActor.name,
-                imageUrl = jsonActor.profilePicture
-            )
-        }
-    }
 
     private fun parseMovies(
         dataListResultMovie: List<ResultsMovie>,

@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.academy.fundamentals.homework.data.JsonMovieRepository
 import com.android.academy.fundamentals.homework.data.MovieRepository
+import com.example.moviesproject.data.MovieDetailsDataRepository
+import com.example.moviesproject.data.MovieDetailsRepository
 import com.example.moviesproject.data.moviedata.Movie
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 import com.example.moviesproject.moviedetails.AvengersDownFragment
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
     RepositoryProvider {
 
     private val jsonMovieRepository = JsonMovieRepository(this)
+    private val movieDetailsDataRepository = MovieDetailsDataRepository(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,9 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
         return jsonMovieRepository
     }
 
+    override fun provideMovieDetailsRepository(): MovieDetailsRepository {
+        return movieDetailsDataRepository
+    }
 
     fun startMovieListFragment() {
         supportFragmentManager.beginTransaction().apply {
