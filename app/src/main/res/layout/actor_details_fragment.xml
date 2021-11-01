@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/background_black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/top_bracket"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"/>
+
+        <ImageView
+            android:id="@+id/MainImageAvengers"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/guideline_half"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/top_bracket"
+            app:srcCompat="@drawable/robert" />
+
+        <ImageView
+            android:id="@+id/image_gradient"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/mask"
+            app:layout_constraintBottom_toBottomOf="@+id/MainImageAvengers"
+            app:layout_constraintEnd_toEndOf="@+id/MainImageAvengers"
+            app:layout_constraintStart_toStartOf="@id/MainImageAvengers"
+            app:layout_constraintTop_toTopOf="@id/MainImageAvengers" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_half"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="202dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/MainImageAvengers" />
+
+        <TextView
+            android:id="@+id/biography_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/biography"
+            android:textColor="@color/movie_title_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/recycler_movie" />
+
+        <TextView
+            android:id="@+id/biography"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:padding="4dp"
+            android:text="@string/Biography"
+            android:textAlignment="textStart"
+            android:textColor="@color/white_gray"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/biography_title" />
+
+        <Button
+            android:id="@+id/back_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="@string/back_arrow"
+            android:textColor="@color/gray_gray"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/top_bracket"
+            app:layout_constraintBottom_toBottomOf="@id/top_bracket"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guid_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="56dp" />
+
+
+        <TextView
+            android:id="@+id/actor_name_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/actor_name_fragment"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_half"
+            app:layout_constraintTop_toBottomOf="@id/top_bracket" />
+
+        <TextView
+            android:id="@+id/actor_birthday_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@string/actor_birthday_fragment"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_half"
+            app:layout_constraintTop_toBottomOf="@+id/actor_name_fragment" />
+
+        <TextView
+            android:id="@+id/actor_birthday_place_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/actor_birthplace_fragment"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_half"
+            app:layout_constraintTop_toBottomOf="@+id/actor_birthday_fragment" />
+
+        <TextView
+            android:id="@+id/actor_genres_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/actor_genres_fragment"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/biography"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_half"
+            app:layout_constraintTop_toBottomOf="@+id/actor_birthday_place_fragment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

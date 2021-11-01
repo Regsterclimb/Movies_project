@@ -1,5 +1,6 @@
 package com.example.moviesproject.data.actors
 
+import com.example.moviesproject.domain.model.Actor
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
@@ -42,5 +43,18 @@ data class ActorDataById(
 	@field:SerializedName("id")
 	val id: Int,
 
-
 )
+
+fun ActorDataById.toActor() : Actor {
+	return Actor(
+		id = id,
+		birthday = birthday,
+		gender = gender,
+		genre = knownForDepartment,
+		posterUrlPath = posterUrlPath,
+		biography = biography,
+		deathday = deathday,
+		placeOfBirth = placeOfBirth,
+		name = name
+	)
+}

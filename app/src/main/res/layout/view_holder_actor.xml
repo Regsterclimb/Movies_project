@@ -33,7 +33,4 @@
         app:layout_constraintTop_toBottomOf="@+id/avatar_actor" />
 
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
