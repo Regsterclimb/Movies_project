@@ -1,17 +1,17 @@
-package com.example.moviesproject.movielist
+package com.example.moviesproject.presentation.movie_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.academy.fundamentals.homework.data.MovieRepository
+import com.example.moviesproject.domain.use_cases.GetMovieRepository
 
 @Suppress("UNCHECKED_CAST")
 class MovieListViewModelFactory(
-    val repository : MovieRepository
+    val repositoryGet : GetMovieRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val viewModel = when (modelClass) {
             MovieListViewModel::class.java -> {
-                MovieListViewModel(repository)
+                MovieListViewModel(repositoryGet)
             }
             else -> throw IllegalStateException("somthing wrong modelClass")
         }

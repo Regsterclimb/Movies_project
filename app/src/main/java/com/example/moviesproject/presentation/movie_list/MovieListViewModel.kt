@@ -1,15 +1,15 @@
-package com.example.moviesproject.movielist
+package com.example.moviesproject.presentation.movie_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.academy.fundamentals.homework.data.MovieRepository
-import com.example.moviesproject.data.moviedata.Movie
+import com.example.moviesproject.domain.model.Movie
+import com.example.moviesproject.domain.use_cases.GetMovieRepository
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
-    private val repository : MovieRepository
+    private val repositoryGet : GetMovieRepository
 ) :ViewModel() {
 
     private var _mutableMovieList = MutableLiveData<List<Movie>>()
@@ -17,7 +17,7 @@ class MovieListViewModel(
 
     fun loadMovieToLiveData() {
         viewModelScope.launch {
-            _mutableMovieList.postValue(repository.loadMovies())
+            _mutableMovieList.postValue(repositoryGet.loadMovies())
         }
     }
 }

@@ -13,7 +13,7 @@
 
 
         <ImageView
-            android:id="@+id/MainImageAvengers"
+            android:id="@+id/main_actor_image_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/todo"
@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/MainImageAvengers"
-            app:layout_constraintEnd_toEndOf="@+id/MainImageAvengers"
-            app:layout_constraintStart_toStartOf="@id/MainImageAvengers"
+            app:layout_constraintBottom_toBottomOf="@+id/main_actor_image_fragment"
+            app:layout_constraintEnd_toEndOf="@+id/main_actor_image_fragment"
+            app:layout_constraintStart_toStartOf="@id/main_actor_image_fragment"
             app:srcCompat="@drawable/mask" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline_half"
             app:layout_constraintStart_toEndOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/MainImageAvengers" />
+            app:layout_constraintTop_toBottomOf="@id/main_actor_image_fragment" />
 
 
         <TextView

@@ -1,4 +1,4 @@
-package com.example.moviesproject.movielist
+package com.example.moviesproject.presentation.movie_list
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.moviedata.Movie
+import com.example.moviesproject.domain.model.Movie
 
 class MovieAdapter(private val onItemListner: (movie: Movie) -> Unit) :
     ListAdapter<Movie, MovieDataViewHolder>(MovieListCallBack()) {

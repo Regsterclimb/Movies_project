@@ -1,6 +1,6 @@
-package com.example.moviesproject.data.actors
+package com.example.moviesproject.data.remote.dto
 
-import com.example.moviesproject.domain.model.Actor
+import com.example.moviesproject.domain.model.ActorDetails
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
@@ -45,8 +45,9 @@ data class ActorDataById(
 
 )
 
-fun ActorDataById.toActor() : Actor {
-	return Actor(
+fun ActorDataById.toActor() : ActorDetails {
+
+	return ActorDetails(
 		id = id,
 		birthday = birthday,
 		gender = gender,
@@ -57,4 +58,5 @@ fun ActorDataById.toActor() : Actor {
 		placeOfBirth = placeOfBirth,
 		name = name
 	)
+
 }

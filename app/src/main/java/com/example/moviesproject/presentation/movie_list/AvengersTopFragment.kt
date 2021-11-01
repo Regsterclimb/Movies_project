@@ -1,4 +1,4 @@
-package com.example.moviesproject.movielist
+package com.example.moviesproject.presentation.movie_list
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesproject.R
-import com.example.moviesproject.data.moviedata.Movie
+import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 

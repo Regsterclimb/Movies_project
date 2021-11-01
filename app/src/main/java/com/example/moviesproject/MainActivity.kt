@@ -2,22 +2,27 @@ package com.example.moviesproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.android.academy.fundamentals.homework.data.JsonMovieRepository
-import com.android.academy.fundamentals.homework.data.MovieRepository
-import com.example.moviesproject.data.MovieDetailsDataRepository
-import com.example.moviesproject.data.MovieDetailsRepository
-import com.example.moviesproject.data.moviedata.Movie
+import com.example.moviesproject.domain.model.Movie
+import com.example.moviesproject.domain.repository.ActorDetailsRepository
+import com.example.moviesproject.domain.repository.MovieDetailsDataRepository
+import com.example.moviesproject.domain.repository.MovieRepository
+import com.example.moviesproject.domain.use_cases.GetActorDetailsRepository
+import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
+import com.example.moviesproject.domain.use_cases.GetMovieRepository
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
-import com.example.moviesproject.moviedetails.AvengersDownFragment
-import com.example.moviesproject.moviedetails.ClickOnBackButton
-import com.example.moviesproject.movielist.AvengersTopFragment
-import com.example.moviesproject.movielist.OnItemClickListner
+import com.example.moviesproject.presentation.actor_details.ActorDetailsClicker
+import com.example.moviesproject.presentation.actor_details.ActorDetailsFragment
+import com.example.moviesproject.presentation.movie_details.AvengersDownFragment
+import com.example.moviesproject.presentation.movie_details.Clicker
+import com.example.moviesproject.presentation.movie_list.AvengersTopFragment
+import com.example.moviesproject.presentation.movie_list.OnItemClickListner
 
-class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
-    RepositoryProvider {
+class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
+    RepositoryProvider,ActorDetailsClicker {
 
-    private val jsonMovieRepository = JsonMovieRepository(this)
+    private val movieRepository = MovieRepository(this)
     private val movieDetailsDataRepository = MovieDetailsDataRepository(this)
+    private val actorDetailsRepository = ActorDetailsRepository(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +50,25 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
         supportFragmentManager.popBackStack()
     }
 
-    override fun provideMovieRepository(): MovieRepository {
-        return jsonMovieRepository
+    override fun moveToActorDetails() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.avengers_container_for_down_fragment,
+                ActorDetailsFragment().newInstance().apply { setListner(this@MainActivity) }
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
-    override fun provideMovieDetailsRepository(): MovieDetailsRepository {
+    override fun provideMovieRepository(): GetMovieRepository {
+        return movieRepository
+    }
+
+    override fun provideMovieDetailsRepository(): GetMovieDetailsRepository {
         return movieDetailsDataRepository
+    }
+
+    override fun provideActorDetailsRepository(): GetActorDetailsRepository {
+        TODO("Not yet implemented")
     }
 
     fun startMovieListFragment() {
@@ -63,6 +81,10 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, ClickOnBackButton,
             commit()
         }
 
+    }
+
+    override fun moveToBackStack() {
+        supportFragmentManager.popBackStack()
     }
 
 

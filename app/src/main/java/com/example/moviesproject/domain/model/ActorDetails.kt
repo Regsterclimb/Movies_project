@@ -1,6 +1,6 @@
 package com.example.moviesproject.domain.model
 
-data class Actor(
+data class ActorDetails(
 
     val id: Int,
 

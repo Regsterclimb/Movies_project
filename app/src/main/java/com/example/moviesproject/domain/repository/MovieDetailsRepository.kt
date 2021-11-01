@@ -1,39 +1,23 @@
-package com.example.moviesproject.data
+package com.example.moviesproject.domain.repository
 
 import android.content.Context
 import com.example.moviesproject.data.NetworkModule.NetworkModule
 import com.example.moviesproject.data.NetworkModule.NetworkModuleGetData
-import com.example.moviesproject.data.actors.CastActor
-import com.example.moviesproject.data.actors.MovieCastsData
-import com.example.moviesproject.data.configurationdata.ConfigurationMovieData
-import com.example.moviesproject.data.configurationdata.ImagesData
-import com.example.moviesproject.data.genresdata.Genre
-import com.example.moviesproject.data.moviedata.MovieDataDetails
-import com.example.moviesproject.data.moviedata.MovieDetails
+import com.example.moviesproject.data.remote.dto.*
+import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
 import com.example.moviesproject.hardcodedatalist.NetworkModuleProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-interface MovieDetailsRepository {
-
-    suspend fun loadMovie(movieId: Int): MovieDetails
-}
 
 internal class MovieDetailsDataRepository(private val context: Context) : NetworkModuleProvider,
-    MovieDetailsRepository {
+    GetMovieDetailsRepository {
 
-    private val networkModule = NetworkModule()
-
+    private val networkModule = NetworkModule() // needed injection in constructor todo()
 
     override suspend fun loadMovie(movieId: Int): MovieDetails {
         return loadDataFromApi(movieId)
-    }
-
-
-    private suspend fun getGenresFromApi(): List<Genre> = withContext(Dispatchers.IO) {
-        val list = provideNetworkModule().getGenresData()
-        list.genres.map { genresItem -> Genre(id = genresItem.id, name = genresItem.name) }
-
     }
 
     private suspend fun getMovieDetailsFromApi(movieId: Int): MovieDataDetails =
@@ -48,21 +32,20 @@ internal class MovieDetailsDataRepository(private val context: Context) : Networ
     }
 
     private suspend fun loadDataFromApi(movieId: Int): MovieDetails {
-        val genresMap = getGenresFromApi()
         val imagesData = getImagesFromApi()
         val data = getMovieDetailsFromApi(movieId)
-        val listOfCastActor = parseActorsData(movieId,imagesData)
+        val listOfCastActor = parseActorsData(movieId, imagesData)
 
-
-        return parseMovie(data, genresMap, imagesData, listOfCastActor)
+        return parseMovie(data, imagesData, listOfCastActor)
     }
 
-    private suspend fun getActorsDataFromApi(movieId: Int): MovieCastsData = withContext(Dispatchers.IO)
-    {
-        provideNetworkModule().getCastsActorsData(id = movieId)
-    }
+    private suspend fun getActorsDataFromApi(movieId: Int): MovieCastsData =
+        withContext(Dispatchers.IO)
+        {
+            provideNetworkModule().getCastsActorsData(id = movieId)
+        }
 
-    private suspend fun parseActorsData(movieId: Int,imagesData: ImagesData): List<CastActor> {
+    private suspend fun parseActorsData(movieId: Int, imagesData: ImagesData): List<CastActor> {
         val data = getActorsDataFromApi(movieId)
         return data.cast.map { castActor ->
             CastActor(
@@ -76,16 +59,14 @@ internal class MovieDetailsDataRepository(private val context: Context) : Networ
 
     private fun parseMovie(
         movieDetails: MovieDataDetails,
-        genreData: List<Genre>,
         imagesData: ImagesData,
         listOfCastActor: List<CastActor>
     ): MovieDetails {
-        val genresMap = genreData.associateBy(Genre::id)
         return MovieDetails(
             id = movieDetails.id, //  id : Int
             title = movieDetails.title, // Main title : String
             backdropImageUrlPath = imagesData.baseUrl + imagesData.backdropSizes[3] + movieDetails.backdropImageUrlPath,
-            revenue = movieDetails.revenue,
+            revenue = movieDetails.revenue, //
             genres = movieDetails.genres, // List<Genre>
             voteCount = movieDetails.voteCount, // double "8.2"
             budget = movieDetails.budget, // Int
@@ -95,8 +76,6 @@ internal class MovieDetailsDataRepository(private val context: Context) : Networ
             releaseDate = movieDetails.releaseDate,
             voteAverage = movieDetails.voteAverage,
             tagline = movieDetails.tagline,
-            adult = movieDetails.adult,
-            status = movieDetails.status,
             actorList = listOfCastActor, // Warning wrong Url
             pgAge = if (movieDetails.adult) "13" else "16"
         )

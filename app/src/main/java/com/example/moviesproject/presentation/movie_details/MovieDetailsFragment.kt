@@ -1,4 +1,4 @@
-package com.example.moviesproject.moviedetails
+package com.example.moviesproject.presentation.movie_details
 
 import android.content.Context
 import android.os.Bundle
@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.moviedata.MovieDetails
+import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 class AvengersDownFragment : Fragment() {
@@ -24,13 +24,13 @@ class AvengersDownFragment : Fragment() {
             (requireActivity() as RepositoryProvider).provideMovieDetailsRepository()
         )
     }
-    private var listner: ClickOnBackButton? = null
+    private var listner: Clicker? = null
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is ClickOnBackButton) {
+        if (context is Clicker) {
             listner = context
         }
     }
@@ -47,7 +47,7 @@ class AvengersDownFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<RecyclerView>(R.id.recycler_actor).apply {
-            this.adapter = ActorAdapter()
+            this.adapter = ActorAdapter { (listner?.moveToActorDetails()) }
         }
 
         viewModel.loadMovieDetail(requireArguments().getInt(ARG_MOVIE_ID))
@@ -65,7 +65,7 @@ class AvengersDownFragment : Fragment() {
         view?.let {
             Glide.with(it)
                 .load(movie.posterImageUrlPath)
-                .into(it.findViewById(R.id.MainImageAvengers))
+                .into(it.findViewById(R.id.main_actor_image_fragment))
         }
 
         view?.findViewById<TextView>(R.id.movieTitle)?.text = movie.title
@@ -103,7 +103,7 @@ class AvengersDownFragment : Fragment() {
 
     }
 
-    fun setListner(l: ClickOnBackButton) {
+    fun setListner(l: Clicker) {
         listner = l
     }
 
@@ -127,6 +127,7 @@ class AvengersDownFragment : Fragment() {
 
 }
 
-interface ClickOnBackButton {
+interface Clicker {
     fun backToMovieList()
+    fun moveToActorDetails()
 }

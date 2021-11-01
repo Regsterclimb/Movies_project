@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.genresdata
+package com.example.moviesproject.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName

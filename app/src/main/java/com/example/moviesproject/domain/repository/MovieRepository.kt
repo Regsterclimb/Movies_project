@@ -1,25 +1,22 @@
-package com.android.academy.fundamentals.homework.data
+package com.example.moviesproject.domain.repository
 
 import android.content.Context
 import android.util.Log
 import com.example.moviesproject.data.NetworkModule.NetworkModule
 import com.example.moviesproject.data.NetworkModule.NetworkModuleGetData
-import com.example.moviesproject.data.configurationdata.ConfigurationMovieData
-import com.example.moviesproject.data.configurationdata.ImagesData
-import com.example.moviesproject.data.genresdata.Genre
-import com.example.moviesproject.data.moviedata.Movie
-import com.example.moviesproject.data.moviedata.MoviePopular
-import com.example.moviesproject.data.moviedata.ResultsMovie
+import com.example.moviesproject.data.remote.dto.ConfigurationMovieData
+import com.example.moviesproject.data.remote.dto.Genre
+import com.example.moviesproject.data.remote.dto.ImagesData
+import com.example.moviesproject.data.remote.dto.ResultsMovie
+import com.example.moviesproject.domain.model.Movie
+import com.example.moviesproject.domain.model.MoviePopular
+import com.example.moviesproject.domain.use_cases.GetMovieRepository
 import com.example.moviesproject.hardcodedatalist.NetworkModuleProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-interface MovieRepository {
-    suspend fun loadMovies(): List<Movie>
-    suspend fun loadMovie(movieId: Int): Movie?
-}
 
-internal class JsonMovieRepository(private val context: Context) : MovieRepository,NetworkModuleProvider {
+class MovieRepository(private val context: Context) : GetMovieRepository,NetworkModuleProvider {
 
     private val networkModule = NetworkModule()
 
@@ -68,7 +65,6 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
 
     }
 
-
     private fun parseMovies(
         dataListResultMovie: List<ResultsMovie>,
         genreData: List<Genre>,
@@ -98,12 +94,6 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
 
     override fun provideNetworkModule(): NetworkModuleGetData {
         return networkModule
-    }
-
-
-    override suspend fun loadMovie(movieId: Int): Movie? {
-        val cachedMovies = movies ?: loadMovies()
-        return cachedMovies.find { it.id == movieId }
     }
 
     private fun <T : Any> T?.orThrow(createThrowable: () -> Throwable): T {

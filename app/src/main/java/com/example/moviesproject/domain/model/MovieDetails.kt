@@ -1,7 +1,7 @@
-package com.example.moviesproject.data.moviedata
+package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.actors.CastActor
-import com.example.moviesproject.data.genresdata.Genre
+import com.example.moviesproject.data.remote.dto.CastActor
+import com.example.moviesproject.data.remote.dto.Genre
 
 data class MovieDetails(
 
@@ -30,10 +30,6 @@ data class MovieDetails(
     val voteAverage: Double,
 
     val tagline: String,
-
-    val adult: Boolean,
-
-    val status: String,
 
     val actorList: List<CastActor>,
 

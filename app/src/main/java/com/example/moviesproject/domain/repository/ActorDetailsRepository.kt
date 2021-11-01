@@ -1,10 +1,12 @@
 package com.example.moviesproject.domain.repository
 
-interface ActorDetailsRepository {
+import android.content.Context
+
+interface GetActorDetailsRepository {
     suspend fun loadActorDetails()
 }
 
-class ActorDetailsRepositoryFromApi : ActorDetailsRepository {
+internal class ActorDetailsRepository(private val context: Context) : GetActorDetailsRepository {
 
     //loadconfiguration /get from cache or db somthing like that
     //loadActorDetailsFromApi

@@ -1,10 +1,6 @@
 package com.example.moviesproject.data.NetworkModule
 
-import com.example.moviesproject.data.actors.MovieCastsData
-import com.example.moviesproject.data.configurationdata.ConfigurationMovieData
-import com.example.moviesproject.data.genresdata.MovieDataGenres
-import com.example.moviesproject.data.moviedata.MovieDataDetails
-import com.example.moviesproject.data.moviedata.MovieDataPopular
+import com.example.moviesproject.data.remote.dto.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -38,6 +34,12 @@ class NetworkModule : NetworkModuleGetData {
         suspend fun loadDataMovieDetailsById(@Path("movieId") id : Int) : MovieDataDetails
         @GET( "movie/{movieId}/credits?api_key=29d669e3884b3c81259c3e02780bcec9&language=en-US")
         suspend fun loadDataMovieCastActorsById(@Path("movieId") id : Int) : MovieCastsData
+    }
+
+    private interface ActorDetailsApi {
+
+        suspend fun loadDataActorDetailsById()
+
     }
 
     private object RetrofitModule {
@@ -83,10 +85,12 @@ class NetworkModule : NetworkModuleGetData {
 
 }
 interface NetworkModuleGetData {
+
     suspend fun getGenresData() : MovieDataGenres
     suspend fun getConfigurationData() : ConfigurationMovieData
     suspend fun getMoviePopularData() : MovieDataPopular
     suspend fun getMovieDetailData(id: Int) : MovieDataDetails
     suspend fun getCastsActorsData(id: Int) : MovieCastsData
+
 }
 
