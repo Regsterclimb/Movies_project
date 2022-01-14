@@ -2,7 +2,7 @@ package com.example.moviesproject.domain.repository
 
 import android.content.Context
 import com.example.moviesproject.data.NetworkModule.NetworkModule
-import com.example.moviesproject.data.NetworkModule.NetworkModuleGetData
+import com.example.moviesproject.data.NetworkModule.NetworkModuleResponses
 import com.example.moviesproject.data.remote.dto.*
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
@@ -74,14 +74,14 @@ internal class MovieDetailsDataRepository(private val context: Context) : Networ
             runtime = movieDetails.runtime,
             posterImageUrlPath = imagesData.baseUrl + imagesData.posterSizes[4] + movieDetails.posterImageUrlPath,
             releaseDate = movieDetails.releaseDate,
-            voteAverage = movieDetails.voteAverage,
+            voteAverage = (movieDetails.voteAverage/2).toInt(),
             tagline = movieDetails.tagline,
             actorList = listOfCastActor, // Warning wrong Url
             pgAge = if (movieDetails.adult) "13" else "16"
         )
     }
 
-    override fun provideNetworkModule(): NetworkModuleGetData {
+    override fun provideNetworkModule(): NetworkModuleResponses {
         return networkModule
     }
 

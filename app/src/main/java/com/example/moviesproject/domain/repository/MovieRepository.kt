@@ -3,7 +3,7 @@ package com.example.moviesproject.domain.repository
 import android.content.Context
 import android.util.Log
 import com.example.moviesproject.data.NetworkModule.NetworkModule
-import com.example.moviesproject.data.NetworkModule.NetworkModuleGetData
+import com.example.moviesproject.data.NetworkModule.NetworkModuleResponses
 import com.example.moviesproject.data.remote.dto.ConfigurationMovieData
 import com.example.moviesproject.data.remote.dto.Genre
 import com.example.moviesproject.data.remote.dto.ImagesData
@@ -92,7 +92,7 @@ class MovieRepository(private val context: Context) : GetMovieRepository,Network
         }
     }
 
-    override fun provideNetworkModule(): NetworkModuleGetData {
+    override fun provideNetworkModule(): NetworkModuleResponses {
         return networkModule
     }
 

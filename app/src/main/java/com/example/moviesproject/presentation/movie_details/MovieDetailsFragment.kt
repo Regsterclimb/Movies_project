@@ -83,7 +83,7 @@ class AvengersDownFragment : Fragment() {
             view?.findViewById(R.id.star5)
         )
         stars.forEachIndexed { index, imageView ->
-            if (index < movie.voteAverage) {
+            if (index <= movie.voteAverage) {
                 imageView?.setImageResource(R.drawable.ic_star_icon)
 
             } else {
@@ -100,10 +100,9 @@ class AvengersDownFragment : Fragment() {
         val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
         adapter.submitList(movie.actorList)
 
-
     }
 
-    fun setListner(l: Clicker) {
+    fun setListner(l: Clicker) { // ClickListner Setter
         listner = l
     }
 
@@ -118,13 +117,13 @@ class AvengersDownFragment : Fragment() {
 
     companion object {
         private const val ARG_MOVIE_ID = "ARG_MOVIE_ID"
-        fun newInstance(movieId: Int): AvengersDownFragment {
+
+        fun newInstance(movieId: Int): AvengersDownFragment { // Fragment Instance with movieID
             val fragment = AvengersDownFragment()
             fragment.arguments = bundleOf(ARG_MOVIE_ID to movieId)
             return fragment
         }
     }
-
 }
 
 interface Clicker {

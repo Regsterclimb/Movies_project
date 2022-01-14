@@ -27,7 +27,7 @@ data class MovieDetails(
 
     val releaseDate: String,
 
-    val voteAverage: Double,
+    val voteAverage: Int,
 
     val tagline: String,
 

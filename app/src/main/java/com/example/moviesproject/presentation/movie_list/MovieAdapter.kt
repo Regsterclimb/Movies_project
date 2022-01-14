@@ -64,7 +64,7 @@ class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Log.d("color_if", "${stars}}")
 
         stars.forEachIndexed { index, imageView ->
-            if (index < movie.rating) {
+            if (index <= movie.rating) {
                 imageView?.setImageResource(R.drawable.ic_star_icon)
                 Log.d("color_if", " movie id ${movie.id} + index ${stars}")
 
