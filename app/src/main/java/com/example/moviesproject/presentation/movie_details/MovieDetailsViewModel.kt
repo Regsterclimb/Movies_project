@@ -9,7 +9,7 @@ import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
-    private val repositoryGet: GetMovieDetailsRepository,
+    private val repositoryGet: GetMovieDetailsRepository
 ) : ViewModel() {
 
     private val _mutableMovieInfo = MutableLiveData<MovieDetails>()

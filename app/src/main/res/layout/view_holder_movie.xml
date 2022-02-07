@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/avengers_icon"
+        android:id="@+id/listImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/movie_avengers_icon_fragment">
+        tools:src="@drawable/movie_avengers_icon_fragment">
 
     </ImageView>
 
@@ -29,110 +29,110 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/ic_mask__1_"
-        app:layout_constraintBottom_toBottomOf="@+id/avengers_icon"
-        app:layout_constraintEnd_toEndOf="@+id/avengers_icon"
-        app:layout_constraintStart_toStartOf="@+id/avengers_icon"
-        app:layout_constraintTop_toTopOf="@+id/avengers_icon" />
+        app:layout_constraintBottom_toBottomOf="@+id/listImage"
+        app:layout_constraintEnd_toEndOf="@+id/listImage"
+        app:layout_constraintStart_toStartOf="@+id/listImage"
+        app:layout_constraintTop_toTopOf="@+id/listImage" />
 
 
     <TextView
-        android:id="@+id/fragment_tags"
+        android:id="@+id/listTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="2dp"
-        android:text="@string/tags"
+        tools:text="@string/tags"
         android:textColor="@color/tag_color_red"
         android:textSize="8sp"
-        app:layout_constraintEnd_toEndOf="@id/avengers_icon"
+        app:layout_constraintEnd_toEndOf="@id/listImage"
         app:layout_constraintStart_toStartOf="@id/guideline_frag_start"
-        app:layout_constraintBottom_toTopOf="@id/fragment_review">
+        app:layout_constraintBottom_toTopOf="@id/listReviews">
 
     </TextView>
 
     <ImageView
-        android:id="@+id/fragment_star1"
+        android:id="@+id/listStar1"
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_icon"
+        tools:src="@drawable/ic_star_icon"
         app:layout_constraintStart_toStartOf="@id/guideline_frag_start"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon">
+        app:layout_constraintBottom_toBottomOf="@id/listImage">
 
     </ImageView>
 
     <ImageView
-        android:id="@+id/fragment_star2"
+        android:id="@+id/listStar2"
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_icon"
-        app:layout_constraintStart_toEndOf="@id/fragment_star1"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon">
+        tools:src="@drawable/ic_star_icon"
+        app:layout_constraintStart_toEndOf="@id/listStar1"
+        app:layout_constraintBottom_toBottomOf="@id/listImage">
 
     </ImageView>
 
     <ImageView
-        android:id="@+id/fragment_star3"
+        android:id="@+id/listStar3"
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_icon"
-        app:layout_constraintStart_toEndOf="@id/fragment_star2"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon">
+        tools:src="@drawable/ic_star_icon"
+        app:layout_constraintStart_toEndOf="@id/listStar2"
+        app:layout_constraintBottom_toBottomOf="@id/listImage">
 
     </ImageView>
 
     <ImageView
-        android:id="@+id/fragment_star4"
+        android:id="@+id/listStar4"
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_icon"
-        app:layout_constraintStart_toEndOf="@id/fragment_star3"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon">
+        tools:src="@drawable/ic_star_icon"
+        app:layout_constraintStart_toEndOf="@id/listStar3"
+        app:layout_constraintBottom_toBottomOf="@id/listImage">
 
     </ImageView>
 
     <ImageView
-        android:id="@+id/fragment_star5"
+        android:id="@+id/listStar5"
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="112dp"
-        android:src="@drawable/ic_star_icon"
-        app:layout_constraintStart_toEndOf="@id/fragment_star4"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon">
+        tools:src="@drawable/ic_star_icon"
+        app:layout_constraintStart_toEndOf="@id/listStar4"
+        app:layout_constraintBottom_toBottomOf="@id/listImage">
 
     </ImageView>
 
     <TextView
-        android:id="@+id/fragment_review"
+        android:id="@+id/listReviews"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:text="@string/reviews_number"
+        tools:text="@string/reviews_number"
         android:textColor="@color/review_gray"
         android:layout_marginTop="4dp"
         android:textSize="8sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/avengers_icon"
-        app:layout_constraintStart_toEndOf="@id/fragment_star5"
-        app:layout_constraintBottom_toBottomOf="@id/avengers_icon"/>
+        app:layout_constraintEnd_toEndOf="@id/listImage"
+        app:layout_constraintStart_toEndOf="@id/listStar5"
+        app:layout_constraintBottom_toBottomOf="@id/listImage"/>
 
 
     <TextView
-        android:id="@+id/avengers_title"
+        android:id="@+id/listTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/avengers_end_game"
+        tools:text="@string/avengers_end_game"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/avengers_icon"
+        app:layout_constraintEnd_toEndOf="@id/listImage"
         app:layout_constraintStart_toStartOf="@id/guideline_frag_start"
-        app:layout_constraintTop_toBottomOf="@+id/avengers_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/listImage" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_frag_start"
@@ -142,14 +142,14 @@
         app:layout_constraintGuide_begin="6dp" />
 
     <TextView
-        android:id="@+id/movie_duration"
+        android:id="@+id/listDuraction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/film_timer"
+        tools:text="@string/film_timer"
         android:textColor="@color/film_time"
         android:textSize="8dp"
         app:layout_constraintStart_toStartOf="@id/guideline_frag_start"
-        app:layout_constraintTop_toBottomOf="@+id/avengers_title"
-        app:layout_constraintEnd_toEndOf="@id/avengers_icon"/>
+        app:layout_constraintTop_toBottomOf="@+id/listTitle"
+        app:layout_constraintEnd_toEndOf="@id/listImage"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

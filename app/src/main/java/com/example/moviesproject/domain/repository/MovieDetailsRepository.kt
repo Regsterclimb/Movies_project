@@ -3,7 +3,7 @@ package com.example.moviesproject.domain.repository
 import android.content.Context
 import com.example.moviesproject.data.NetworkModule.NetworkModule
 import com.example.moviesproject.data.NetworkModule.NetworkModuleResponses
-import com.example.moviesproject.data.remote.dto.*
+import com.example.moviesproject.data.respones.*
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
 import com.example.moviesproject.hardcodedatalist.NetworkModuleProvider
@@ -25,7 +25,7 @@ internal class MovieDetailsDataRepository(private val context: Context) : Networ
             provideNetworkModule().getMovieDetailData(movieId)
         }
 
-    private suspend fun getImagesFromApi(): ImagesData = withContext(Dispatchers.IO) {
+    private suspend fun getImagesFromApi(): ImagesResponse = withContext(Dispatchers.IO) {
         val data = provideNetworkModule().getConfigurationData()
         val data1 = ConfigurationMovieData(images = data.images, changeKeys = data.changeKeys)
         data1.images
@@ -39,40 +39,40 @@ internal class MovieDetailsDataRepository(private val context: Context) : Networ
         return parseMovie(data, imagesData, listOfCastActor)
     }
 
-    private suspend fun getActorsDataFromApi(movieId: Int): MovieCastsData =
+    private suspend fun getActorsDataFromApi(movieId: Int): MovieCastsResponse =
         withContext(Dispatchers.IO)
         {
             provideNetworkModule().getCastsActorsData(id = movieId)
         }
 
-    private suspend fun parseActorsData(movieId: Int, imagesData: ImagesData): List<CastActor> {
+    private suspend fun parseActorsData(movieId: Int, imagesResponse: ImagesResponse): List<CastActor> {
         val data = getActorsDataFromApi(movieId)
         return data.cast.map { castActor ->
             CastActor(
                 id = castActor.id,
                 name = castActor.name,
                 character = castActor.character,
-                imageUrl = imagesData.baseUrl + imagesData.posterSizes[4] + castActor.imageUrl
+                imageUrl = imagesResponse.baseUrl + imagesResponse.posterSizes[4] + castActor.imageUrl
             )
         }
     }
 
     private fun parseMovie(
         movieDetails: MovieDataDetails,
-        imagesData: ImagesData,
+        imagesResponse: ImagesResponse,
         listOfCastActor: List<CastActor>
     ): MovieDetails {
         return MovieDetails(
             id = movieDetails.id, //  id : Int
             title = movieDetails.title, // Main title : String
-            backdropImageUrlPath = imagesData.baseUrl + imagesData.backdropSizes[3] + movieDetails.backdropImageUrlPath,
+            backdropImageUrlPath = imagesResponse.baseUrl + imagesResponse.backdropSizes[3] + movieDetails.backdropImageUrlPath,
             revenue = movieDetails.revenue, //
             genres = movieDetails.genres, // List<Genre>
             voteCount = movieDetails.voteCount, // double "8.2"
             budget = movieDetails.budget, // Int
             overview = movieDetails.overview,
             runtime = movieDetails.runtime,
-            posterImageUrlPath = imagesData.baseUrl + imagesData.posterSizes[4] + movieDetails.posterImageUrlPath,
+            posterImageUrlPath = imagesResponse.baseUrl + imagesResponse.posterSizes[4] + movieDetails.posterImageUrlPath,
             releaseDate = movieDetails.releaseDate,
             voteAverage = (movieDetails.voteAverage/2).toInt(),
             tagline = movieDetails.tagline,

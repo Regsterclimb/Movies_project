@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesproject.R
-import com.example.moviesproject.data.remote.dto.CastActor
+import com.example.moviesproject.data.respones.CastActor
 
 class ActorDataViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 

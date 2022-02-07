@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.moviesproject.R
-import com.example.moviesproject.data.remote.dto.CastActor
+import com.example.moviesproject.data.respones.CastActor
 
 class ActorAdapter(private val onItemListner: (actor: CastActor) -> Unit) : ListAdapter<CastActor, ActorDataViewHolder>(ActorsCallBack()) {
 

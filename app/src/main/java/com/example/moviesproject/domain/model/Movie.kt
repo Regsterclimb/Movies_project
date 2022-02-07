@@ -1,6 +1,6 @@
 package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.remote.dto.Genre
+import com.example.moviesproject.data.respones.Genre
 
 
 data class Movie

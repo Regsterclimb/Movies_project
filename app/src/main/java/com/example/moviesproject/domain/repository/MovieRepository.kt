@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.Log
 import com.example.moviesproject.data.NetworkModule.NetworkModule
 import com.example.moviesproject.data.NetworkModule.NetworkModuleResponses
-import com.example.moviesproject.data.remote.dto.ConfigurationMovieData
-import com.example.moviesproject.data.remote.dto.Genre
-import com.example.moviesproject.data.remote.dto.ImagesData
-import com.example.moviesproject.data.remote.dto.ResultsMovie
+import com.example.moviesproject.data.respones.ConfigurationMovieData
+import com.example.moviesproject.data.respones.Genre
+import com.example.moviesproject.data.respones.ImagesResponse
+import com.example.moviesproject.data.respones.ResultsMovie
 import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.domain.model.MoviePopular
 import com.example.moviesproject.domain.use_cases.GetMovieRepository
@@ -43,7 +43,7 @@ class MovieRepository(private val context: Context) : GetMovieRepository,Network
         )
     }
 
-    private suspend fun loadConfigurationFromApi() : ImagesData = withContext(Dispatchers.IO) {
+    private suspend fun loadConfigurationFromApi() : ImagesResponse = withContext(Dispatchers.IO) {
         val data = provideNetworkModule().getConfigurationData()
         val data1 = ConfigurationMovieData( images = data.images, changeKeys = data.changeKeys)
         data1.images
@@ -68,7 +68,7 @@ class MovieRepository(private val context: Context) : GetMovieRepository,Network
     private fun parseMovies(
         dataListResultMovie: List<ResultsMovie>,
         genreData: List<Genre>,
-        imagesData: ImagesData
+        imagesResponse: ImagesResponse
     ): List<Movie> {
         val genresMap = genreData.associateBy(Genre::id)
 
@@ -78,7 +78,7 @@ class MovieRepository(private val context: Context) : GetMovieRepository,Network
                 id = jsonMovie.id,
                 title = jsonMovie.title,
                 storyLine = jsonMovie.storyLine,
-                imageUrl = imagesData.baseUrl + imagesData.posterSizes[4] +  jsonMovie.posterPathUrl,
+                imageUrl = imagesResponse.baseUrl + imagesResponse.posterSizes[4] +  jsonMovie.posterPathUrl,
                 detailImageUrl = jsonMovie.backdropPathUrl,
                 rating = (jsonMovie.ratings / 2).toInt(),
                 reviewCount = jsonMovie.voteCount,

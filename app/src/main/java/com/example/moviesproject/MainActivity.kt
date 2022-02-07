@@ -18,7 +18,7 @@ import com.example.moviesproject.presentation.movie_list.AvengersTopFragment
 import com.example.moviesproject.presentation.movie_list.OnItemClickListner
 
 class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
-    RepositoryProvider,ActorDetailsClicker {
+    RepositoryProvider, ActorDetailsClicker {
 
     private val movieRepository = MovieRepository(this)
     private val movieDetailsDataRepository = MovieDetailsDataRepository(this)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
     override fun clickOnMovieCart(movie: Movie) {
         supportFragmentManager.beginTransaction()
             .add(
-                R.id.avengers_container_for_down_fragment,
+                R.id.container,
                 AvengersDownFragment.newInstance(movie.id)
                     .apply { setListner(this@MainActivity) }
             )
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
 
     override fun moveToActorDetails() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.avengers_container_for_down_fragment,
+            .add(R.id.container,
                 ActorDetailsFragment().newInstance().apply { setListner(this@MainActivity) }
             )
             .addToBackStack(null)
@@ -80,9 +80,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
                     })
             commit()
         }
-
     }
-
     override fun moveToBackStack() {
         supportFragmentManager.popBackStack()
     }

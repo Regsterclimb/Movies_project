@@ -1,7 +1,7 @@
 package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.remote.dto.CastActor
-import com.example.moviesproject.data.remote.dto.Genre
+import com.example.moviesproject.data.respones.CastActor
+import com.example.moviesproject.data.respones.Genre
 
 data class MovieDetails(
 

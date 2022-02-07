@@ -14,6 +14,7 @@ import com.example.moviesproject.R
 class ActorDetailsFragment : Fragment() {
 
     companion object
+
     fun newInstance(): ActorDetailsFragment = ActorDetailsFragment()
 
     private var listner: ActorDetailsClicker? = null
@@ -59,7 +60,7 @@ class ActorDetailsFragment : Fragment() {
 
     }
 
-    fun setListner(l: ActorDetailsClicker ) {
+    fun setListner(l: ActorDetailsClicker) {
         listner = l
     }
 

@@ -1,14 +1,12 @@
-package com.example.moviesproject.data.remote.dto
+package com.example.moviesproject.data.respones
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieCastsData(
-
+data class MovieCastsResponse(
 	@SerialName("cast")
 	val cast: List<CastActor>,
-
 	@SerialName("id")
 	val id: Int,
 	)

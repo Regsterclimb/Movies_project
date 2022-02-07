@@ -13,7 +13,7 @@ class MovieListViewModel(
 ) :ViewModel() {
 
     private var _mutableMovieList = MutableLiveData<List<Movie>>()
-    val liveDatamovieList : LiveData<List<Movie>> = _mutableMovieList
+    val liveDataMovieList : LiveData<List<Movie>> = _mutableMovieList
 
     fun loadMovieToLiveData() {
         viewModelScope.launch {

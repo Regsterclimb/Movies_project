@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.remote.dto
+package com.example.moviesproject.data.respones
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

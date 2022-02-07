@@ -1,6 +1,6 @@
 package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.remote.dto.ResultsMovie
+import com.example.moviesproject.data.respones.ResultsMovie
 
 data class MoviePopular(
     val page: Int,

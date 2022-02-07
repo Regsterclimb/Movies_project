@@ -1,15 +1,12 @@
-package com.example.moviesproject.data.remote.dto
+package com.example.moviesproject.data.respones
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConfigurationMovieData(
-
 	@SerialName("images")
-	val images: ImagesData,
-
-	@SerialName("change_keys")
+	val images: ImagesResponse,
+	@SerialName("change_keys") //TODO(check keys)
 	val changeKeys: List<String>
-
 )
