@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android projects/Movies project/app/src/main/res/drawable/ic_star_icon.xml" value="0.305" />
+        <entry key="..\:/Android projects/Movies project/app/src/main/res/drawable/square_fragment.xml" value="0.305" />
+        <entry key="..\:/Android projects/Movies project/app/src/main/res/drawable/star_icon_gray.xml" value="0.305" />
         <entry key="..\:/Android projects/Movies project/app/src/main/res/layout/activity_main.xml" value="0.1194078947368421" />
         <entry key="..\:/Android projects/Movies project/app/src/main/res/layout/actor_details_fragment.xml" value="0.1194078947368421" />
         <entry key="..\:/Android projects/Movies project/app/src/main/res/layout/avengers_fragment_fullscreen.xml" value="0.1194078947368421" />

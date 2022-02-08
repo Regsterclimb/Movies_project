@@ -2,13 +2,14 @@ package com.example.moviesproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.moviesproject.data.remote.NetworkModule.NetworkModule
+import com.example.moviesproject.data.repository.ActorDetailsRepositoryImpl
+import com.example.moviesproject.data.repository.MovieDetailsDataRepositoryImpl
+import com.example.moviesproject.data.repository.MovieRepositoryImpl
+import com.example.moviesproject.data.repository.ParseMovie
 import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.domain.repository.ActorDetailsRepository
-import com.example.moviesproject.domain.repository.MovieDetailsDataRepository
-import com.example.moviesproject.domain.repository.MovieRepository
-import com.example.moviesproject.domain.use_cases.GetActorDetailsRepository
-import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
-import com.example.moviesproject.domain.use_cases.GetMovieRepository
+import com.example.moviesproject.domain.use_cases.ActorDetailsRepository
+import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 import com.example.moviesproject.presentation.actor_details.ActorDetailsClicker
 import com.example.moviesproject.presentation.actor_details.ActorDetailsFragment
@@ -20,9 +21,9 @@ import com.example.moviesproject.presentation.movie_list.OnItemClickListner
 class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
     RepositoryProvider, ActorDetailsClicker {
 
-    private val movieRepository = MovieRepository(this)
-    private val movieDetailsDataRepository = MovieDetailsDataRepository(this)
-    private val actorDetailsRepository = ActorDetailsRepository(this)
+    private val movieRepository = MovieRepositoryImpl(this, ParseMovie.Base(), NetworkModule())
+    private val movieDetailsDataRepository = MovieDetailsDataRepositoryImpl(this)
+    private val actorDetailsRepository = ActorDetailsRepositoryImpl(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,19 +60,19 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
             .commit()
     }
 
-    override fun provideMovieRepository(): GetMovieRepository {
+    override fun provideMovieRepository(): com.example.moviesproject.domain.use_cases.MovieRepository {
         return movieRepository
     }
 
-    override fun provideMovieDetailsRepository(): GetMovieDetailsRepository {
+    override fun provideMovieDetailsRepository(): MovieDetailsRepository {
         return movieDetailsDataRepository
     }
 
-    override fun provideActorDetailsRepository(): GetActorDetailsRepository {
-        TODO("Not yet implemented")
+    override fun provideActorDetailsRepository(): ActorDetailsRepository {
+        TODO()
     }
 
-    fun startMovieListFragment() {
+    private fun startMovieListFragment() {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.container,
                 AvengersTopFragment.newInstance()
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
             commit()
         }
     }
+
     override fun moveToBackStack() {
         supportFragmentManager.popBackStack()
     }

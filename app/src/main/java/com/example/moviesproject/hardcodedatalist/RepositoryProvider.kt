@@ -1,12 +1,12 @@
 package com.example.moviesproject.hardcodedatalist
 
-import com.example.moviesproject.domain.use_cases.GetActorDetailsRepository
-import com.example.moviesproject.domain.use_cases.GetMovieDetailsRepository
-import com.example.moviesproject.domain.use_cases.GetMovieRepository
+import com.example.moviesproject.domain.use_cases.ActorDetailsRepository
+import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
+import com.example.moviesproject.domain.use_cases.MovieRepository
 
 interface RepositoryProvider {
 
-    fun provideMovieRepository(): GetMovieRepository
-    fun provideMovieDetailsRepository() : GetMovieDetailsRepository
-    fun provideActorDetailsRepository() : GetActorDetailsRepository
+    fun provideMovieRepository(): MovieRepository
+    fun provideMovieDetailsRepository(): MovieDetailsRepository
+    fun provideActorDetailsRepository(): ActorDetailsRepository
 }

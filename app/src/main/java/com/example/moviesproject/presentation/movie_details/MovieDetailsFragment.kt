@@ -98,7 +98,7 @@ class AvengersDownFragment : Fragment() {
         setUpListners(view)
 
         val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
-        adapter.submitList(movie.actorList)
+        adapter.submitList(movie.actorResponseList)
 
     }
 

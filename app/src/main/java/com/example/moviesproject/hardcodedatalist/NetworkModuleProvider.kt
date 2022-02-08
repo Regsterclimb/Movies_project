@@ -1,6 +1,6 @@
 package com.example.moviesproject.hardcodedatalist
 
-import com.example.moviesproject.data.NetworkModule.NetworkModuleResponses
+import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleResponses
 
 interface NetworkModuleProvider {
 

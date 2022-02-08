@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.domain.use_cases.GetMovieRepository
+import com.example.moviesproject.domain.use_cases.MovieRepository
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
-    private val repositoryGet : GetMovieRepository
+    private val repository : MovieRepository
 ) :ViewModel() {
 
     private var _mutableMovieList = MutableLiveData<List<Movie>>()
@@ -17,7 +17,7 @@ class MovieListViewModel(
 
     fun loadMovieToLiveData() {
         viewModelScope.launch {
-            _mutableMovieList.postValue(repositoryGet.loadMovies())
+            _mutableMovieList.postValue(repository.loadMovies())
         }
     }
 }

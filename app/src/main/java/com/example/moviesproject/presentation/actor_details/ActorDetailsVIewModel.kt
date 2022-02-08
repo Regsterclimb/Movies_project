@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviesproject.domain.model.ActorDetails
-import com.example.moviesproject.domain.use_cases.GetActorDetailsRepository
+import com.example.moviesproject.domain.use_cases.ActorDetailsRepository
 
 class ActorDetailsVIewModel(
-    repository: GetActorDetailsRepository
+    repository: ActorDetailsRepository
 ) : ViewModel() {
     private val _mutableActorInfo = MutableLiveData<ActorDetails>()
 
