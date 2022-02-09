@@ -1,6 +1,6 @@
 package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.respones.Genre
+import com.example.moviesproject.data.respones.GenreResponse
 
 
 data class Movie(
@@ -13,7 +13,7 @@ data class Movie(
     val reviewCount: Int,
     val pgAge: Int,
     val releaseDate: String,
-    val genres: List<Genre>,
+    val genreResponses: List<GenreResponse>,
     val isLiked: Boolean
 )
 

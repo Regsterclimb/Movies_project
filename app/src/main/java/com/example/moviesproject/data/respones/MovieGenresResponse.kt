@@ -5,15 +5,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieGenresResponse(
-
-	@SerialName("genres")
-	val genres: List<Genre>
+    @SerialName("genres") val genreResponses: List<GenreResponse>
 )
 
 @Serializable
-data class Genre(
-	@SerialName("name")
-	val name: String,
-	@SerialName("id")
-	val id: Int
+data class GenreResponse(
+    @SerialName("name") val name: String,
+    @SerialName("id") val id: Int
 )

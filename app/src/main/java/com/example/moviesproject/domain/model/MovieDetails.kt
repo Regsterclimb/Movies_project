@@ -1,14 +1,14 @@
 package com.example.moviesproject.domain.model
 
 import com.example.moviesproject.data.respones.ActorResponse
-import com.example.moviesproject.data.respones.Genre
+import com.example.moviesproject.data.respones.GenreResponse
 
 data class MovieDetails(
     val id: Int,
     val title: String,
     val backdropImageUrlPath: String,
     val revenue: Int,
-    val genres: List<Genre>,
+    val genreResponses: List<GenreResponse>,
     val voteCount: Int,
     val budget: Int,
     val overview: String,

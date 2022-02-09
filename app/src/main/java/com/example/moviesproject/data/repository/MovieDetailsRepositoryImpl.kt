@@ -1,7 +1,7 @@
 package com.example.moviesproject.data.repository
 
 import android.content.Context
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModule
+import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
 import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleResponses
 import com.example.moviesproject.data.respones.*
 import com.example.moviesproject.domain.model.MovieDetails
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 internal class MovieDetailsDataRepositoryImpl(private val context: Context) : NetworkModuleProvider,
     MovieDetailsRepository {
 
-    private val networkModule = NetworkModule() // needed injection in constructor todo()
+    private val networkModule = NetworkModuleImpl() // needed injection in constructor todo()
 
     override suspend fun loadMovie(movieId: Int): MovieDetails {
         return loadDataFromApi(movieId)
@@ -35,7 +35,6 @@ internal class MovieDetailsDataRepositoryImpl(private val context: Context) : Ne
         val imagesData = getImagesFromApi()
         val data = getMovieDetailsFromApi(movieId)
         val listOfCastActor = parseActorsData(movieId, imagesData)
-
         return parseMovie(data, imagesData, listOfCastActor)
     }
 
@@ -70,7 +69,7 @@ internal class MovieDetailsDataRepositoryImpl(private val context: Context) : Ne
             title = movieDetailsResponse.title, // Main title : String
             backdropImageUrlPath = imagesResponse.baseUrl + imagesResponse.backdropSizes[3] + movieDetailsResponse.backdropImageUrlPath,
             revenue = movieDetailsResponse.revenue, //
-            genres = movieDetailsResponse.genres, // List<Genre>
+            genreResponses = movieDetailsResponse.genreResponses, // List<Genre>
             voteCount = movieDetailsResponse.voteCount, // double "8.2"
             budget = movieDetailsResponse.budget, // Int
             overview = movieDetailsResponse.overview,

@@ -2,16 +2,9 @@ package com.example.moviesproject.data.repository
 
 import android.content.Context
 import android.util.Log
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModule
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleResponses
-import com.example.moviesproject.data.respones.Genre
-import com.example.moviesproject.data.respones.ImagesResponse
-import com.example.moviesproject.data.respones.MovieConfigurationResponse
+import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
 import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.domain.model.MoviePopular
-import com.example.moviesproject.domain.model.toMoviePopular
 import com.example.moviesproject.domain.use_cases.MovieRepository
-import com.example.moviesproject.hardcodedatalist.NetworkModuleProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -19,10 +12,10 @@ import kotlinx.coroutines.withContext
 class MovieRepositoryImpl(
     private val context: Context,
     private val parseMovie: ParseMovie,
-    networkModule: NetworkModule
-) : MovieRepository, NetworkModuleProvider {
+    private val mainDataRepository: MainDataRepository,
+) : MovieRepository {
 
-    private val networkModule = NetworkModule()
+    private val networkModule = NetworkModuleImpl()
 
     private var movies: List<Movie>? = null
 
@@ -35,37 +28,16 @@ class MovieRepositoryImpl(
         if (cachedMovies != null) {
             cachedMovies
         } else {
-            val moviesFromJson = loadMoviesFromJsonFile()
+            val moviesFromJson = loadMovieList()
             movies = moviesFromJson
             moviesFromJson
         }
     }
 
-    private suspend fun loadMoviesFromApi(): MoviePopular = withContext(Dispatchers.IO) {
-        provideNetworkModule().getMoviePopularData().toMoviePopular()
-    }
-
-    private suspend fun loadConfigurationFromApi(): ImagesResponse = withContext(Dispatchers.IO) {
-        val data = provideNetworkModule().getConfigurationData()
-        val data1 = MovieConfigurationResponse(images = data.images, changeKeys = data.changeKeys)
-        data1.images
-    }
-
-    private suspend fun loadMoviesFromJsonFile(): List<Movie> = parseMovie.parse(
-        loadMoviesFromApi().results,
-        loadGenresFromApi(),
-        loadConfigurationFromApi()
+    private suspend fun loadMovieList(): List<Movie> = parseMovie.parse(
+        mainDataRepository.loadMoviesApi(networkModule).results,
+        mainDataRepository.loadGenresApi(networkModule),
+        mainDataRepository.loadConfigurationFromApi(networkModule)
     )
-
-
-    private suspend fun loadGenresFromApi(): List<Genre> = withContext(Dispatchers.IO) {
-        val list = provideNetworkModule().getGenresData()
-        list.genres.map { genresItem -> Genre(id = genresItem.id, name = genresItem.name) }
-
-    }
-
-    override fun provideNetworkModule(): NetworkModuleResponses {
-        return networkModule
-    }
 
 }

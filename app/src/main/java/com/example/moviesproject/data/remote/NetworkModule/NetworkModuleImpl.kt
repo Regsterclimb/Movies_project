@@ -2,6 +2,7 @@ package com.example.moviesproject.data.remote.NetworkModule
 
 import com.example.moviesproject.data.respones.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -11,7 +12,8 @@ import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-class NetworkModule : NetworkModuleResponses {
+
+class NetworkModuleImpl : NetworkModuleResponses {
 
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/3/"
@@ -60,6 +62,7 @@ class NetworkModule : NetworkModuleResponses {
             )
             .build()
 
+        @ExperimentalSerializationApi
         private val retrofit: Retrofit = Retrofit.Builder()
             .client(httpClient)
             .baseUrl(BASE_URL)

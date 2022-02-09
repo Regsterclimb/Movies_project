@@ -71,7 +71,7 @@ class AvengersDownFragment : Fragment() {
         view?.findViewById<TextView>(R.id.movieTitle)?.text = movie.title
         view?.findViewById<TextView>(R.id.tag_num)?.text = movie.pgAge
         view?.findViewById<TextView>(R.id.tags)?.text =
-            movie.genres.joinToString(", ", "", "") { it.name }
+            movie.genreResponses.joinToString(", ", "", "") { it.name }
         view?.findViewById<TextView>(R.id.reviews)?.text = movie.voteCount.toString()
         view?.findViewById<TextView>(R.id.textView6)?.text = movie.overview
 

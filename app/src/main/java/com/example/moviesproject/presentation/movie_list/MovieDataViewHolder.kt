@@ -17,7 +17,7 @@ class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun onBind(movie: Movie, onItemClicked: (movie: Movie) -> Unit) {
         with(viewBinding) {
-            listTags.text = movie.genres.joinToString(", ") { it.name } //TODO
+            listTags.text = movie.genreResponses.joinToString(", ") { it.name } //TODO
             listReviews.text = movie.reviewCount.toString()
             listTitle.text = movie.title
             listDuraction.text = movie.releaseDate

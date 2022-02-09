@@ -2,11 +2,7 @@ package com.example.moviesproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModule
-import com.example.moviesproject.data.repository.ActorDetailsRepositoryImpl
-import com.example.moviesproject.data.repository.MovieDetailsDataRepositoryImpl
-import com.example.moviesproject.data.repository.MovieRepositoryImpl
-import com.example.moviesproject.data.repository.ParseMovie
+import com.example.moviesproject.data.repository.*
 import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.domain.use_cases.ActorDetailsRepository
 import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
@@ -21,7 +17,8 @@ import com.example.moviesproject.presentation.movie_list.OnItemClickListner
 class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
     RepositoryProvider, ActorDetailsClicker {
 
-    private val movieRepository = MovieRepositoryImpl(this, ParseMovie.Base(), NetworkModule())
+    private val movieRepository =
+        MovieRepositoryImpl(this, ParseMovie.Base(), MainDataRepository.Base())
     private val movieDetailsDataRepository = MovieDetailsDataRepositoryImpl(this)
     private val actorDetailsRepository = ActorDetailsRepositoryImpl(this)
 
