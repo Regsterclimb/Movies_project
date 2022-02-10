@@ -2,7 +2,14 @@ package com.example.moviesproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviesproject.data.repository.*
+import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
+import com.example.moviesproject.data.repository.ActorDetailsRepositoryImpl
+import com.example.moviesproject.data.repository.MovieDetailsDataRepositoryImpl
+import com.example.moviesproject.data.repository.movie_details.MainMovieDetailsRepository
+import com.example.moviesproject.data.repository.movie_details.ParseMovieDetails
+import com.example.moviesproject.data.repository.movie_list.MainMoviesRepository
+import com.example.moviesproject.data.repository.movie_list.MovieRepositoryImpl
+import com.example.moviesproject.data.repository.movie_list.ParseMovie
 import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.domain.use_cases.ActorDetailsRepository
 import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
@@ -18,10 +25,18 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
     RepositoryProvider, ActorDetailsClicker {
 
     private val movieRepository =
-        MovieRepositoryImpl(this, ParseMovie.Base(), MainDataRepository.Base())
-    private val movieDetailsDataRepository = MovieDetailsDataRepositoryImpl(this)
+        MovieRepositoryImpl(
+            this,
+            ParseMovie.Base(),
+            MainMoviesRepository.Base(),
+            NetworkModuleImpl()
+        )
+    private val movieDetailsDataRepository = MovieDetailsDataRepositoryImpl(
+        this, MainMoviesRepository.Base(), ParseMovieDetails.Base(),
+        NetworkModuleImpl(),
+        MainMovieDetailsRepository.Base(MainMoviesRepository.Base())
+    )
     private val actorDetailsRepository = ActorDetailsRepositoryImpl(this)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +46,6 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
             startMovieListFragment()
         }
     }
-
 
     override fun clickOnMovieCart(movie: Movie) {
         supportFragmentManager.beginTransaction()

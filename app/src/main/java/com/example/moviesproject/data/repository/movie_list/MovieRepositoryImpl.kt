@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.repository
+package com.example.moviesproject.data.repository.movie_list
 
 import android.content.Context
 import android.util.Log
@@ -12,10 +12,9 @@ import kotlinx.coroutines.withContext
 class MovieRepositoryImpl(
     private val context: Context,
     private val parseMovie: ParseMovie,
-    private val mainDataRepository: MainDataRepository,
+    private val mainMoviesRepository: MainMoviesRepository,
+    private val networkModule: NetworkModuleImpl
 ) : MovieRepository {
-
-    private val networkModule = NetworkModuleImpl()
 
     private var movies: List<Movie>? = null
 
@@ -35,9 +34,8 @@ class MovieRepositoryImpl(
     }
 
     private suspend fun loadMovieList(): List<Movie> = parseMovie.parse(
-        mainDataRepository.loadMoviesApi(networkModule).results,
-        mainDataRepository.loadGenresApi(networkModule),
-        mainDataRepository.loadConfigurationFromApi(networkModule)
+        mainMoviesRepository.loadMoviesApi(networkModule).results,
+        mainMoviesRepository.loadGenresApi(networkModule),
+        mainMoviesRepository.loadConfigurationFromApi(networkModule)
     )
-
 }

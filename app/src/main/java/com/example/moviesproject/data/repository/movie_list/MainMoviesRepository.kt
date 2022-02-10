@@ -1,20 +1,25 @@
-package com.example.moviesproject.data.repository
+package com.example.moviesproject.data.repository.movie_list
 
 import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
 import com.example.moviesproject.data.respones.GenreResponse
 import com.example.moviesproject.data.respones.ImagesResponse
+import com.example.moviesproject.data.respones.MovieCastsResponse
 import com.example.moviesproject.domain.model.MoviePopular
 import com.example.moviesproject.domain.model.toMoviePopular
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-interface MainDataRepository {
+interface MainMoviesRepository {
 
     suspend fun loadMoviesApi(networkModule: NetworkModuleImpl): MoviePopular
     suspend fun loadGenresApi(networkModuleImpl: NetworkModuleImpl): List<GenreResponse>
     suspend fun loadConfigurationFromApi(networkModuleImpl: NetworkModuleImpl): ImagesResponse
+    suspend fun getActorsDataFromApi(
+        movieId: Int,
+        networkModuleImpl: NetworkModuleImpl
+    ): MovieCastsResponse
 
-    class Base : MainDataRepository {
+    class Base : MainMoviesRepository {
 
         override suspend fun loadMoviesApi(networkModule: NetworkModuleImpl): MoviePopular =
             withContext(Dispatchers.IO) {
@@ -34,6 +39,14 @@ interface MainDataRepository {
         override suspend fun loadConfigurationFromApi(networkModuleImpl: NetworkModuleImpl): ImagesResponse =
             withContext(Dispatchers.IO) {
                 networkModuleImpl.getConfigurationData().images
+            }
+
+        override suspend fun getActorsDataFromApi(
+            movieId: Int,
+            networkModuleImpl: NetworkModuleImpl
+        ): MovieCastsResponse =
+            withContext(Dispatchers.IO) {
+                networkModuleImpl.getCastsActorsData(id = movieId)
             }
     }
 }

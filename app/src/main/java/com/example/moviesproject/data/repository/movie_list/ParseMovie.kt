@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.repository
+package com.example.moviesproject.data.repository.movie_list
 
 import com.example.moviesproject.data.respones.GenreResponse
 import com.example.moviesproject.data.respones.ImagesResponse
