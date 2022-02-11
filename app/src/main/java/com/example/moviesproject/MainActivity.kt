@@ -2,7 +2,7 @@ package com.example.moviesproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
+import com.example.moviesproject.data.remote.NetworkModuleImpl
 import com.example.moviesproject.data.repository.ActorDetailsRepositoryImpl
 import com.example.moviesproject.data.repository.MovieDetailsDataRepositoryImpl
 import com.example.moviesproject.data.repository.movie_details.MainMovieDetailsRepository
@@ -24,18 +24,15 @@ import com.example.moviesproject.presentation.movie_list.OnItemClickListner
 class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
     RepositoryProvider, ActorDetailsClicker {
 
-    private val movieRepository =
-        MovieRepositoryImpl(
-            this,
-            ParseMovie.Base(),
-            MainMoviesRepository.Base(),
-            NetworkModuleImpl()
-        )
+    private val movieRepository = MovieRepositoryImpl(
+        this, ParseMovie.Base(), MainMoviesRepository.Base(), NetworkModuleImpl()
+    )
+
     private val movieDetailsDataRepository = MovieDetailsDataRepositoryImpl(
-        this, MainMoviesRepository.Base(), ParseMovieDetails.Base(),
-        NetworkModuleImpl(),
+        this, MainMoviesRepository.Base(), ParseMovieDetails.Base(), NetworkModuleImpl(),
         MainMovieDetailsRepository.Base(MainMoviesRepository.Base())
     )
+
     private val actorDetailsRepository = ActorDetailsRepositoryImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
             .add(
                 R.id.container,
                 AvengersDownFragment.newInstance(movie.id)
-                    .apply { setListner(this@MainActivity) }
             )
             .addToBackStack(null)
             .commit()
@@ -64,8 +60,9 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
 
     override fun moveToActorDetails() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.container,
-                ActorDetailsFragment().newInstance().apply { setListner(this@MainActivity) }
+            .add(
+                R.id.container,
+                ActorDetailsFragment().newInstance()
             )
             .addToBackStack(null)
             .commit()
@@ -85,11 +82,10 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
 
     private fun startMovieListFragment() {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container,
+            replace(
+                R.id.container,
                 AvengersTopFragment.newInstance()
-                    .apply {
-                        setListner(this@MainActivity)
-                    })
+            )
             commit()
         }
     }
@@ -97,6 +93,4 @@ class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
     override fun moveToBackStack() {
         supportFragmentManager.popBackStack()
     }
-
-
 }

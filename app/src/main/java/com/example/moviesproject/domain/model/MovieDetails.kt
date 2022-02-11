@@ -1,7 +1,7 @@
 package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.respones.ActorResponse
-import com.example.moviesproject.data.respones.GenreResponse
+import com.example.moviesproject.data.remote.respones.ActorResponse
+import com.example.moviesproject.data.remote.respones.GenreResponse
 
 data class MovieDetails(
     val id: Int,

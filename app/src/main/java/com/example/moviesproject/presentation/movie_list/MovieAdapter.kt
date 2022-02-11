@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.moviesproject.R
 import com.example.moviesproject.domain.model.Movie
+import com.example.moviesproject.presentation.movie_list.support.StarsColor
 
-class MovieAdapter(private val onItemListner: (movie: Movie) -> Unit) :
+class MovieAdapter(private val onItemListener: (movie: Movie) -> Unit) :
     ListAdapter<Movie, MovieDataViewHolder>(MovieListCallBack()) {
 
 
@@ -19,7 +20,7 @@ class MovieAdapter(private val onItemListner: (movie: Movie) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: MovieDataViewHolder, position: Int) {
-        holder.onBind(getItem(position), onItemListner)
+        holder.onBind(getItem(position), onItemListener, StarsColor.Base())
     }
 
 

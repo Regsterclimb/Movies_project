@@ -13,14 +13,11 @@ class MovieDetailsViewModel(
 ) : ViewModel() {
 
     private val _mutableMovieInfo = MutableLiveData<MovieDetails>()
+    val movieDetails: LiveData<MovieDetails> = _mutableMovieInfo
 
-    val movieDetails : LiveData<MovieDetails> = _mutableMovieInfo
-
-    fun loadMovieDetail(id: Int){
+    fun loadMovieDetail(id: Int) {
         viewModelScope.launch {
             _mutableMovieInfo.postValue(repository.loadMovie(id))
         }
-
     }
-
 }

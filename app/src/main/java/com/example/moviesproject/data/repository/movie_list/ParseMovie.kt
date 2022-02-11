@@ -1,8 +1,8 @@
 package com.example.moviesproject.data.repository.movie_list
 
-import com.example.moviesproject.data.respones.GenreResponse
-import com.example.moviesproject.data.respones.ImagesResponse
-import com.example.moviesproject.data.respones.MovieResponse
+import com.example.moviesproject.data.remote.respones.GenreResponse
+import com.example.moviesproject.data.remote.respones.ImagesResponse
+import com.example.moviesproject.data.remote.respones.MovieResponse
 import com.example.moviesproject.domain.model.Movie
 
 interface ParseMovie {

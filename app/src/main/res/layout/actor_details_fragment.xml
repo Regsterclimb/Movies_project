@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/main_actor_image_fragment"
+            android:id="@+id/posterImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
@@ -35,10 +35,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/mask"
-            app:layout_constraintBottom_toBottomOf="@+id/main_actor_image_fragment"
-            app:layout_constraintEnd_toEndOf="@+id/main_actor_image_fragment"
-            app:layout_constraintStart_toStartOf="@id/main_actor_image_fragment"
-            app:layout_constraintTop_toTopOf="@id/main_actor_image_fragment" />
+            app:layout_constraintBottom_toBottomOf="@+id/posterImage"
+            app:layout_constraintEnd_toEndOf="@+id/posterImage"
+            app:layout_constraintStart_toStartOf="@id/posterImage"
+            app:layout_constraintTop_toTopOf="@id/posterImage" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
@@ -69,7 +69,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/main_actor_image_fragment" />
+            app:layout_constraintTop_toBottomOf="@id/posterImage" />
 
         <TextView
             android:id="@+id/actor_biography_title_fragment"
@@ -98,7 +98,7 @@
             app:layout_constraintTop_toBottomOf="@+id/actor_biography_title_fragment" />
 
         <Button
-            android:id="@+id/back_arrow"
+            android:id="@+id/backArrow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/transparent"

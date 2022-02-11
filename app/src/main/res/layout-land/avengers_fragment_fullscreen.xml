@@ -13,7 +13,7 @@
 
 
         <ImageView
-            android:id="@+id/main_actor_image_fragment"
+            android:id="@+id/posterImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/todo"
@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/main_actor_image_fragment"
-            app:layout_constraintEnd_toEndOf="@+id/main_actor_image_fragment"
-            app:layout_constraintStart_toStartOf="@id/main_actor_image_fragment"
+            app:layout_constraintBottom_toBottomOf="@+id/posterImage"
+            app:layout_constraintEnd_toEndOf="@+id/posterImage"
+            app:layout_constraintStart_toStartOf="@id/posterImage"
             app:srcCompat="@drawable/mask" />
 
         <TextView
@@ -45,11 +45,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline_half"
             app:layout_constraintStart_toEndOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/main_actor_image_fragment" />
+            app:layout_constraintTop_toBottomOf="@id/posterImage" />
 
 
         <TextView
-            android:id="@+id/tag_num"
+            android:id="@+id/numTag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -112,7 +112,7 @@
             tools:layout_editor_absoluteY="418dp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/overView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -143,7 +143,7 @@
             android:text="@string/cast"
             android:textColor="@color/movie_title_white"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/overView" />
 
 
 
@@ -206,13 +206,13 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/backArrow"
             app:layout_constraintStart_toEndOf="@id/guideline_start"
             app:layout_constraintTop_toTopOf="@id/guid_back_arrow"
             app:srcCompat="@drawable/ic_back_arrow" />
 
         <Button
-            android:id="@+id/back_arrow"
+            android:id="@+id/backArrow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

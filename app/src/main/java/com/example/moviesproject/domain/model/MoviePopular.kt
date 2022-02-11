@@ -1,7 +1,7 @@
 package com.example.moviesproject.domain.model
 
-import com.example.moviesproject.data.respones.MoviePopularResponse
-import com.example.moviesproject.data.respones.MovieResponse
+import com.example.moviesproject.data.remote.respones.MoviePopularResponse
+import com.example.moviesproject.data.remote.respones.MovieResponse
 
 data class MoviePopular(
     val page: Int,

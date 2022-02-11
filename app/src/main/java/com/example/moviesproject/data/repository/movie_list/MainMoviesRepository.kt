@@ -1,9 +1,9 @@
 package com.example.moviesproject.data.repository.movie_list
 
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
-import com.example.moviesproject.data.respones.GenreResponse
-import com.example.moviesproject.data.respones.ImagesResponse
-import com.example.moviesproject.data.respones.MovieCastsResponse
+import com.example.moviesproject.data.remote.NetworkModuleImpl
+import com.example.moviesproject.data.remote.respones.GenreResponse
+import com.example.moviesproject.data.remote.respones.ImagesResponse
+import com.example.moviesproject.data.remote.respones.MovieCastsResponse
 import com.example.moviesproject.domain.model.MoviePopular
 import com.example.moviesproject.domain.model.toMoviePopular
 import kotlinx.coroutines.Dispatchers

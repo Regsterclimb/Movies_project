@@ -1,10 +1,10 @@
 package com.example.moviesproject.data.repository.movie_details
 
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
+import com.example.moviesproject.data.remote.NetworkModuleImpl
+import com.example.moviesproject.data.remote.respones.ActorResponse
+import com.example.moviesproject.data.remote.respones.ImagesResponse
+import com.example.moviesproject.data.remote.respones.MovieDetailsResponse
 import com.example.moviesproject.data.repository.movie_list.MainMoviesRepository
-import com.example.moviesproject.data.respones.ActorResponse
-import com.example.moviesproject.data.respones.ImagesResponse
-import com.example.moviesproject.data.respones.MovieDetailsResponse
 
 interface MainMovieDetailsRepository {
 

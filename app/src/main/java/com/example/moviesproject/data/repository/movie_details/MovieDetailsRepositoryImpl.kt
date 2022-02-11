@@ -1,7 +1,8 @@
 package com.example.moviesproject.data.repository
 
 import android.content.Context
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
+import android.util.Log
+import com.example.moviesproject.data.remote.NetworkModuleImpl
 import com.example.moviesproject.data.repository.movie_details.MainMovieDetailsRepository
 import com.example.moviesproject.data.repository.movie_details.ParseMovieDetails
 import com.example.moviesproject.data.repository.movie_list.MainMoviesRepository
@@ -17,6 +18,10 @@ internal class MovieDetailsDataRepositoryImpl(
     private val movieDetailsRep: MainMovieDetailsRepository
 ) : MovieDetailsRepository {
 
+    init {
+        Log.d("init", "MovieDetailsData")
+    }
+
     override suspend fun loadMovie(movieId: Int): MovieDetails {
         return parseMovieDetails.parse(
             movieDetailsRep.getMovieDetailsApi(movieId, networkModule),
@@ -28,5 +33,4 @@ internal class MovieDetailsDataRepositoryImpl(
             )
         )
     }
-
 }

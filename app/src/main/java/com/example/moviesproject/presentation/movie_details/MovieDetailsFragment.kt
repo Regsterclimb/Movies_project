@@ -2,58 +2,53 @@ package com.example.moviesproject.presentation.movie_details
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import by.kirich1409.viewbindingdelegate.viewBinding
+import coil.load
 import com.example.moviesproject.R
+import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.hardcodedatalist.RepositoryProvider
+import com.example.moviesproject.presentation.movie_list.support.StarsColor
 
-class AvengersDownFragment : Fragment() {
+class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private val viewModel: MovieDetailsViewModel by viewModels {
         MovieDetailsViewModelFactory(
             (requireActivity() as RepositoryProvider).provideMovieDetailsRepository()
         )
     }
+
+    private val viewBinding by viewBinding(AvengersFragmentFullscreenBinding::bind)
+
     private var listner: Clicker? = null
 
-
     override fun onAttach(context: Context) {
-        super.onAttach(context)
-
+        Log.d("CheckContext", "$context")
         if (context is Clicker) {
             listner = context
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.avengers_fragment_fullscreen, container, false)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<RecyclerView>(R.id.recycler_actor).apply {
-            this.adapter = ActorAdapter { (listner?.moveToActorDetails()) }
+            this.adapter = ActorAdapter {
+                listner?.moveToActorDetails()
+            }
         }
-
         viewModel.loadMovieDetail(requireArguments().getInt(ARG_MOVIE_ID))
-
-        viewModel.movieDetails.observe(this.viewLifecycleOwner, { bindUi(it, view) })
-
+        viewModel.movieDetails.observe(this.viewLifecycleOwner) {
+            bindUi(it, view)
+        }
     }
 
     override fun onDetach() {
@@ -61,58 +56,37 @@ class AvengersDownFragment : Fragment() {
         listner = null
     }
 
-    private fun getMovieInfo(movie: MovieDetails) {
-        view?.let {
-            Glide.with(it)
-                .load(movie.posterImageUrlPath)
-                .into(it.findViewById(R.id.main_actor_image_fragment))
-        }
-
-        view?.findViewById<TextView>(R.id.movieTitle)?.text = movie.title
-        view?.findViewById<TextView>(R.id.tag_num)?.text = movie.pgAge
-        view?.findViewById<TextView>(R.id.tags)?.text =
-            movie.genreResponses.joinToString(", ", "", "") { it.name }
-        view?.findViewById<TextView>(R.id.reviews)?.text = movie.voteCount.toString()
-        view?.findViewById<TextView>(R.id.textView6)?.text = movie.overview
-
-        val stars = listOf<ImageView?>(
-            view?.findViewById(R.id.star1),
-            view?.findViewById(R.id.star2),
-            view?.findViewById(R.id.star3),
-            view?.findViewById(R.id.star4),
-            view?.findViewById(R.id.star5)
-        )
-        stars.forEachIndexed { index, imageView ->
-            if (index <= movie.voteAverage) {
-                imageView?.setImageResource(R.drawable.ic_star_icon)
-
-            } else {
-                imageView?.setImageResource(R.drawable.star_icon_gray)
-            }
-
+    private fun getMovieInfo(movie: MovieDetails, starsColor: StarsColor) {
+        with(viewBinding) {
+            posterImage.load(movie.posterImageUrlPath)
+            movieTitle.text = movie.title
+            numTag.text = movie.pgAge
+            tags.text = movie.genreResponses.joinToString(", ", "", "") { it.name }
+            reviews.text = movie.voteCount.toString()
+            overView.text = movie.overview
+            starsColor.setColor(
+                listOf(
+                    viewBinding.star1,
+                    viewBinding.star2,
+                    viewBinding.star3,
+                    viewBinding.star4,
+                    viewBinding.star5,
+                ), movie.voteAverage
+            )
         }
     }
 
     private fun bindUi(movie: MovieDetails, view: View) {
-        getMovieInfo(movie)
-        setUpListners(view)
-
+        getMovieInfo(movie, StarsColor.Base())
+        setUpListeners(view)
         val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
         adapter.submitList(movie.actorResponseList)
-
     }
 
-    fun setListner(l: Clicker) { // ClickListner Setter
-        listner = l
-    }
-
-    private fun setUpListners(view: View) {
-        view.findViewById<Button>(R.id.back_arrow)
-            .apply {
-                setOnClickListener {
-                    listner?.backToMovieList()
-                }
-            }
+    private fun setUpListeners(view: View) {
+        view.findViewById<Button>(R.id.backArrow).setOnClickListener {
+            listner?.backToMovieList()
+        }
     }
 
     companion object {

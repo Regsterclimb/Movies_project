@@ -1,6 +1,7 @@
 package com.example.moviesproject.data.repository
 
 import android.content.Context
+import android.util.Log
 
 interface ActorDetailsRepository {
     suspend fun loadActorDetails()
@@ -13,7 +14,9 @@ internal class ActorDetailsRepositoryImpl(private val context: Context) : ActorD
     //maybeparse it
     //future add list of popular movie with this actor
 
-
+    init {
+        Log.d("init", "ActorsDetailsRep")
+    }
 
     override suspend fun loadActorDetails() {
         TODO("Not yet implemented")

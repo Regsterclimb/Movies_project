@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.respones
+package com.example.moviesproject.data.remote.respones
 
 import com.example.moviesproject.domain.model.ActorDetails
 import kotlinx.serialization.SerialName

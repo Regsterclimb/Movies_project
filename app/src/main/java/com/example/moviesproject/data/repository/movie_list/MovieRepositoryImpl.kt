@@ -2,7 +2,7 @@ package com.example.moviesproject.data.repository.movie_list
 
 import android.content.Context
 import android.util.Log
-import com.example.moviesproject.data.remote.NetworkModule.NetworkModuleImpl
+import com.example.moviesproject.data.remote.NetworkModuleImpl
 import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.domain.use_cases.MovieRepository
 import kotlinx.coroutines.Dispatchers

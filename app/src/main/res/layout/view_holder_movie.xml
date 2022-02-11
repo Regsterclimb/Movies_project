@@ -55,7 +55,7 @@
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_star_icon"
+        android:src="@drawable/ic_star_icon"
         app:tint="@color/tag_color_red"
         app:layout_constraintStart_toStartOf="@id/guideline_frag_start"
         app:layout_constraintBottom_toBottomOf="@id/listImage">
@@ -67,7 +67,7 @@
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_star_icon"
+        android:src="@drawable/ic_star_icon"
         app:layout_constraintStart_toEndOf="@id/listStar1"
         app:tint="@color/tag_color_red"
         app:layout_constraintBottom_toBottomOf="@id/listImage">
@@ -79,7 +79,7 @@
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_star_icon"
+        android:src="@drawable/ic_star_icon"
         app:layout_constraintStart_toEndOf="@id/listStar2"
         app:tint="@color/tag_color_red"
         app:layout_constraintBottom_toBottomOf="@id/listImage">
@@ -91,7 +91,7 @@
         android:layout_width="0dp"
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_star_icon"
+        android:src="@drawable/ic_star_icon"
         app:layout_constraintStart_toEndOf="@id/listStar3"
         app:tint="@color/tag_color_red"
         app:layout_constraintBottom_toBottomOf="@id/listImage">
@@ -104,7 +104,7 @@
         android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="112dp"
-        tools:src="@drawable/ic_star_icon"
+        android:src="@drawable/ic_star_icon"
         app:layout_constraintStart_toEndOf="@id/listStar4"
         app:tint="@color/tag_color_red"
         app:layout_constraintBottom_toBottomOf="@id/listImage">
