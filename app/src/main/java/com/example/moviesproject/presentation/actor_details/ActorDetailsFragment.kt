@@ -49,10 +49,6 @@ class ActorDetailsFragment : Fragment(R.layout.actor_details_fragment) {
         view.findViewById<TextView>(R.id.actor_biography_fragment)
 
     }
-
-    fun setListener(l: ActorDetailsClicker) {
-        listner = l
-    }
 }
 
 interface ActorDetailsClicker {

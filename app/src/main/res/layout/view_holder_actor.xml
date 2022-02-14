@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/avatar_actor"
+        android:id="@+id/actorAvatar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
@@ -21,16 +21,16 @@
         tools:src="@drawable/robert" />
 
     <TextView
-        android:id="@+id/actor_name"
+        android:id="@+id/actorName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/first_image"
         android:textColor="@color/movie_title_white"
         tools:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/avatar_actor"
-        app:layout_constraintEnd_toEndOf="@id/avatar_actor"
-        app:layout_constraintTop_toBottomOf="@+id/avatar_actor" />
+        app:layout_constraintStart_toStartOf="@+id/actorAvatar"
+        app:layout_constraintEnd_toEndOf="@id/actorAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/actorAvatar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

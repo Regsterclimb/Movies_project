@@ -21,11 +21,11 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
 
     private val viewBinding by viewBinding(MovieListFragmentBinding::bind)
 
-    private var listener: OnItemClickListner? = null
+    private var listener: OnItemClickListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnItemClickListner) {
+        if (context is OnItemClickListener) {
             listener = context
         }
     }
@@ -39,7 +39,8 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
         }
         viewModel.loadMovieToLiveData()
         viewModel.liveDataMovieList.observe(this.viewLifecycleOwner) {
-            val adapter = view.findViewById<RecyclerView>(R.id.movie_recycler)?.adapter as MovieAdapter
+            val adapter =
+                view.findViewById<RecyclerView>(R.id.movie_recycler)?.adapter as MovieAdapter
             adapter.submitList(it)
         }
     }
@@ -48,15 +49,12 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
         listener = null
         super.onDetach()
     }
-    fun setListner(clicker: OnItemClickListner?) {
-        listener = clicker
-    }
 
     companion object {
         fun newInstance(): AvengersTopFragment = AvengersTopFragment()
     }
 }
 
-interface OnItemClickListner {
+interface OnItemClickListener {
     fun clickOnMovieCart(movie: Movie)
 }

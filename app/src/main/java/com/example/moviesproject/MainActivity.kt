@@ -19,9 +19,9 @@ import com.example.moviesproject.presentation.actor_details.ActorDetailsFragment
 import com.example.moviesproject.presentation.movie_details.AvengersDownFragment
 import com.example.moviesproject.presentation.movie_details.Clicker
 import com.example.moviesproject.presentation.movie_list.AvengersTopFragment
-import com.example.moviesproject.presentation.movie_list.OnItemClickListner
+import com.example.moviesproject.presentation.movie_list.OnItemClickListener
 
-class MainActivity : AppCompatActivity(), OnItemClickListner, Clicker,
+class MainActivity : AppCompatActivity(), OnItemClickListener, Clicker,
     RepositoryProvider, ActorDetailsClicker {
 
     private val movieRepository = MovieRepositoryImpl(

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviesproject.domain.use_cases.MovieRepository
 
-@Suppress("UNCHECKED_CAST")
 class MovieListViewModelFactory(
     private val repository: MovieRepository
 ) : ViewModelProvider.Factory {
