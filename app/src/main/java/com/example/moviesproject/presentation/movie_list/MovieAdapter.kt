@@ -5,13 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.moviesproject.R
 import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.presentation.movie_list.support.StarsColor
+import com.example.moviesproject.R
 
 class MovieAdapter(private val onItemListener: (movie: Movie) -> Unit) :
     ListAdapter<Movie, MovieDataViewHolder>(MovieListCallBack()) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieDataViewHolder {
         val view: View =
@@ -22,8 +21,6 @@ class MovieAdapter(private val onItemListener: (movie: Movie) -> Unit) :
     override fun onBindViewHolder(holder: MovieDataViewHolder, position: Int) {
         holder.onBind(getItem(position), onItemListener, StarsColor.Base())
     }
-
-
 }
 
 class MovieListCallBack : DiffUtil.ItemCallback<Movie>() {
@@ -35,5 +32,4 @@ class MovieListCallBack : DiffUtil.ItemCallback<Movie>() {
     override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem == newItem
     }
-
 }

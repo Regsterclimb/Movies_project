@@ -4,31 +4,33 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.moviesproject.data.remote.respones.GenreResponse
+import com.example.moviesproject.domain.model.Movie
 
-@Entity(tableName = MovieDb.MovieDbArticle.tableName)
-data class MovieDb(
+@Entity(tableName = MovieEntity.MovieDbArticle.tableName)
+data class MovieEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @ColumnInfo(name = MovieDbArticle.Column.id)
+    var id: Int,
     @ColumnInfo(name = MovieDbArticle.Column.title)
-    val title: String,
+    var title: String,
     @ColumnInfo(name = MovieDbArticle.Column.storyLine)
-    val storyLine: String,
+    var storyLine: String,
     @ColumnInfo(name = MovieDbArticle.Column.imageUrl)
-    val imageUrl: String,
+    var imageUrl: String,
     @ColumnInfo(name = MovieDbArticle.Column.detailImageUrl)
-    val detailImageUrl: String,
+    var detailImageUrl: String,
     @ColumnInfo(name = MovieDbArticle.Column.rating)
-    val rating: Int,
+    var rating: Int,
     @ColumnInfo(name = MovieDbArticle.Column.reviewCount)
-    val reviewCount: Int,
+    var reviewCount: Int,
     @ColumnInfo(name = MovieDbArticle.Column.pgAge)
-    val pgAge: Int,
+    var pgAge: Int,
     @ColumnInfo(name = MovieDbArticle.Column.releaseDate)
-    val releaseDate: String,
+    var releaseDate: String,
     @ColumnInfo(name = MovieDbArticle.Column.genreResponses)
-    val genreResponses: List<GenreResponse>,
+    var genreResponses: List<GenreResponse>,
     @ColumnInfo(name = MovieDbArticle.Column.isLiked)
-    val isLiked: Boolean
+    var isLiked: Boolean
 ) {
     object MovieDbArticle {
         const val tableName = "movies_storage"
@@ -48,3 +50,17 @@ data class MovieDb(
         }
     }
 }
+
+fun MovieEntity.toMovie(): Movie = Movie(
+    id,
+    title,
+    storyLine,
+    imageUrl,
+    detailImageUrl,
+    rating,
+    reviewCount,
+    pgAge,
+    releaseDate,
+    genreResponses,
+    isLiked
+)

@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviesproject.data.repository.MovieDetailsDataRepositoryImpl
 import com.example.moviesproject.domain.model.MovieDetails
-import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
-    private val repository: MovieDetailsRepository
+    private val repository: MovieDetailsDataRepositoryImpl
 ) : ViewModel() {
 
     private val _mutableMovieInfo = MutableLiveData<MovieDetails>()

@@ -10,13 +10,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.MovieListFragmentBinding
 import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.hardcodedatalist.RepositoryProvider
 
 
 class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
+    private val adapter get() = viewBinding.movieRecycler.adapter as MovieAdapter
 
     private val viewModel: MovieListViewModel by viewModels {
-        MovieListViewModelFactory((requireActivity() as RepositoryProvider).provideMovieRepository())
+        MovieListViewModelFactory(appContext = requireContext().applicationContext)
     }
 
     private val viewBinding by viewBinding(MovieListFragmentBinding::bind)
@@ -32,16 +32,14 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<RecyclerView>(R.id.movie_recycler).apply {
+        view.findViewById<RecyclerView>(R.id.movieRecycler).apply {
             this.adapter = MovieAdapter {
                 listener?.clickOnMovieCart(it)
             }
         }
         viewModel.loadMovieToLiveData()
         viewModel.liveDataMovieList.observe(this.viewLifecycleOwner) {
-            val adapter =
-                view.findViewById<RecyclerView>(R.id.movie_recycler)?.adapter as MovieAdapter
-            adapter.submitList(it)
+            (adapter).submitList(it)
         }
     }
 

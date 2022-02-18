@@ -4,9 +4,9 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import com.example.moviesproject.databinding.ViewHolderMovieBinding
 import com.example.moviesproject.domain.model.Movie
 import com.example.moviesproject.presentation.movie_list.support.StarsColor
+import com.example.moviesproject.databinding.ViewHolderMovieBinding
 
 class MovieDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

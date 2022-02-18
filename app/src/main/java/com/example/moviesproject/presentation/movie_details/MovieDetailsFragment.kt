@@ -9,18 +9,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
+import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.presentation.movie_list.support.StarsColor
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
-import com.example.moviesproject.domain.model.MovieDetails
-import com.example.moviesproject.hardcodedatalist.RepositoryProvider
-import com.example.moviesproject.presentation.movie_list.support.StarsColor
 
 class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private val viewModel: MovieDetailsViewModel by viewModels {
-        MovieDetailsViewModelFactory(
-            (requireActivity() as RepositoryProvider).provideMovieDetailsRepository()
-        )
+        MovieDetailsViewModelFactory(applicationContext = requireContext().applicationContext)
     }
 
     private val viewBinding by viewBinding(AvengersFragmentFullscreenBinding::bind)

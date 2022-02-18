@@ -3,20 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.moviesproject">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
+        android:name="com.example.moviesproject.App"
         android:allowBackup="true"
+        android:exported="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:exported="true"
         android:theme="@style/Theme.MoviesProject"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name="com.example.moviesproject.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

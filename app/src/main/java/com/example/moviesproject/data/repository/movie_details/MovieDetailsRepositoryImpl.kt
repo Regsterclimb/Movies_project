@@ -10,7 +10,7 @@ import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
 
 
-internal class MovieDetailsDataRepositoryImpl(
+class MovieDetailsDataRepositoryImpl(
     private val context: Context,
     private val mainMoviesRep: MainMoviesRepository,
     private val parseMovieDetails: ParseMovieDetails,
