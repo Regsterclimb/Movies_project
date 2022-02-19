@@ -6,33 +6,33 @@ import androidx.room.PrimaryKey
 import com.example.moviesproject.data.remote.respones.GenreResponse
 import com.example.moviesproject.domain.model.Movie
 
-@Entity(tableName = MovieEntity.MovieDbArticle.tableName)
+@Entity(tableName = MovieEntity.MovieDb.tableName)
 data class MovieEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = MovieDbArticle.Column.id)
+    @ColumnInfo(name = MovieDb.Column.id)
     var id: Int,
-    @ColumnInfo(name = MovieDbArticle.Column.title)
+    @ColumnInfo(name = MovieDb.Column.title)
     var title: String,
-    @ColumnInfo(name = MovieDbArticle.Column.storyLine)
+    @ColumnInfo(name = MovieDb.Column.storyLine)
     var storyLine: String,
-    @ColumnInfo(name = MovieDbArticle.Column.imageUrl)
+    @ColumnInfo(name = MovieDb.Column.imageUrl)
     var imageUrl: String,
-    @ColumnInfo(name = MovieDbArticle.Column.detailImageUrl)
+    @ColumnInfo(name = MovieDb.Column.detailImageUrl)
     var detailImageUrl: String,
-    @ColumnInfo(name = MovieDbArticle.Column.rating)
+    @ColumnInfo(name = MovieDb.Column.rating)
     var rating: Int,
-    @ColumnInfo(name = MovieDbArticle.Column.reviewCount)
+    @ColumnInfo(name = MovieDb.Column.reviewCount)
     var reviewCount: Int,
-    @ColumnInfo(name = MovieDbArticle.Column.pgAge)
+    @ColumnInfo(name = MovieDb.Column.pgAge)
     var pgAge: Int,
-    @ColumnInfo(name = MovieDbArticle.Column.releaseDate)
+    @ColumnInfo(name = MovieDb.Column.releaseDate)
     var releaseDate: String,
-    @ColumnInfo(name = MovieDbArticle.Column.genreResponses)
+    @ColumnInfo(name = MovieDb.Column.genreResponses)
     var genreResponses: List<GenreResponse>,
-    @ColumnInfo(name = MovieDbArticle.Column.isLiked)
+    @ColumnInfo(name = MovieDb.Column.isLiked)
     var isLiked: Boolean
 ) {
-    object MovieDbArticle {
+    object MovieDb {
         const val tableName = "movies_storage"
 
         object Column {

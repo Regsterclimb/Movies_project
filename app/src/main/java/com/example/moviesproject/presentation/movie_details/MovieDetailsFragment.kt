@@ -57,7 +57,7 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
             numTag.text = movie.pgAge
             tags.text = movie.genreResponses.joinToString(", ", "", "") { it.name }
             reviews.text = movie.voteCount.toString()
-            overView.text = movie.overview
+            overView.text = movie.storyLine
             starsColor.setColor(
                 listOf(
                     viewBinding.star1,

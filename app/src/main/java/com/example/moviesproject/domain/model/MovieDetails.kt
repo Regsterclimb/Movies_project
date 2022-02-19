@@ -11,11 +11,11 @@ data class MovieDetails(
     val genreResponses: List<GenreResponse>,
     val voteCount: Int,
     val budget: Int,
-    val overview: String,
+    val storyLine: String,
     val runtime: Int,
     val posterImageUrlPath: String,
     val releaseDate: String,
-    val voteAverage: Int,
+    val rating: Int,
     val tagline: String,
     val actorResponseList: List<ActorResponse>,
     val pgAge: String

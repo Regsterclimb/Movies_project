@@ -19,7 +19,7 @@ abstract class DataBase : RoomDatabase() {
 
     companion object {
         fun create(appContext: Context): DataBase = Room.databaseBuilder(
-            appContext, DataBase::class.java, MovieEntity.MovieDbArticle.tableName
+            appContext, DataBase::class.java, MovieEntity.MovieDb.tableName
         ).allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .build()

@@ -28,7 +28,7 @@ interface ParseMovieDetails {
                 genreResponses = movieDetailsResponse.genreResponses, // List<Genre>
                 voteCount = movieDetailsResponse.voteCount, // double "8.2"
                 budget = movieDetailsResponse.budget, // Int
-                overview = movieDetailsResponse.overview,
+                storyLine = movieDetailsResponse.overview,
                 runtime = movieDetailsResponse.runtime,
                 posterImageUrlPath = imagesResponse.baseUrl + imagesResponse.posterSizes[4] + movieDetailsResponse.posterImageUrlPath,
                 releaseDate = movieDetailsResponse.releaseDate,
