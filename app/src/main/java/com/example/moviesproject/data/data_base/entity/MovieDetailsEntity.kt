@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.moviesproject.data.remote.respones.ActorResponse
 import com.example.moviesproject.data.remote.respones.GenreResponse
+import com.example.moviesproject.domain.model.MovieDetails
 
 @Entity(tableName = MovieDetailsEntity.MovieDetailsDb.tableName)
 data class MovieDetailsEntity(
@@ -62,3 +63,22 @@ data class MovieDetailsEntity(
         }
     }
 }
+
+fun MovieDetailsEntity.toMovieDetails(): MovieDetails = MovieDetails(
+    id,
+    title,
+    detailImageUrl,
+    revenue,
+    genreResponses,
+    reviewCount,
+    budget,
+    storyLine,
+    runtime,
+    imageUrl,
+    releaseDate,
+    rating,
+    tagLine,
+    actorResponseList,
+    pgAge
+)
+

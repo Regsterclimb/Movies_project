@@ -9,10 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import com.example.moviesproject.domain.model.MovieDetails
-import com.example.moviesproject.presentation.movie_list.support.StarsColor
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
+import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.presentation.movie_list.support.StarsColor
 
 class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
@@ -52,11 +52,11 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private fun getMovieInfo(movie: MovieDetails, starsColor: StarsColor) {
         with(viewBinding) {
-            posterImage.load(movie.posterImageUrlPath)
+            posterImage.load(movie.imageUrl)
             movieTitle.text = movie.title
             numTag.text = movie.pgAge
             tags.text = movie.genreResponses.joinToString(", ", "", "") { it.name }
-            reviews.text = movie.voteCount.toString()
+            reviews.text = movie.reviewCount.toString()
             overView.text = movie.storyLine
             starsColor.setColor(
                 listOf(
@@ -65,7 +65,7 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
                     viewBinding.star3,
                     viewBinding.star4,
                     viewBinding.star5,
-                ), movie.voteAverage
+                ), movie.rating
             )
             backArrow.setOnClickListener {
                 listner?.backToMovieList()

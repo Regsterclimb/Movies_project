@@ -14,13 +14,9 @@ interface MainMoviesRepository {
     suspend fun loadMoviesApi(networkModule: NetworkModuleImpl): MoviePopular
     suspend fun loadGenresApi(networkModuleImpl: NetworkModuleImpl): List<GenreResponse>
     suspend fun loadConfigurationFromApi(networkModuleImpl: NetworkModuleImpl): ImagesResponse
-    suspend fun getActorsDataFromApi(
-        movieId: Int,
-        networkModuleImpl: NetworkModuleImpl
-    ): MovieCastsResponse
+    suspend fun getActorsDataFromApi(movieId: Int, networkModuleImpl: NetworkModuleImpl): MovieCastsResponse
 
     class Base : MainMoviesRepository {
-
         override suspend fun loadMoviesApi(networkModule: NetworkModuleImpl): MoviePopular =
             withContext(Dispatchers.IO) {
                 networkModule.getMoviePopularData().toMoviePopular()

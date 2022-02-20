@@ -11,7 +11,6 @@ import com.example.moviesproject.domain.use_cases.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-// context
 class MovieRepositoryImpl(
     appContext: Context,
     private val parseMovie: ParseMovie,
