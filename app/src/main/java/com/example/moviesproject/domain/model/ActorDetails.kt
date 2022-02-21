@@ -10,4 +10,4 @@ data class ActorDetails(
     val deathDay: String? = null,
     val placeOfBirth: String,
     val name: String,
-    )
+)

@@ -2,11 +2,9 @@ package com.example.moviesproject.data.repository.movie_list
 
 import android.content.Context
 import android.util.Log
-import com.example.moviesproject.data.data_base.extentions.toMovie
+import com.example.moviesproject.data.data_base.extentions.toMovieData
 import com.example.moviesproject.data.data_base.movies.DataBase
-import com.example.moviesproject.data.remote.NetworkModuleImpl
-import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.domain.model.toMovieEntity
+import com.example.moviesproject.domain.extentions.toMovieEntity
 import com.example.moviesproject.domain.use_cases.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,7 +13,7 @@ class MovieRepositoryImpl(
     appContext: Context,
     private val parseMovie: ParseMovie,
     private val mainMoviesRepository: MainMoviesRepository,
-    private val networkModule: NetworkModuleImpl
+    private val movieList: MoviesList
 ) : MovieRepository {
 
     private var dataBase = DataBase.create(appContext).moviesDao()
@@ -24,12 +22,12 @@ class MovieRepositoryImpl(
         Log.d("init", "MovieRepositoryImpl")
     }
 
-    override suspend fun loadMoviesList(): List<Movie> = withContext(Dispatchers.IO) {
+    override suspend fun getMoviesList(): List<MovieData> = withContext(Dispatchers.IO) {
         dataBase.getAllMovies().map { movieEntity ->
-            movieEntity.toMovie()
+            movieEntity.toMovieData()
         }
             .ifEmpty {
-                val list = loadMovieList()
+                val list = movieList.load(mainMoviesRepository, parseMovie)
                 dataBase.insertAllMovies(
                     list.map { movie ->
                         movie.toMovieEntity()
@@ -38,10 +36,4 @@ class MovieRepositoryImpl(
                 list
             }
     }
-
-    private suspend fun loadMovieList(): List<Movie> = parseMovie.parse(
-        mainMoviesRepository.loadMoviesApi(networkModule).results,
-        mainMoviesRepository.loadGenresApi(networkModule),
-        mainMoviesRepository.loadConfigurationFromApi(networkModule)
-    )
 }

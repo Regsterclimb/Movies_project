@@ -12,6 +12,4 @@ class ActorDetailsVIewModel(
     private val _mutableActorInfo = MutableLiveData<ActorDetails>()
 
     val actorDetails: LiveData<ActorDetails> = _mutableActorInfo
-
-
 }

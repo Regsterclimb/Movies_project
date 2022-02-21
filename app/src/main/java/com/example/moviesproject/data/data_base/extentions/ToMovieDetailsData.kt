@@ -1,9 +1,9 @@
 package com.example.moviesproject.data.data_base.extentions
 
 import com.example.moviesproject.data.data_base.entity.MovieDetailsEntity
-import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.data.repository.movie_details.MovieDetailsData
 
-fun MovieDetailsEntity.toMovieDetails(): MovieDetails = MovieDetails(
+fun MovieDetailsEntity.toMovieDetailsData(): MovieDetailsData = MovieDetailsData(
     id,
     title,
     detailImageUrl,

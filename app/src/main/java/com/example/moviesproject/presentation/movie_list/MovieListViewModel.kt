@@ -21,7 +21,7 @@ class MovieListViewModel(
 
     fun loadMovieToLiveData() {
         viewModelScope.launch {
-            _mutableMovieList.postValue(repository.loadMoviesList())
+            _mutableMovieList.postValue(repository.getMoviesList())
         }
     }
 }

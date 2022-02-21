@@ -7,22 +7,27 @@ import com.example.moviesproject.data.repository.movie_details.MovieDetailsDataR
 import com.example.moviesproject.data.repository.movie_details.ParseMovieDetails
 import com.example.moviesproject.data.repository.movie_list.MainMoviesRepository
 import com.example.moviesproject.data.repository.movie_list.MovieRepositoryImpl
+import com.example.moviesproject.data.repository.movie_list.MoviesList
 import com.example.moviesproject.data.repository.movie_list.ParseMovie
 
 class App : Application() {
     val repository by lazy {
         MovieRepositoryImpl(
-            this, ParseMovie.Base(), MainMoviesRepository.Base(), NetworkModuleImpl()
+            this,
+            ParseMovie.Base(),
+            MainMoviesRepository.Base(NetworkModuleImpl()),
+            MoviesList.Base()
         )
     }
+
     val repositoryDetails by lazy {
         MovieDetailsDataRepositoryImpl(
             this,
-            MainMoviesRepository.Base(),
+            MainMoviesRepository.Base(NetworkModuleImpl()),
             ParseMovieDetails.Base(),
-            NetworkModuleImpl(),
             MainMovieDetailsRepository.Base(
-                MainMoviesRepository.Base()
+                MainMoviesRepository.Base(NetworkModuleImpl()),
+                NetworkModuleImpl()
             )
         )
     }

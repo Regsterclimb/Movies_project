@@ -3,7 +3,6 @@ package com.example.moviesproject.data.repository.movie_list
 import com.example.moviesproject.data.remote.respones.GenreResponse
 import com.example.moviesproject.data.remote.respones.ImagesResponse
 import com.example.moviesproject.data.remote.respones.MovieResponse
-import com.example.moviesproject.domain.model.Movie
 
 interface ParseMovie {
 
@@ -11,7 +10,7 @@ interface ParseMovie {
         dataListResultMovieResponse: List<MovieResponse>,
         genreResponseData: List<GenreResponse>,
         imagesResponse: ImagesResponse
-    ): List<Movie>
+    ): List<MovieData>
 
     class Base : ParseMovie {
 
@@ -19,8 +18,8 @@ interface ParseMovie {
             dataListResultMovieResponse: List<MovieResponse>,
             genreResponseData: List<GenreResponse>,
             imagesResponse: ImagesResponse
-        ): List<Movie> = dataListResultMovieResponse.map { jsonMovie ->
-            Movie(
+        ): List<MovieData> = dataListResultMovieResponse.map { jsonMovie ->
+            MovieData(
                 jsonMovie.id,
                 jsonMovie.title,
                 jsonMovie.storyLine,

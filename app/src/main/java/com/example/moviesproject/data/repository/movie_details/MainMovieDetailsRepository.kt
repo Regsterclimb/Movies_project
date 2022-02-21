@@ -8,33 +8,23 @@ import com.example.moviesproject.data.repository.movie_list.MainMoviesRepository
 
 interface MainMovieDetailsRepository {
 
-    suspend fun getMovieDetailsApi(
-        movieId: Int,
-        networkModuleImpl: NetworkModuleImpl
-    ): MovieDetailsResponse
+    suspend fun getMovieDetailsApi(movieId: Int): MovieDetailsResponse
 
-    suspend fun parseActorsData(
-        movieId: Int,
-        imagesResponse: ImagesResponse,
-        networkModuleImpl: NetworkModuleImpl
-    ): List<ActorResponse>
+    suspend fun parseActorsData(movieId: Int, imagesResponse: ImagesResponse): List<ActorResponse>
 
-    class Base(private val mainMoviesRepository: MainMoviesRepository) :
+    class Base(private val mainMoviesRepository: MainMoviesRepository,
+               private val networkModule: NetworkModuleImpl
+    ) :
         MainMovieDetailsRepository {
 
         override suspend fun getMovieDetailsApi(
-            movieId: Int,
-            networkModuleImpl: NetworkModuleImpl
-        ): MovieDetailsResponse = networkModuleImpl.getMovieDetailData(movieId)
+            movieId: Int): MovieDetailsResponse = networkModule.getMovieDetailData(movieId)
 
         override suspend fun parseActorsData(
             movieId: Int,
-            imagesResponse: ImagesResponse,
-            networkModuleImpl: NetworkModuleImpl
-        ): List<ActorResponse> =
+            imagesResponse: ImagesResponse): List<ActorResponse> =
             mainMoviesRepository.getActorsDataFromApi(
-                movieId,
-                networkModuleImpl
+                movieId
             ).response.map { castActor ->
                 ActorResponse(
                     id = castActor.id,

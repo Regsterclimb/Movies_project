@@ -3,7 +3,6 @@ package com.example.moviesproject.data.repository.movie_details
 import com.example.moviesproject.data.remote.respones.ActorResponse
 import com.example.moviesproject.data.remote.respones.ImagesResponse
 import com.example.moviesproject.data.remote.respones.MovieDetailsResponse
-import com.example.moviesproject.domain.model.MovieDetails
 
 interface ParseMovieDetails {
 
@@ -11,7 +10,7 @@ interface ParseMovieDetails {
         movieDetailsResponse: MovieDetailsResponse,
         imagesResponse: ImagesResponse,
         listOfActorResponse: List<ActorResponse>
-    ): MovieDetails
+    ): MovieDetailsData
 
     class Base : ParseMovieDetails {
 
@@ -19,8 +18,8 @@ interface ParseMovieDetails {
             movieDetailsResponse: MovieDetailsResponse,
             imagesResponse: ImagesResponse,
             listOfActorResponse: List<ActorResponse>
-        ): MovieDetails {
-            return MovieDetails(
+        ): MovieDetailsData {
+            return MovieDetailsData(
                 id = movieDetailsResponse.id, //  id : Int
                 title = movieDetailsResponse.title, // Main title : String
                 detailImageUrl = imagesResponse.baseUrl + imagesResponse.backdropSizes[3] + movieDetailsResponse.backdropImageUrlPath,

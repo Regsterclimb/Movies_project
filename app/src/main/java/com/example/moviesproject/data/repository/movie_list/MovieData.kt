@@ -1,9 +1,8 @@
-package com.example.moviesproject.domain.model
+package com.example.moviesproject.data.repository.movie_list
 
 import com.example.moviesproject.data.remote.respones.GenreResponse
 
-
-data class Movie(
+data class MovieData(
     val id: Int,
     val title: String,
     val storyLine: String,
@@ -16,5 +15,3 @@ data class Movie(
     val genreResponses: List<GenreResponse>,
     val isLiked: Boolean
 )
-
-

@@ -1,9 +1,9 @@
-package com.example.moviesproject.domain.model
+package com.example.moviesproject.data.repository.movie_details
 
 import com.example.moviesproject.data.remote.respones.ActorResponse
 import com.example.moviesproject.data.remote.respones.GenreResponse
 
-data class MovieDetails(
+data class MovieDetailsData(
     val id: Int,
     val title: String,
     val detailImageUrl: String,
