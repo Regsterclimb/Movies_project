@@ -14,7 +14,10 @@ interface MainMoviesRepository {
     suspend fun loadMoviesApi(networkModule: NetworkModuleImpl): MoviePopular
     suspend fun loadGenresApi(networkModuleImpl: NetworkModuleImpl): List<GenreResponse>
     suspend fun loadConfigurationFromApi(networkModuleImpl: NetworkModuleImpl): ImagesResponse
-    suspend fun getActorsDataFromApi(movieId: Int, networkModuleImpl: NetworkModuleImpl): MovieCastsResponse
+    suspend fun getActorsDataFromApi(
+        movieId: Int,
+        networkModuleImpl: NetworkModuleImpl
+    ): MovieCastsResponse
 
     class Base : MainMoviesRepository {
         override suspend fun loadMoviesApi(networkModule: NetworkModuleImpl): MoviePopular =
@@ -24,12 +27,7 @@ interface MainMoviesRepository {
 
         override suspend fun loadGenresApi(networkModuleImpl: NetworkModuleImpl): List<GenreResponse> =
             withContext(Dispatchers.IO) {
-                networkModuleImpl.getGenresData().genreResponses.map { genresItem ->
-                    GenreResponse(
-                        id = genresItem.id,
-                        name = genresItem.name
-                    )
-                }
+                networkModuleImpl.getGenresData().genreResponses
             }
 
         override suspend fun loadConfigurationFromApi(networkModuleImpl: NetworkModuleImpl): ImagesResponse =

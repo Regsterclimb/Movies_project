@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.data_base
+package com.example.moviesproject.data.data_base.movies
 
 import android.content.Context
 import android.util.Log
@@ -6,11 +6,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.moviesproject.data.data_base.Converters
 import com.example.moviesproject.data.data_base.entity.MovieEntity
-import kotlinx.serialization.ExperimentalSerializationApi
 
 
-@ExperimentalSerializationApi
 @Database(entities = [MovieEntity::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class DataBase : RoomDatabase() {

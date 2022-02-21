@@ -18,7 +18,6 @@ class ActorDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         with(viewBinding) {
             actorAvatar.load(actorResponse.imageUrl)
             actorName.text = actorResponse.name
-
         }
         itemView.setOnClickListener {
             clickOnItemListener(actorResponse)

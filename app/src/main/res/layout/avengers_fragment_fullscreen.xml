@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/orig" />
+            tools:srcCompat="@drawable/orig" />
 
         <ImageView
             android:id="@+id/image_gradient"
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:text="@string/avengers_end_game"
+            tools:text="@string/avengers_end_game"
             android:textColor="@color/movie_title_white"
             android:textSize="@dimen/movie_title_size"
             android:textStyle="bold"
@@ -53,10 +53,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="@string/tag"
+            tools:text="@string/tag"
             android:textAlignment="center"
             android:textColor="@color/white"
-
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/movieTitle"
             app:layout_constraintStart_toStartOf="@+id/guideline_start" />
@@ -86,7 +85,7 @@
             android:id="@+id/tags"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/tags"
+            tools:text="@string/tags"
             android:textColor="@color/tag_color_red"
             app:layout_constraintEnd_toStartOf="@+id/guideline_half"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"
@@ -97,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="@string/reviews_number"
+            tools:text="@string/reviews_number"
             android:textColor="@color/review_gray"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/guideline_half"
@@ -108,8 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tags"
-            tools:layout_editor_absoluteY="418dp" />
+            app:constraint_referenced_ids="tags" />
 
         <TextView
             android:id="@+id/overView"
@@ -117,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:padding="4dp"
-            android:text="@string/storyline_value"
+            tools:text="@string/storyline_value"
             android:textAlignment="textStart"
             android:textColor="@color/white_gray"
             app:layout_constraintEnd_toStartOf="@+id/guideline_end"

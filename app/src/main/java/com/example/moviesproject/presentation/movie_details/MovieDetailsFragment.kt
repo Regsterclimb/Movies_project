@@ -13,6 +13,7 @@ import com.example.moviesproject.R
 import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.presentation.movie_list.support.StarsColor
+import kotlinx.serialization.ExperimentalSerializationApi
 
 class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 

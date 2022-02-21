@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.data_base
+package com.example.moviesproject.data.data_base.movie_details
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -37,7 +37,6 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
                 listener?.clickOnMovieCart(it)
             }
         }
-        viewModel.loadMovieToLiveData()
         viewModel.liveDataMovieList.observe(this.viewLifecycleOwner) {
             (adapter).submitList(it)
         }

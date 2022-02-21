@@ -1,20 +1,16 @@
-package com.example.moviesproject.data.repository
+package com.example.moviesproject.data.repository.movie_details
 
 import android.content.Context
 import android.util.Log
-import com.example.moviesproject.data.data_base.DetailsDataBase
-import com.example.moviesproject.data.data_base.entity.toMovieDetails
+import com.example.moviesproject.data.data_base.extentions.toMovieDetails
+import com.example.moviesproject.data.data_base.movie_details.DetailsDataBase
 import com.example.moviesproject.data.remote.NetworkModuleImpl
-import com.example.moviesproject.data.repository.movie_details.MainMovieDetailsRepository
-import com.example.moviesproject.data.repository.movie_details.ParseMovieDetails
 import com.example.moviesproject.data.repository.movie_list.MainMoviesRepository
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.model.toMovieEntity
 import com.example.moviesproject.domain.use_cases.MovieDetailsRepository
-import kotlinx.serialization.ExperimentalSerializationApi
 
 
-@ExperimentalSerializationApi
 class MovieDetailsDataRepositoryImpl(
     context: Context,
     private val mainMoviesRep: MainMoviesRepository,
@@ -29,7 +25,7 @@ class MovieDetailsDataRepositoryImpl(
         Log.d("init", "MovieDetailsData")
     }
 
-    override suspend fun loadMovie(movieId: Int): MovieDetails =
+    override suspend fun loadMovieDetails(movieId: Int): MovieDetails = // TODO()
         if (detailsBase.getMovieDetails(movieId) != null) {
             detailsBase.getMovieDetails(movieId)!!.toMovieDetails()
         } else {

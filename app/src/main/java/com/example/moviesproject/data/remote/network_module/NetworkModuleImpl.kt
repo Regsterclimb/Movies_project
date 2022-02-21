@@ -5,7 +5,6 @@ import com.example.moviesproject.data.remote.network_module.MoviesApi
 import com.example.moviesproject.data.remote.network_module.NetworkModuleResponses
 import com.example.moviesproject.data.remote.respones.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -29,12 +28,11 @@ class NetworkModuleImpl : NetworkModuleResponses {
         private val httpClient = OkHttpClient().newBuilder()
             .addInterceptor(
                 HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY) // simple interceptor for logs
+                    .setLevel(HttpLoggingInterceptor.Level.BODY)
             )
             .build()
 
-        @ExperimentalSerializationApi
-        private val retrofit: Retrofit = Retrofit.Builder()
+        private val retrofit = Retrofit.Builder()
             .client(httpClient)
             .baseUrl(BASE_URL)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))

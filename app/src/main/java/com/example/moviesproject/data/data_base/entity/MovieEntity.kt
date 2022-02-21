@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.moviesproject.data.remote.respones.GenreResponse
-import com.example.moviesproject.domain.model.Movie
 
 @Entity(tableName = MovieEntity.MovieDb.tableName)
 data class MovieEntity(
@@ -50,17 +49,3 @@ data class MovieEntity(
         }
     }
 }
-
-fun MovieEntity.toMovie(): Movie = Movie(
-    id,
-    title,
-    storyLine,
-    imageUrl,
-    detailImageUrl,
-    rating,
-    reviewCount,
-    pgAge,
-    releaseDate,
-    genreResponses,
-    isLiked
-)

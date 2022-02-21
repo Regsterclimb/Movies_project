@@ -9,15 +9,19 @@ import com.example.moviesproject.domain.use_cases.MovieRepository
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
-    private val repository : MovieRepository
-) :ViewModel() {
+    private val repository: MovieRepository
+) : ViewModel() {
 
     private var _mutableMovieList = MutableLiveData<List<Movie>>()
-    val liveDataMovieList : LiveData<List<Movie>> = _mutableMovieList
+    val liveDataMovieList: LiveData<List<Movie>> = _mutableMovieList
+
+    init {
+        loadMovieToLiveData()
+    }
 
     fun loadMovieToLiveData() {
         viewModelScope.launch {
-            _mutableMovieList.postValue(repository.loadMovies())
+            _mutableMovieList.postValue(repository.loadMoviesList())
         }
     }
 }
