@@ -19,7 +19,6 @@ class MovieDataRepositoryImpl(
     private var dataBase = DataBase.create(appContext).moviesDao()
 
 
-
     override suspend fun getMoviesDataList(): List<MovieData> = withContext(Dispatchers.IO) {
         dataBase.getAllMovies().map { movieEntity ->
             movieEntity.toMovieData()
@@ -35,9 +34,14 @@ class MovieDataRepositoryImpl(
             }
     }
 
+    override suspend fun getRefreshedList(): List<MovieData> = withContext(Dispatchers.IO) {
+        movieDataList.load(mainDataMoviesRepository, parseMovieData)
+    }
+
     init {
         Log.d("initStart", "MovieDataRepositoryImpl")
     }
+
     protected fun finalize() {
         Log.d("initStart", "MovieDataRepositoryImpl finalize")
     }

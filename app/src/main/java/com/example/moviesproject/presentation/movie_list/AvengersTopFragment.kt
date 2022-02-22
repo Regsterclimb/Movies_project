@@ -1,15 +1,17 @@
 package com.example.moviesproject.presentation.movie_list
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.MovieListFragmentBinding
 import com.example.moviesproject.domain.model.Movie
+import com.example.moviesproject.domain.use_cases.MoviesListUseCase
 
 
 class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
@@ -30,15 +32,33 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<RecyclerView>(R.id.movieRecycler).apply {
+        viewBinding.movieRecycler.apply {
             this.adapter = MovieAdapter {
                 listener?.clickOnMovieCart(it)
             }
         }
-        viewModel.liveDataMovieList.observe(this.viewLifecycleOwner) {
-            (adapter).submitList(it)
+        viewBinding.swipeRefreshLayout.apply { setOnRefreshListener {
+            viewModel.loadFreshMovieToLiveData()
+            adapter.notifyDataSetChanged() }
+        }
+        viewModel.isLoading.observe(this.viewLifecycleOwner) {
+            with(viewBinding) {
+                progressBar.isVisible = it
+                movieRecycler.isVisible = !it
+                swipeRefreshLayout.isRefreshing = it
+            }
+        }
+        viewModel.mutableListResult.observe(this.viewLifecycleOwner) {
+            when (it) {
+                is MoviesListUseCase.Result.Success -> adapter.submitList(it.movieList)
+                is MoviesListUseCase.Result.Error -> viewBinding.errorMessage.apply {
+                    isVisible = true
+                    text = it.error
+                }
+            }
         }
     }
 

@@ -13,6 +13,11 @@ class MovieRepositoryImpl(
             movieData.toMovie()
         }
 
+    override suspend fun loadFreshMovieList(): List<Movie> =
+        movieDataRepository.getRefreshedList().map { movieData ->
+            movieData.toMovie()
+        }
+
     init {
         Log.d("initStart", "MovieRepositoryImpl")
     }

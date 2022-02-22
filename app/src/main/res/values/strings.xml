@@ -22,4 +22,5 @@
     <string name="actor_birthday_fragment">birthday: 1963-12-18</string>
     <string name="actor_birthplace_fragment">place_of_birth: Shawnee, Oklahoma, USA</string>
     <string name="actor_genres_fragment">Genres: Acting</string>
+    <string name="movies_list">Movies list</string>
 </resources>
