@@ -11,7 +11,7 @@ class MovieListViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when (modelClass) {
             MovieListViewModel::class.java -> {
-                MovieListViewModel(repository = (appContext as App).repository)
+                MovieListViewModel(useCase = (appContext as App).movieDataUseCase)
             }
             else -> throw IllegalStateException("som wrong modelClass")
         }

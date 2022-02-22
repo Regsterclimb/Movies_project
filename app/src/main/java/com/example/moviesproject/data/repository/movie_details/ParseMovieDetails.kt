@@ -20,20 +20,20 @@ interface ParseMovieDetails {
             listOfActorResponse: List<ActorResponse>
         ): MovieDetailsData {
             return MovieDetailsData(
-                id = movieDetailsResponse.id, //  id : Int
-                title = movieDetailsResponse.title, // Main title : String
+                movieDetailsResponse.id,
+                movieDetailsResponse.title,
                 detailImageUrl = imagesResponse.baseUrl + imagesResponse.backdropSizes[3] + movieDetailsResponse.backdropImageUrlPath,
-                revenue = movieDetailsResponse.revenue, //
-                genreResponses = movieDetailsResponse.genreResponses, // List<Genre>
-                reviewCount = movieDetailsResponse.voteCount, // double "8.2"
-                budget = movieDetailsResponse.budget, // Int
-                storyLine = movieDetailsResponse.overview,
-                runtime = movieDetailsResponse.runtime,
+                movieDetailsResponse.revenue,
+                movieDetailsResponse.genreResponses,
+                movieDetailsResponse.voteCount,
+                movieDetailsResponse.budget,
+                movieDetailsResponse.overview,
+                movieDetailsResponse.runtime,
                 imageUrl = imagesResponse.baseUrl + imagesResponse.posterSizes[4] + movieDetailsResponse.posterImageUrlPath,
-                releaseDate = movieDetailsResponse.releaseDate,
+                movieDetailsResponse.releaseDate,
                 rating = (movieDetailsResponse.voteAverage / 2).toInt(),
                 tagLine = movieDetailsResponse.tagline,
-                actorResponseList = listOfActorResponse, // Warning wrong Url
+                actorResponseList = listOfActorResponse,
                 pgAge = if (movieDetailsResponse.adult) "13" else "16"
             )
         }

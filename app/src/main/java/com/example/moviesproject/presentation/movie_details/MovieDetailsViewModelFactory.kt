@@ -12,7 +12,7 @@ class MovieDetailsViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when (modelClass) {
             MovieDetailsViewModel::class.java -> MovieDetailsViewModel(
-                repository = (applicationContext as App).repositoryDetails
+                movieDetailsUseCase = (applicationContext as App).movieDetailsUseCase
             )
             else -> throw IllegalStateException("Something wrong with MovieDetailsViewModel")
         }

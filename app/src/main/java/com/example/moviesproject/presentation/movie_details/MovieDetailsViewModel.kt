@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviesproject.data.repository.movie_details.MovieDetailsDataRepositoryImpl
 import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
-    private val repository: MovieDetailsDataRepositoryImpl
+    private val movieDetailsUseCase: MovieDetailsUseCase
 ) : ViewModel() {
 
     private val _mutableMovieInfo = MutableLiveData<MovieDetails>()
@@ -17,7 +17,7 @@ class MovieDetailsViewModel(
 
     fun loadMovieDetail(id: Int) {
         viewModelScope.launch {
-            _mutableMovieInfo.postValue(repository.loadMovieDetails(id))
+            _mutableMovieInfo.postValue(movieDetailsUseCase.loadMovie(id))
         }
     }
 }

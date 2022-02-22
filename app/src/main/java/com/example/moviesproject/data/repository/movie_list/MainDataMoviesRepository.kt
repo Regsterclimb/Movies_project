@@ -9,14 +9,14 @@ import com.example.moviesproject.domain.model.MoviePopular
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-interface MainMoviesRepository {
+interface MainDataMoviesRepository {
 
     suspend fun loadMoviesApi(): MoviePopular
     suspend fun loadGenresApi(): List<GenreResponse>
     suspend fun loadConfigurationApi(): ImagesResponse
     suspend fun getActorsDataFromApi(movieId: Int): MovieCastsResponse
 
-    class Base(private val networkModule: NetworkModuleImpl) : MainMoviesRepository {
+    class Base(private val networkModule: NetworkModuleImpl) : MainDataMoviesRepository {
         override suspend fun loadMoviesApi(): MoviePopular = withContext(Dispatchers.IO) {
             networkModule.getMoviePopularData().toMoviePopular()
         }

@@ -4,7 +4,7 @@ import com.example.moviesproject.data.remote.respones.GenreResponse
 import com.example.moviesproject.data.remote.respones.ImagesResponse
 import com.example.moviesproject.data.remote.respones.MovieResponse
 
-interface ParseMovie {
+interface ParseMovieData {
 
     fun parse(
         dataListResultMovieResponse: List<MovieResponse>,
@@ -12,7 +12,7 @@ interface ParseMovie {
         imagesResponse: ImagesResponse
     ): List<MovieData>
 
-    class Base : ParseMovie {
+    class Base : ParseMovieData {
 
         override fun parse(
             dataListResultMovieResponse: List<MovieResponse>,

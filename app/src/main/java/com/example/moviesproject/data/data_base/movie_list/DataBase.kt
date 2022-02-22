@@ -1,4 +1,4 @@
-package com.example.moviesproject.data.data_base.movies
+package com.example.moviesproject.data.data_base.movie_list
 
 import android.content.Context
 import android.util.Log
