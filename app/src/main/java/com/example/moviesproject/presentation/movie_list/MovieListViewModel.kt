@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesproject.domain.use_cases.MoviesListUseCase
+import com.example.moviesproject.domain.use_cases.MoviesListUseCase.ListResult
+import com.example.moviesproject.domain.use_cases.MoviesListUseCase.ListResult.Error
+import com.example.moviesproject.domain.use_cases.MoviesListUseCase.ListResult.Success
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
@@ -14,25 +17,15 @@ class MovieListViewModel(
     private var _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private var _mutableListResult = MutableLiveData<MoviesListUseCase.Result>()
+    private var _mutableListResult = MutableLiveData<ListResult>()
     val mutableListResult get() = _mutableListResult
 
     init {
-        loadMovieToLiveData()
-    }
-
-    fun loadMovieToLiveData() {
         viewModelScope.launch {
             _isLoading.value = true
-            when (useCase.getListResult()) {
-                is MoviesListUseCase.Result.Success -> {
-                    _mutableListResult.value =
-                        MoviesListUseCase.Result.Success((useCase.getListResult() as MoviesListUseCase.Result.Success).movieList)
-                }
-                is MoviesListUseCase.Result.Error -> {
-                    _mutableListResult.value =
-                        MoviesListUseCase.Result.Error((useCase.getListResult() as MoviesListUseCase.Result.Error).error)
-                }
+            when (val result = useCase.getListResult()) {
+                is Success -> _mutableListResult.value = Success(result.movieList)
+                is Error -> _mutableListResult.value = Error(result.error)
             }
             _isLoading.value = false
         }
@@ -41,15 +34,9 @@ class MovieListViewModel(
     fun loadFreshMovieToLiveData() {
         viewModelScope.launch {
             _isLoading.value = true
-            when (useCase.getFreshListResult()) {
-                is MoviesListUseCase.Result.Success -> {
-                    _mutableListResult.value =
-                        MoviesListUseCase.Result.Success((useCase.getListResult() as MoviesListUseCase.Result.Success).movieList)
-                }
-                is MoviesListUseCase.Result.Error -> {
-                    _mutableListResult.value =
-                        MoviesListUseCase.Result.Error((useCase.getListResult() as MoviesListUseCase.Result.Error).error)
-                }
+            when (val result = useCase.getFreshListResult()) {
+                is Success -> _mutableListResult.value = Success(result.movieList)
+                is Error -> _mutableListResult.value = Error(result.error)
             }
             _isLoading.value = false
         }

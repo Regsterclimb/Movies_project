@@ -12,8 +12,8 @@ import coil.load
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
 import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase
 import com.example.moviesproject.presentation.movie_list.support.StarsColor
-import kotlinx.serialization.ExperimentalSerializationApi
 
 class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
@@ -35,14 +35,22 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<RecyclerView>(R.id.recycler_actor).apply {
+        viewBinding.recyclerActor.apply {
             this.adapter = ActorAdapter {
                 listner?.moveToActorDetails()
             }
         }
-        viewModel.loadMovieDetail(requireArguments().getInt(ARG_MOVIE_ID))
-        viewModel.movieDetails.observe(this.viewLifecycleOwner) {
-            bindUi(it, view)
+        viewModel.isLoading.observe(this.viewLifecycleOwner) {
+            
+        }
+        viewModel.loadMovieDetails(requireArguments().getInt(ARG_MOVIE_ID))
+        viewModel.mutableDetailsResult.observe(this.viewLifecycleOwner) {
+            when (it) {
+                is MovieDetailsUseCase.DetailsResult.Success -> {
+                    bindUi(it.movieDetails, view)
+                }
+                is MovieDetailsUseCase.DetailsResult.Error -> {}
+            }
         }
     }
 
@@ -76,7 +84,7 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private fun bindUi(movie: MovieDetails, view: View) {
         getMovieInfo(movie, StarsColor.Base())
-        val adapter = view.findViewById<RecyclerView>(R.id.recycler_actor).adapter as ActorAdapter
+        val adapter = view.findViewById<RecyclerView>(R.id.recyclerActor).adapter as ActorAdapter
         adapter.submitList(movie.actorResponseList)
     }
 

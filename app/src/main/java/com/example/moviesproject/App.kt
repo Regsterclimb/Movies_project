@@ -11,7 +11,9 @@ import com.example.moviesproject.data.repository.movie_list.MoviesDataList
 import com.example.moviesproject.data.repository.movie_list.ParseMovieData
 import com.example.moviesproject.domain.repository.movie_details.MovieDetailsRepositoryImpl
 import com.example.moviesproject.domain.repository.movie_list.MovieRepositoryImpl
+import com.example.moviesproject.domain.use_cases.MovieDetailsCatch
 import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase
+import com.example.moviesproject.domain.use_cases.MovieListCatch
 import com.example.moviesproject.domain.use_cases.MoviesListUseCase
 
 class App : Application() {
@@ -25,7 +27,8 @@ class App : Application() {
                     MainDataMoviesRepository.Base(NetworkModuleImpl()),
                     MoviesDataList.Base()
                 )
-            )
+            ),
+            MovieListCatch.Base()
         )
     }
 
@@ -41,7 +44,8 @@ class App : Application() {
                         NetworkModuleImpl()
                     )
                 )
-            )
+            ),
+            MovieDetailsCatch.Base()
         )
     }
 }

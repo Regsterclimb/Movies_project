@@ -4,8 +4,18 @@ import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.repository.movie_details.MovieDetailsRepository
 
 class MovieDetailsUseCase(
-    private val movieDetailsRepository: MovieDetailsRepository
+    private val movieDetailsRepository: MovieDetailsRepository,
+    private val movieDetailsCatch: MovieDetailsCatch
 ) {
-    suspend fun loadMovie(movieId: Int): MovieDetails =
-        movieDetailsRepository.loadMovieDetails(movieId)
+
+    sealed class DetailsResult {
+        data class Success(val movieDetails: MovieDetails) : DetailsResult()
+        data class Error(val error: String) : DetailsResult()
+    }
+
+    suspend fun getDetailsResult(movieId: Int): DetailsResult =
+        movieDetailsCatch.execute(movieDetailsRepository.loadMovieDetails(movieId))
+
+    suspend fun getFreshDetailsResult(movieId: Int): DetailsResult =
+        movieDetailsCatch.execute((movieDetailsRepository.loadMovieDetails(movieId)))
 }

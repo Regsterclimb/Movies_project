@@ -8,11 +8,12 @@ import com.example.moviesproject.App
 class MovieDetailsViewModelFactory(
     private val applicationContext: Context
 ) : ViewModelProvider.Factory {
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when (modelClass) {
             MovieDetailsViewModel::class.java -> MovieDetailsViewModel(
-                movieDetailsUseCase = (applicationContext as App).movieDetailsUseCase
+                useCase = (applicationContext as App).movieDetailsUseCase
             )
             else -> throw IllegalStateException("Something wrong with MovieDetailsViewModel")
         }

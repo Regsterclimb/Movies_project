@@ -11,7 +11,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.MovieListFragmentBinding
 import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.domain.use_cases.MoviesListUseCase
+import com.example.moviesproject.domain.use_cases.MoviesListUseCase.ListResult.Error
+import com.example.moviesproject.domain.use_cases.MoviesListUseCase.ListResult.Success
 
 
 class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
@@ -53,8 +54,8 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
         }
         viewModel.mutableListResult.observe(this.viewLifecycleOwner) {
             when (it) {
-                is MoviesListUseCase.Result.Success -> adapter.submitList(it.movieList)
-                is MoviesListUseCase.Result.Error -> viewBinding.errorMessage.apply {
+                is Success -> adapter.submitList(it.movieList)
+                is Error -> viewBinding.errorMessage.apply {
                     isVisible = true
                     text = it.error
                 }

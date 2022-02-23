@@ -12,13 +12,13 @@ interface StarsColor {
 
     class Base : StarsColor {
 
-        override fun setColor(list: List<ImageView>, voteAverage: Int) {
+        override fun setColor(list: List<ImageView>, movie: Int) {
             return list.forEachIndexed { index, imageView ->
                 ImageViewCompat.setImageTintList(
                     imageView, ColorStateList.valueOf(
                         ContextCompat.getColor(
                             imageView.context,
-                            if (voteAverage > index) R.color.tag_color_red else R.color.gray_gray
+                            if (movie > index) R.color.tag_color_red else R.color.gray_gray
                         )
                     )
                 )

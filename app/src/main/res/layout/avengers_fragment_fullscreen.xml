@@ -230,7 +230,7 @@
             app:layout_constraintGuide_begin="56dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_actor"
+            android:id="@+id/recyclerActor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
