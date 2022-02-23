@@ -3,8 +3,6 @@ package com.example.moviesproject.presentation.actor_details
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.moviesproject.R
@@ -28,7 +26,6 @@ class ActorDetailsFragment : Fragment(R.layout.actor_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViews(view)
         viewBinding.backArrow.setOnClickListener {
             listner?.moveToBackStack()
         }
@@ -37,17 +34,6 @@ class ActorDetailsFragment : Fragment(R.layout.actor_details_fragment) {
     override fun onDetach() {
         listner = null
         super.onDetach()
-    }
-
-    private fun setViews(view: View) {
-        view.findViewById<ImageView>(R.id.posterImage)
-        view.findViewById<TextView>(R.id.actor_name_fragment)
-        view.findViewById<TextView>(R.id.actor_birthday_fragment)
-        view.findViewById<TextView>(R.id.actor_birthday_place_fragment)
-        view.findViewById<TextView>(R.id.actor_genres_fragment)
-        view.findViewById<TextView>(R.id.actor_biography_title_fragment)
-        view.findViewById<TextView>(R.id.actor_biography_fragment)
-
     }
 }
 

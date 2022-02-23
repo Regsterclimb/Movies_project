@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.moviesproject.data.remote.NetworkModuleImpl
 import com.example.moviesproject.data.repository.movie_details.MainMovieDetailsDataRepository
 import com.example.moviesproject.data.repository.movie_details.MovieDetailsDataRepositoryImpl
+import com.example.moviesproject.data.repository.movie_details.MoviesDetailsLoad
 import com.example.moviesproject.data.repository.movie_details.ParseMovieDetails
 import com.example.moviesproject.data.repository.movie_list.MainDataMoviesRepository
 import com.example.moviesproject.data.repository.movie_list.MovieDataRepositoryImpl
@@ -23,9 +24,12 @@ class App : Application() {
             MovieRepositoryImpl(
                 MovieDataRepositoryImpl(
                     this,
-                    ParseMovieData.Base(),
-                    MainDataMoviesRepository.Base(NetworkModuleImpl()),
-                    MoviesDataList.Base()
+                    MoviesDataList.Base(
+                        MainDataMoviesRepository.Base(
+                            NetworkModuleImpl()
+                        ),
+                        ParseMovieData.Base()
+                    )
                 )
             ),
             MovieListCatch.Base()
@@ -37,11 +41,13 @@ class App : Application() {
             MovieDetailsRepositoryImpl(
                 MovieDetailsDataRepositoryImpl(
                     this,
-                    MainDataMoviesRepository.Base(NetworkModuleImpl()),
-                    ParseMovieDetails.Base(),
-                    MainMovieDetailsDataRepository.Base(
+                    MoviesDetailsLoad.Base(
                         MainDataMoviesRepository.Base(NetworkModuleImpl()),
-                        NetworkModuleImpl()
+                        ParseMovieDetails.Base(),
+                        MainMovieDetailsDataRepository.Base(
+                            MainDataMoviesRepository.Base(NetworkModuleImpl()),
+                            NetworkModuleImpl()
+                        )
                     )
                 )
             ),

@@ -12,9 +12,11 @@ class MoviesListUseCase(
         data class Error(val error: String) : ListResult()
     }
 
-    suspend fun getListResult(): ListResult = movieListCatch.execute(movieRepository.loadMoviesList())
+    suspend fun getListResult(): ListResult = movieListCatch.execute {
+        movieRepository.loadMoviesList()
+    }
 
-    suspend fun getFreshListResult(): ListResult =
-        movieListCatch.execute(movieRepository.loadFreshMovieList())
-
+    suspend fun getFreshListResult(): ListResult = movieListCatch.execute {
+        movieRepository.loadFreshMovieList()
+    }
 }

@@ -12,7 +12,7 @@ interface ParseMovieData {
         imagesResponse: ImagesResponse
     ): List<MovieData>
 
-    class Base : ParseMovieData {
+    class Base() : ParseMovieData {
 
         override fun parse(
             dataListResultMovieResponse: List<MovieResponse>,

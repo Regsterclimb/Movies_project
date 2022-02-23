@@ -4,4 +4,6 @@ import com.example.moviesproject.domain.model.MovieDetails
 
 interface MovieDetailsRepository {
     suspend fun loadMovieDetails(movieId:Int) : MovieDetails
+
+    suspend fun loadFreshMovieDetails(movieId:Int) : MovieDetails
 }

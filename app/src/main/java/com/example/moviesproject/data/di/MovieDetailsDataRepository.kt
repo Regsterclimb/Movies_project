@@ -4,4 +4,6 @@ import com.example.moviesproject.data.repository.movie_details.MovieDetailsData
 
 interface MovieDetailsDataRepository {
     suspend fun loadMovieDetailsData(movieId: Int): MovieDetailsData
+
+    suspend fun loadFreshDetailsData(movieId: Int):MovieDetailsData
 }

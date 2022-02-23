@@ -18,7 +18,6 @@ class MovieAdapter(private val onItemListener: (movie: Movie) -> Unit) :
 
     override fun onBindViewHolder(holder: MovieDataViewHolder, position: Int) =
         holder.onBind(getItem(position), onItemListener, StarsColor.Base())
-
 }
 
 class MovieListCallBack : DiffUtil.ItemCallback<Movie>() {

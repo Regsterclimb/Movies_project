@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,24 +42,24 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
                 listener?.clickOnMovieCart(it)
             }
         }
-        viewBinding.swipeRefreshLayout.apply { setOnRefreshListener {
-            viewModel.loadFreshMovieToLiveData()
-            adapter.notifyDataSetChanged() }
+        viewBinding.swipeRefreshLayout.apply {
+            setOnRefreshListener {
+                viewModel.loadFreshMovieToLiveData()
+                adapter.notifyDataSetChanged()
+            }
         }
         viewModel.isLoading.observe(this.viewLifecycleOwner) {
             with(viewBinding) {
-                progressBar.isVisible = it
                 movieRecycler.isVisible = !it
                 swipeRefreshLayout.isRefreshing = it
             }
         }
         viewModel.mutableListResult.observe(this.viewLifecycleOwner) {
             when (it) {
-                is Success -> adapter.submitList(it.movieList)
-                is Error -> viewBinding.errorMessage.apply {
-                    isVisible = true
-                    text = it.error
+                is Success -> {
+                    adapter.submitList(it.movieList)
                 }
+                is Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -20,21 +20,21 @@ class MovieDetailsViewModel(
     private var _mutableDetailsResult = MutableLiveData<DetailsResult>()
     val mutableDetailsResult get() = _mutableDetailsResult
 
-    fun loadMovieDetails(id:Int) = viewModelScope.launch {
-            _isLoading.value = true
-            when (val result = useCase.getDetailsResult(id)) {
-                is Success -> _mutableDetailsResult.value =
-                    Success(result.movieDetails)
-                is Error -> _mutableDetailsResult.value =
-                    Error(result.error)
-            }
-            _isLoading.value = false
+    fun loadMovieDetails(id: Int) = viewModelScope.launch {
+        _isLoading.value = true
+        when (val result = useCase.getDetailsResult(id)) {
+            is Success -> _mutableDetailsResult.value =
+                Success(result.movieDetails)
+            is Error -> _mutableDetailsResult.value =
+                Error(result.error)
         }
+        _isLoading.value = false
+    }
 
     fun loadFreshMovieToLiveData(id: Int) {
         viewModelScope.launch {
             _isLoading.value = true
-            when (val result = useCase.getDetailsResult(id)) {
+            when (val result = useCase.getFreshDetailsResult(id)) {
                 is Success -> _mutableDetailsResult.value =
                     Success(result.movieDetails)
                 is Error -> _mutableDetailsResult.value =

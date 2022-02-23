@@ -1,18 +1,21 @@
 package com.example.moviesproject.presentation.movie_details
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.example.moviesproject.R
 import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
 import com.example.moviesproject.domain.model.MovieDetails
-import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase
+import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase.DetailsResult.Error
+import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase.DetailsResult.Success
 import com.example.moviesproject.presentation.movie_list.support.StarsColor
 
 class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
@@ -23,40 +26,49 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private val viewBinding by viewBinding(AvengersFragmentFullscreenBinding::bind)
 
-    private var listner: Clicker? = null
+    private val adapter get() = viewBinding.recyclerActor.adapter as ActorAdapter
+
+    private var listener: Clicker? = null
 
     override fun onAttach(context: Context) {
         if (context is Clicker) {
-            listner = context
+            listener = context
         }
         super.onAttach(context)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewBinding.recyclerActor.apply {
             this.adapter = ActorAdapter {
-                listner?.moveToActorDetails()
+                listener?.moveToActorDetails()
+            }
+        }
+        viewBinding.swipeRefreshLayout.apply {
+            setOnRefreshListener {
+                viewModel.loadFreshMovieToLiveData(requireArguments().getInt(ARG_MOVIE_ID))
+                adapter.notifyDataSetChanged()
             }
         }
         viewModel.isLoading.observe(this.viewLifecycleOwner) {
-            
+            with(viewBinding) {
+                viewGroup.isVisible = !it
+                swipeRefreshLayout.isRefreshing = it
+            }
         }
         viewModel.loadMovieDetails(requireArguments().getInt(ARG_MOVIE_ID))
         viewModel.mutableDetailsResult.observe(this.viewLifecycleOwner) {
             when (it) {
-                is MovieDetailsUseCase.DetailsResult.Success -> {
-                    bindUi(it.movieDetails, view)
-                }
-                is MovieDetailsUseCase.DetailsResult.Error -> {}
+                is Success -> bindUi(it.movieDetails)
+                is Error -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        listner = null
+        listener = null
     }
 
     private fun getMovieInfo(movie: MovieDetails, starsColor: StarsColor) {
@@ -64,7 +76,9 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
             posterImage.load(movie.imageUrl)
             movieTitle.text = movie.title
             numTag.text = movie.pgAge
-            tags.text = movie.genreResponses.joinToString(", ", "", "") { it.name }
+            tags.text = movie.genreResponses.joinToString(", ", "", "") {
+                it.name
+            }
             reviews.text = movie.reviewCount.toString()
             overView.text = movie.storyLine
             starsColor.setColor(
@@ -77,14 +91,13 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
                 ), movie.rating
             )
             backArrow.setOnClickListener {
-                listner?.backToMovieList()
+                listener?.backToMovieList()
             }
         }
     }
 
-    private fun bindUi(movie: MovieDetails, view: View) {
+    private fun bindUi(movie: MovieDetails) {
         getMovieInfo(movie, StarsColor.Base())
-        val adapter = view.findViewById<RecyclerView>(R.id.recyclerActor).adapter as ActorAdapter
         adapter.submitList(movie.actorResponseList)
     }
 
