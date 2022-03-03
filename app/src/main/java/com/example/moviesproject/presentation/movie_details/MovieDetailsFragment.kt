@@ -16,7 +16,7 @@ import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase.DetailsResult.Error
 import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase.DetailsResult.Success
-import com.example.moviesproject.presentation.movie_list.support.StarsColor
+import com.example.moviesproject.presentation.support.StarsColor
 
 class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 

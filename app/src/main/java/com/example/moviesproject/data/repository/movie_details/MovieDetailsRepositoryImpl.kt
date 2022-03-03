@@ -1,29 +1,16 @@
 package com.example.moviesproject.data.repository.movie_details
 
-import android.content.Context
-import com.example.moviesproject.data.data_base.extentions.toMovieDetailsData
-import com.example.moviesproject.data.data_base.movie_details.DetailsDataBase
 import com.example.moviesproject.data.di.MovieDetailsDataRepository
-import com.example.moviesproject.domain.extentions.toMovieDetailsEntity
+import com.example.moviesproject.data.model.MovieDetailsData
+import com.example.moviesproject.domain.repository.movie_details.MovieDetailsRepository
 
+class MovieDetailsRepositoryImpl(
+    private val movieDetailsDataRepository: MovieDetailsDataRepository
+) : MovieDetailsRepository {
 
-class MovieDetailsDataRepositoryImpl(
-    context: Context,
-    private val moviesDetailsLoad: MoviesDetailsLoad
-) : MovieDetailsDataRepository {
+    override suspend fun loadMovieDetails(movieId: Int): MovieDetailsData =
+        movieDetailsDataRepository.loadMovieDetailsData(movieId)
 
-    private val detailsBase = DetailsDataBase.create(context).getMovieDetailsDao()
-
-    override suspend fun loadMovieDetailsData(movieId: Int): MovieDetailsData =
-        if ((detailsBase.getMovieDetails(movieId)) != null) {
-            detailsBase.getMovieDetails(movieId)!!.toMovieDetailsData()
-        } else {
-            val details = loadFreshDetailsData(movieId)
-            detailsBase.insertMovieDetails(details.toMovieDetailsEntity())
-            details
-        }
-
-    override suspend fun loadFreshDetailsData(movieId: Int): MovieDetailsData =
-        moviesDetailsLoad.load(movieId)
-
+    override suspend fun loadFreshMovieDetails(movieId: Int): MovieDetailsData =
+        movieDetailsDataRepository.loadFreshDetailsData(movieId)
 }

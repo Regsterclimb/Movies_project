@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.moviesproject.R
 import com.example.moviesproject.domain.model.Movie
-import com.example.moviesproject.presentation.movie_list.support.StarsColor
+import com.example.moviesproject.presentation.support.StarsColor
 
 class MovieAdapter(private val onItemListener: (movie: Movie) -> Unit) :
     ListAdapter<Movie, MovieDataViewHolder>(MovieListCallBack()) {

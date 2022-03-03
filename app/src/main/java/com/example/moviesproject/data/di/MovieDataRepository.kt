@@ -1,9 +1,9 @@
 package com.example.moviesproject.data.di
 
-import com.example.moviesproject.data.repository.movie_list.MovieData
+import com.example.moviesproject.data.model.MovieData
 
 interface MovieDataRepository {
     suspend fun getMoviesDataList(): List<MovieData>
 
-    suspend fun getRefreshedList(): List<MovieData>
+    suspend fun getFreshMovieDataList(): List<MovieData>
 }

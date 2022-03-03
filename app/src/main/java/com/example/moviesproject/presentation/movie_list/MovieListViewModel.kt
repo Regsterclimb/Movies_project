@@ -18,7 +18,7 @@ class MovieListViewModel(
     val isLoading: LiveData<Boolean> = _isLoading
 
     private var _mutableListResult = MutableLiveData<ListResult>()
-    val mutableListResult get() = _mutableListResult
+    val mutableListResult : LiveData<ListResult> = _mutableListResult
 
     init {
         viewModelScope.launch {

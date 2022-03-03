@@ -1,9 +1,9 @@
-package com.example.moviesproject.domain.extentions
+package com.example.moviesproject.data.storage.extentions
 
 import com.example.moviesproject.data.model.MovieDetailsData
-import com.example.moviesproject.domain.model.MovieDetails
+import com.example.moviesproject.data.storage.entity.MovieDetailsEntity
 
-fun MovieDetailsData.toMovieDetails(): MovieDetails = MovieDetails(
+fun MovieDetailsEntity.toMovieDetailsData(): MovieDetailsData = MovieDetailsData(
     id,
     title,
     detailImageUrl,
