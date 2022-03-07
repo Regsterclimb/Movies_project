@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_black">
+    android:background="@color/background_black"
+    tools:context="com.example.moviesproject.presentation.movie_list.AvengersTopFragment">
 
     <TextView
         android:id="@+id/movie_list"

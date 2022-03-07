@@ -9,10 +9,10 @@ interface MovieDetailsApi {
     @GET("movie/{movieId}?api_key=29d669e3884b3c81259c3e02780bcec9&language=en-US)")
     suspend fun loadDataMovieDetailsById(
         @Path("movieId") id: Int
-    ): MovieDetailsResponse // all data details from Api
+    ): MovieDetailsResponse
 
     @GET("movie/{movieId}/credits?api_key=29d669e3884b3c81259c3e02780bcec9&language=en-US")
     suspend fun loadDataMovieCastActorsById(
         @Path("movieId") id: Int
-    ): MovieCastsResponse // actors info (avatar images url, names , characters ...)
+    ): MovieCastsResponse
 }

@@ -8,8 +8,10 @@ fun MovieDetailsData.toMovieDetails(): MovieDetails = MovieDetails(
     title,
     detailImageUrl,
     revenue,
-    genreResponses,
-    reviewCount,
+    genreResponses = genreResponses.joinToString(", ", "", "") {
+        it.name
+    },
+    reviewCount = reviewCount.toString(),
     budget,
     storyLine,
     runtime,

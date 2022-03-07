@@ -7,6 +7,6 @@ import kotlinx.serialization.Serializable
 data class MovieConfigurationResponse(
 	@SerialName("images")
 	val images: ImagesResponse,
-	@SerialName("change_keys") //TODO(check keys)
+	@SerialName("change_keys")
 	val changeKeys: List<String>
 )

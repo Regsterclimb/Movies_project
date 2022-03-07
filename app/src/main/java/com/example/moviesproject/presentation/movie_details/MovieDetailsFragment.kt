@@ -1,14 +1,14 @@
 package com.example.moviesproject.presentation.movie_details
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.example.moviesproject.R
@@ -16,9 +16,10 @@ import com.example.moviesproject.databinding.AvengersFragmentFullscreenBinding
 import com.example.moviesproject.domain.model.MovieDetails
 import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase.DetailsResult.Error
 import com.example.moviesproject.domain.use_cases.MovieDetailsUseCase.DetailsResult.Success
+import com.example.moviesproject.presentation.movie_list.AvengersTopFragment
 import com.example.moviesproject.presentation.support.StarsColor
 
-class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
+class MovieDetailsFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private val viewModel: MovieDetailsViewModel by viewModels {
         MovieDetailsViewModelFactory(applicationContext = requireContext().applicationContext)
@@ -28,26 +29,20 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
     private val adapter get() = viewBinding.recyclerActor.adapter as ActorAdapter
 
-    private var listener: Clicker? = null
-
-    override fun onAttach(context: Context) {
-        if (context is Clicker) {
-            listener = context
-        }
-        super.onAttach(context)
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val movieId = requireArguments().getInt(AvengersTopFragment.MOVIE_ID)
+
         viewBinding.recyclerActor.apply {
             this.adapter = ActorAdapter {
-                listener?.moveToActorDetails()
+                findNavController().navigate(R.id.action_movieDetailsFragment_to_actorDetailsFragment)
             }
         }
         viewBinding.swipeRefreshLayout.apply {
             setOnRefreshListener {
-                viewModel.loadFreshMovieToLiveData(requireArguments().getInt(ARG_MOVIE_ID))
+                viewModel.loadFreshMovieToLiveData(movieId)
                 adapter.notifyDataSetChanged()
             }
         }
@@ -57,7 +52,7 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
                 swipeRefreshLayout.isRefreshing = it
             }
         }
-        viewModel.loadMovieDetails(requireArguments().getInt(ARG_MOVIE_ID))
+        viewModel.loadMovieDetails(movieId)
         viewModel.mutableDetailsResult.observe(this.viewLifecycleOwner) {
             when (it) {
                 is Success -> bindUi(it.movieDetails)
@@ -66,20 +61,13 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    private fun getMovieInfo(movie: MovieDetails, starsColor: StarsColor) {
+    private fun getMovieInfo(movie: MovieDetails, starsColor: StarsColor) =
         with(viewBinding) {
             posterImage.load(movie.imageUrl)
             movieTitle.text = movie.title
             numTag.text = movie.pgAge
-            tags.text = movie.genreResponses.joinToString(", ", "", "") {
-                it.name
-            }
-            reviews.text = movie.reviewCount.toString()
+            tags.text = movie.genreResponses
+            reviews.text = movie.reviewCount
             overView.text = movie.storyLine
             starsColor.setColor(
                 listOf(
@@ -91,28 +79,12 @@ class AvengersDownFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
                 ), movie.rating
             )
             backArrow.setOnClickListener {
-                listener?.backToMovieList()
+                findNavController().popBackStack()
             }
         }
-    }
 
     private fun bindUi(movie: MovieDetails) {
         getMovieInfo(movie, StarsColor.Base())
         adapter.submitList(movie.actorResponseList)
     }
-
-    companion object {
-        private const val ARG_MOVIE_ID = "ARG_MOVIE_ID"
-
-        fun newInstance(movieId: Int): AvengersDownFragment {
-            val fragment = AvengersDownFragment()
-            fragment.arguments = bundleOf(ARG_MOVIE_ID to movieId)
-            return fragment
-        }
-    }
-}
-
-interface Clicker {
-    fun backToMovieList()
-    fun moveToActorDetails()
 }

@@ -1,12 +1,11 @@
-package com.example.moviesproject.data.repository.movie_details
+package com.example.moviesproject.data.storage.repository.movie_details
 
 import android.content.Context
 import com.example.moviesproject.data.di.MovieDetailsDataRepository
 import com.example.moviesproject.data.model.MovieDetailsData
 import com.example.moviesproject.data.storage.extentions.toMovieDetailsData
+import com.example.moviesproject.data.storage.extentions.toMovieDetailsEntity
 import com.example.moviesproject.data.storage.movie_details.DetailsDataBase
-import com.example.moviesproject.data.storage.repository.movie_details.MoviesDetailsLoad
-import com.example.moviesproject.domain.extentions.toMovieDetailsEntity
 
 
 class MovieDetailsDataRepositoryImpl(

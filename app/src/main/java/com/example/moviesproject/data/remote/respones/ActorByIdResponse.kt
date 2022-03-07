@@ -1,6 +1,5 @@
 package com.example.moviesproject.data.remote.respones
 
-import com.example.moviesproject.domain.model.ActorDetails
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,19 +19,3 @@ data class ActorByIdResponse(
     @SerialName("name") val name: String,
     @SerialName("id") val id: Int
 )
-
-fun ActorByIdResponse.toActor(): ActorDetails {
-
-    return ActorDetails(
-        id = id,
-        birthday = birthday,
-        gender = gender,
-        genre = knownForDepartment,
-        posterUrlPath = posterUrlPath,
-        biography = biography,
-        deathDay = deathDay,
-        placeOfBirth = placeOfBirth,
-        name = name
-    )
-
-}

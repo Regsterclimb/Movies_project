@@ -21,7 +21,7 @@ class MovieDataRepositoryImpl(
             movieEntity.toMovieData()
         }
             .ifEmpty {
-                val list = movieDataList.load()
+                val list = getFreshMovieDataList()
                 dataBase.insertAllMovies(
                     list.map { movie ->
                         movie.toMovieEntity()

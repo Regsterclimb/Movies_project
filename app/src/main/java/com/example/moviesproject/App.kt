@@ -2,7 +2,7 @@ package com.example.moviesproject
 
 import android.app.Application
 import com.example.moviesproject.data.remote.network_module.NetworkModule
-import com.example.moviesproject.data.repository.movie_details.MovieDetailsDataRepositoryImpl
+import com.example.moviesproject.data.storage.repository.movie_details.MovieDetailsDataRepositoryImpl
 import com.example.moviesproject.data.repository.movie_details.MovieDetailsRepositoryImpl
 import com.example.moviesproject.data.repository.movie_list.MovieRepositoryImpl
 import com.example.moviesproject.data.storage.repository.movie_details.MainMovieDetailsDataRepository

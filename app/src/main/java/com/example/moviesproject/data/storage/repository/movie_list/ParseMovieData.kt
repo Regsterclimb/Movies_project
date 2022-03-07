@@ -1,10 +1,9 @@
 package com.example.moviesproject.data.storage.repository.movie_list
 
-import android.util.Log
+import com.example.moviesproject.data.model.MovieData
 import com.example.moviesproject.data.remote.respones.GenreResponse
 import com.example.moviesproject.data.remote.respones.ImagesResponse
 import com.example.moviesproject.data.remote.respones.MovieResponse
-import com.example.moviesproject.data.model.MovieData
 
 interface ParseMovieData {
 
@@ -20,35 +19,22 @@ interface ParseMovieData {
             dataListResultMovieResponse: List<MovieResponse>,
             genreResponseData: List<GenreResponse>,
             imagesResponse: ImagesResponse
-        ): List<MovieData> = dataListResultMovieResponse.map { jsonMovie ->
+        ): List<MovieData> = dataListResultMovieResponse.map { movieResponse ->
             MovieData(
-                jsonMovie.id,
-                jsonMovie.title,
-                jsonMovie.storyLine,
-                imageUrl = imagesResponse.baseUrl + imagesResponse.posterSizes[4] + jsonMovie.posterPathUrl,
-                jsonMovie.backdropPathUrl,
-                rating = (jsonMovie.ratings / 2).toInt(),
-                jsonMovie.voteCount,
-                pgAge = if (jsonMovie.adult) 16 else 13,
-                jsonMovie.releaseDate,
-                genreResponses = jsonMovie.genreIds.map { id ->
-                    genreResponseData.associateBy(GenreResponse::id)[id].orThrow {
-                        IllegalArgumentException(
-                            "Genre not found"
-                        )
-                    }
+                movieResponse.id,
+                movieResponse.title,
+                movieResponse.storyLine,
+                imageUrl = imagesResponse.baseUrl + imagesResponse.posterSizes[4] + movieResponse.posterPathUrl,
+                movieResponse.backdropPathUrl,
+                rating = (movieResponse.ratings / 2).toInt(),
+                movieResponse.voteCount,
+                pgAge = if (movieResponse.adult) 16 else 13,
+                movieResponse.releaseDate,
+                genreResponses = genreResponseData.filter { genreResponse ->
+                    movieResponse.genreIds.contains(genreResponse.id)
                 },
                 isLiked = false
             )
         }
-
-        private fun <T : Any> T?.orThrow(createThrowable: () -> Throwable): T {
-            return this ?: throw createThrowable()
-        }
-        protected fun finalize() {
-            Log.d("FINAL", " Parser")
-        }
     }
-
-
 }

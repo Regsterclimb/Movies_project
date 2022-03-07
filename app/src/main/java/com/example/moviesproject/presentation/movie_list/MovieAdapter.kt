@@ -1,5 +1,6 @@
 package com.example.moviesproject.presentation.movie_list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -23,10 +24,12 @@ class MovieAdapter(private val onItemListener: (movie: Movie) -> Unit) :
 class MovieListCallBack : DiffUtil.ItemCallback<Movie>() {
 
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        Log.d("MovieListcALLback", "MovieListCallBack")
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        Log.d("MovieListcALLback", "MovieListCallBack")
         return oldItem == newItem
     }
 }
