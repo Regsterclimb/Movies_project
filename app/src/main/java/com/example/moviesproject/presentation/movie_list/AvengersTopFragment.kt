@@ -29,6 +29,7 @@ class AvengersTopFragment : Fragment(R.layout.movie_list_fragment) {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewBinding.movieRecycler.apply {
             this.adapter = MovieAdapter {
                 findNavController().navigate(R.id.action_avengersTopFragment_to_movieDetailsFragment, bundleOf(MOVIE_ID to it.id))

@@ -22,16 +22,22 @@ class MovieDataRepositoryImpl(
         }
             .ifEmpty {
                 val list = getFreshMovieDataList()
-                dataBase.insertAllMovies(
-                    list.map { movie ->
-                        movie.toMovieEntity()
-                    }
-                )
+                saveMoviesListDb(list)
                 list
             }
     }
 
     override suspend fun getFreshMovieDataList(): List<MovieData> = withContext(Dispatchers.IO) {
-        movieDataList.load()
+        val list = movieDataList.load()
+        saveMoviesListDb(list)
+        list
+    }
+
+    override suspend fun saveMoviesListDb(list: List<MovieData>) = withContext(Dispatchers.Default) {
+        dataBase.insertAllMovies(
+            list.map { movie ->
+                movie.toMovieEntity()
+            }
+        )
     }
 }

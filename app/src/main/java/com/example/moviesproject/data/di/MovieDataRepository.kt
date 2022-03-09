@@ -6,4 +6,6 @@ interface MovieDataRepository {
     suspend fun getMoviesDataList(): List<MovieData>
 
     suspend fun getFreshMovieDataList(): List<MovieData>
+
+    suspend fun saveMoviesListDb(list: List<MovieData>)
 }

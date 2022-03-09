@@ -11,16 +11,17 @@ import com.example.moviesproject.domain.use_cases.MoviesListUseCase.ListResult.S
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
-    private val useCase: MoviesListUseCase
+    private val useCase: MoviesListUseCase,
 ) : ViewModel() {
 
     private var _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
     private var _mutableListResult = MutableLiveData<ListResult>()
-    val mutableListResult : LiveData<ListResult> = _mutableListResult
+    val mutableListResult: LiveData<ListResult> = _mutableListResult
 
     init {
+
         viewModelScope.launch {
             _isLoading.value = true
             when (val result = useCase.getListResult()) {

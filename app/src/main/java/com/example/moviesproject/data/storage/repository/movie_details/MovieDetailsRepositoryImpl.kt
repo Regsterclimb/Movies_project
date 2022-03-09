@@ -24,6 +24,10 @@ class MovieDetailsDataRepositoryImpl(
             details
         }
 
-    override suspend fun loadFreshDetailsData(movieId: Int): MovieDetailsData =
-        moviesDetailsLoad.load(movieId)
+    override suspend fun loadFreshDetailsData(movieId: Int): MovieDetailsData {
+        val details = moviesDetailsLoad.load(movieId)
+        detailsBase.insertMovieDetails(details.toMovieDetailsEntity())
+        return details
+    }
+
 }
