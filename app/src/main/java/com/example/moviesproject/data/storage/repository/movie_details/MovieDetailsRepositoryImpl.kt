@@ -29,5 +29,4 @@ class MovieDetailsDataRepositoryImpl(
         detailsBase.insertMovieDetails(details.toMovieDetailsEntity())
         return details
     }
-
 }

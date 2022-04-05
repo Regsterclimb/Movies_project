@@ -14,8 +14,7 @@ interface MovieDetailsLogic {
 
         override suspend fun execute(function: suspend () -> MovieDetails): DetailsResult =
             try {
-                val details = function.invoke()
-                DetailsResult.Success(details)
+                DetailsResult.Success(function.invoke())
             } catch (e: HttpException) {
                 Log.e("SERVER", "SERVER FAIL")
                 DetailsResult.Error("Sorry we have server problems, try again later")

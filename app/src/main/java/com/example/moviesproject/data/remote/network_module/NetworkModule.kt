@@ -37,6 +37,7 @@ class NetworkModule : NetworkModuleResponses {
 
         fun getMoviesData(): MoviesApi = retrofit.create()
         fun getMoviesDetailsData(): MovieDetailsApi = retrofit.create()
+        fun getActorDetailsData(): ActorDetailsApi = retrofit.create()
     }
 
     override suspend fun getGenresData(): MovieGenresResponse =
@@ -53,5 +54,9 @@ class NetworkModule : NetworkModuleResponses {
 
     override suspend fun getCastsActorsData(id: Int): MovieCastsResponse =
         RetrofitModule.getMoviesDetailsData().loadDataMovieCastActorsById(id)
+
+    override suspend fun getActorDetailsData(actorId: Int): ActorByIdResponse =
+        RetrofitModule.getActorDetailsData().loadActorDetails(actorId)
+
 }
 

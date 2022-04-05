@@ -8,4 +8,5 @@ interface NetworkModuleResponses {
     suspend fun getMoviePopularData(): MoviePopularResponse
     suspend fun getMovieDetailData(id: Int): MovieDetailsResponse
     suspend fun getCastsActorsData(id: Int): MovieCastsResponse
+    suspend fun getActorDetailsData(actorId:Int) : ActorByIdResponse
 }

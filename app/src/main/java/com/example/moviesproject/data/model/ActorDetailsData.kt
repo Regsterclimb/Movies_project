@@ -1,6 +1,6 @@
-package com.example.moviesproject.domain.model
+package com.example.moviesproject.data.model
 
-data class ActorDetails(
+data class ActorDetailsData(
     val alsoKnownAs: List<String>,
     val birthday: String,
     val gender: Int,

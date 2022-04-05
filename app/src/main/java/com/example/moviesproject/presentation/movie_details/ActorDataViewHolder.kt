@@ -13,14 +13,14 @@ class ActorDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun onBind(
         actorResponse: ActorResponse,
-        clickOnItemListener: (actorResponse: ActorResponse) -> Unit
+        clickOnItemListener: (actorId:Int) -> Unit
     ) {
         with(viewBinding) {
             actorAvatar.load(actorResponse.imageUrl)
             actorName.text = actorResponse.name
         }
         itemView.setOnClickListener {
-            clickOnItemListener(actorResponse)
+            clickOnItemListener(actorResponse.id)
         }
     }
 }

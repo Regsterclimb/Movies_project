@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,7 +38,10 @@ class MovieDetailsFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
 
         viewBinding.recyclerActor.apply {
             this.adapter = ActorAdapter {
-                findNavController().navigate(R.id.action_movieDetailsFragment_to_actorDetailsFragment)
+                findNavController().navigate(
+                    R.id.action_movieDetailsFragment_to_actorDetailsFragment,
+                    bundleOf(ACTOR_ID to it)
+                )
             }
         }
         viewBinding.swipeRefreshLayout.apply {
@@ -86,5 +90,9 @@ class MovieDetailsFragment : Fragment(R.layout.avengers_fragment_fullscreen) {
     private fun bindUi(movie: MovieDetails) {
         getMovieInfo(movie, StarsColor.Base())
         adapter.submitList(movie.actorResponseList)
+    }
+
+    companion object {
+        const val ACTOR_ID = "actorId"
     }
 }

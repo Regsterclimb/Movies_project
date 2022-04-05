@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.moviesproject.R
 import com.example.moviesproject.data.remote.respones.ActorResponse
 
-class ActorAdapter(private val onItemListener: (actorResponse: ActorResponse) -> Unit) :
+class ActorAdapter(private val onItemListener: (actorId : Int) -> Unit) :
     ListAdapter<ActorResponse, ActorDataViewHolder>(ActorsCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorDataViewHolder {

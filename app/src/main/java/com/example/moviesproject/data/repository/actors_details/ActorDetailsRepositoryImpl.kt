@@ -1,25 +1,14 @@
-package com.example.moviesproject.data.repository
+package com.example.moviesproject.data.repository.actors_details
 
-import android.content.Context
-import android.util.Log
+import com.example.moviesproject.data.di.ActorDetailsDataRepository
+import com.example.moviesproject.domain.extentions.toActorsDetails
+import com.example.moviesproject.domain.model.ActorDetails
+import com.example.moviesproject.domain.repository.actor_details.ActorDetailsRepository
 
-interface ActorDetailsRepository {
-    suspend fun loadActorDetails()
-}
+class ActorDetailsRepositoryImpl(
+    private val actorDetailsDataRepository: ActorDetailsDataRepository
+) : ActorDetailsRepository {
 
-internal class ActorDetailsRepositoryImpl(private val context: Context) : ActorDetailsRepository {
-
-    //loadconfiguration /get from cache or db somthing like that
-    //loadActorDetailsFromApi
-    //maybeparse it
-    //future add list of popular movie with this actor
-
-    init {
-        Log.d("init", "ActorsDetailsRep")
-    }
-
-    override suspend fun loadActorDetails() {
-        TODO("Not yet implemented")
-    }
-
+    override suspend fun loadActorDetails(actorId: Int): ActorDetails =
+        actorDetailsDataRepository.loadActorData(actorId).toActorsDetails()
 }
