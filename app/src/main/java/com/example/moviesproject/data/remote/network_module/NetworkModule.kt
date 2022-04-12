@@ -58,6 +58,7 @@ class NetworkModule : NetworkModuleResponses {
 
     override suspend fun getActorDetailsData(actorId: Int): ActorByIdResponse =
         RetrofitModule.getActorDetailsData().loadActorDetails(actorId)
+            //asdasdasdasdasdasd
 
 }
 
