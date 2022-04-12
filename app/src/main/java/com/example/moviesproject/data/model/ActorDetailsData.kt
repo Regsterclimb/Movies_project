@@ -8,9 +8,10 @@ data class ActorDetailsData(
     val knownForDepartment: String,
     val posterUrlPath: String,
     val biography: String,
-    val deathDay: String? = null,
+    val deathDay: String,
     val placeOfBirth: String,
     val popularity: Double,
     val name: String,
     val id: Int
 )
+//
